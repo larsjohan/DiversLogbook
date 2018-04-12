@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity">
+
+    <EditText
+        android:id="@+id/et_login_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/login_email_hint"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <EditText
+        android:id="@+id/et_login_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:hint="@string/login_password_hint"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        app:layout_constraintTop_toBottomOf="@id/et_login_email"/>
+
+
+    <TextView
+        android:id="@+id/tv_oauth_login_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:text="@string/login_oauth_login_hint"
+        app:layout_constraintTop_toBottomOf="@id/et_login_password"/>
+
+    <LinearLayout
+        android:id="@+id/ll_oauth_login_button_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/tv_oauth_login_hint">
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/b_login_with_facebook"
+            android:layout_width="@dimen/activity_login_oauth_image"
+            android:layout_height="@dimen/activity_login_oauth_image"
+            android:background="@drawable/ic_icons8_facebook" />
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/b_login_with_twitter"
+            android:layout_width="@dimen/activity_login_oauth_image"
+            android:layout_height="@dimen/activity_login_oauth_image"
+            android:background="@drawable/ic_icons8_twitter"/>
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/b_login_with_google"
+            android:layout_width="@dimen/activity_login_oauth_image"
+            android:layout_height="@dimen/activity_login_oauth_image"
+            android:background="@drawable/ic_icons8_google"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/b_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/login_button_login_text"
+        app:layout_constraintTop_toBottomOf="@id/ll_oauth_login_button_layout"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+
+</android.support.constraint.ConstraintLayout>
