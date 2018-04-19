@@ -187,6 +187,7 @@ public class LoginActivity extends AppCompatActivity {
         if(this.user != null) {
             Intent startApp = new Intent(this, MainActivity.class);
             startActivity(startApp);
+            finish();   // Remove this screen from stack to avoid back-button from MainActivity to open a new instance of itself
         } else {
             Toast.makeText(this, "Login failed. Try again.", Toast.LENGTH_LONG).show();
         }
