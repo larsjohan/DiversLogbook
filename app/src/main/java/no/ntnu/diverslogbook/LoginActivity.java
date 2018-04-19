@@ -145,6 +145,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         switch(requestCode){
+            // Handle login/auth from Google
             case GOOGLE_LOGIN_RESULT:
                 Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
                 try{
@@ -169,8 +170,11 @@ public class LoginActivity extends AppCompatActivity {
                     updateUI();
                 }
                 break;
+            // Handle login/auth from Twitter
             case TWITTER_LOGIN_RESULT: break;
+            // Handle login/auth from Facebook
             case FACEBOOK_LOGIN_RESULT: break;
+            // Handle login/auth from local email/password
             case EMAIL_LOGIN_RESULT: break;
         }
     }
