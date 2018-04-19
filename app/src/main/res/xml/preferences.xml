@@ -35,6 +35,7 @@
             android:entries="@array/preferences_buffer"
             android:entryValues="@array/preferences_bufferValues"/>
 
+        <!-- The inputs here should be dynamic in the future. -->
         <ListPreference
             android:key="diveTable"
             android:title="@string/preferences_tableTitle"
