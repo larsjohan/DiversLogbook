@@ -85,6 +85,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
         GoogleSignInOptions googleLoginOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.Oauth2_client_secret))
                 .requestEmail()
@@ -102,6 +103,12 @@ public class LoginActivity extends AppCompatActivity {
         facebookLogin.setOnClickListener(this::comingSoon);
         googleLogin.setOnClickListener(this::loginWithGoogle);
 
+
+        // The user pressed logout in preferences
+        if(getIntent().getBooleanExtra("logout", false)){
+            this.firebaseAuth.signOut();
+            Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**

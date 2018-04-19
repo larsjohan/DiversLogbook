@@ -100,5 +100,6 @@
 
     <string name="preferences_logoutTitle">Log out</string>
     <string name="preferences_logoutSummary">Logs you out of the application.</string>
+    <string name="preferences_key_logout">logout</string>
 
 </resources>

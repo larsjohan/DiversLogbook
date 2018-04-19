@@ -51,7 +51,7 @@
         android:key="pref_account">
 
         <Preference
-            android:key="logout"
+            android:key="@string/preferences_key_logout"
             android:title="@string/preferences_logoutTitle"
             android:summary="@string/preferences_logoutSummary">
         </Preference>
