@@ -166,6 +166,7 @@ public class LoginActivity extends AppCompatActivity {
                     updateUI();
                 } catch (ApiException e) {
                     Log.w(getString(R.string.app_name), "Signin result failed: " + e.getMessage());
+                    Log.e("DiversLogBook", e.getStackTrace().toString());
                     this.account = null;
                     updateUI();
                 }
