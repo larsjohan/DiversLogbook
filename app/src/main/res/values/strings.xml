@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">DiversLogBook</string>
     <string name="title_activity_login">Sign in</string>
+    <string name="Oauth2_client_secret">1014277544390-j75qgr3hr04es2viltvcidti0ao0qv6r.apps.googleusercontent.com</string>
 
     <!-- Strings related to login -->
     <string name="login_email_hint">Email</string>

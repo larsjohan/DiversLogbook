@@ -54,19 +54,19 @@
         app:layout_constraintTop_toBottomOf="@id/tv_oauth_login_hint">
 
         <android.support.v7.widget.AppCompatImageButton
-            android:id="@+id/b_login_with_facebook"
+            android:id="@+id/ib_login_with_facebook"
             android:layout_width="@dimen/activity_login_oauth_image"
             android:layout_height="@dimen/activity_login_oauth_image"
             android:background="@drawable/ic_icons8_facebook" />
 
         <android.support.v7.widget.AppCompatImageButton
-            android:id="@+id/b_login_with_twitter"
+            android:id="@+id/ib_login_with_twitter"
             android:layout_width="@dimen/activity_login_oauth_image"
             android:layout_height="@dimen/activity_login_oauth_image"
             android:background="@drawable/ic_icons8_twitter"/>
 
         <android.support.v7.widget.AppCompatImageButton
-            android:id="@+id/b_login_with_google"
+            android:id="@+id/ib_login_with_google"
             android:layout_width="@dimen/activity_login_oauth_image"
             android:layout_height="@dimen/activity_login_oauth_image"
             android:background="@drawable/ic_icons8_google"/>
