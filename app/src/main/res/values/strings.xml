@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">DiversLogBook</string>
 
-
     <string name="preferences_activityTitle">Preferences</string>
 
     <!-- This is for the language ListPreference in preferences.xml -->
@@ -84,4 +83,32 @@
         <item>NDF</item>
     </string-array>
 
+
+    <string name="meters">meters</string>
+    <string name="minutes">minutes</string>
+    <string name="choose">Choose</string>
+
+    <string name="plan_title">Plan your dive</string>
+    <string name="plan_buddy">Diving buddy:</string>
+    <string name="plan_buddy_input">Start writing name of buddy..</string>
+    <string name="plan_guard">Surface guard:</string>
+    <string name="plan_guard_input">Start writing name of guard..</string>
+    <string name="plan_location">Location:</string>
+    <string name="plan_location_input">Start writing name of location..</string>
+    <string name="plan_dive_type">Type of dive:</string>
+    <string name="plan_depth">Planned depth:</string>
+    <string name="plan_planned_time">Planned diving time:</string>
+    <string name="plan_security_stops">Security stops:</string>
+    <string name="plan_tank_size">Tank size:</string>
+    <string name="plan_start_tank_pressure">Tank pressure:</string>
+    <string name="plan_fo2">F02:</string>
+    <string name="plan_o2_percent">O2%:</string>
+    <string name="plan_weather">Weather:</string>
+    <string name="plan_tempSurface">Temperature on surface:</string>
+    <string name="plan_tempWater">Temperature in water:</string>
+    <string name="plan_lastDive">Time since last dive:</string>
+    <string name="plan_lastAlcohol">Time since last alcohol intake:</string>
+    <string name="plan_notes">Notes:</string>
+    
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
