@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="General"
+        android:key="pref_general">
+
+        <ListPreference
+            android:key="language"
+            android:title="@string/preferences_languageTitle"
+            android:summary="@string/preferences_languageSummary"
+            android:defaultValue="@string/preferences_languageDefault"
+            android:entries="@array/preferences_language"
+            android:entryValues="@array/preferences_languageValues"/>
+
+        <ListPreference
+            android:key="measurement"
+            android:title="@string/preferences_measurementTitle"
+            android:summary="@string/preferences_measurementSummary"
+            android:defaultValue="@string/preferences_measurementDefault"
+            android:entries="@array/preferences_measurement"
+            android:entryValues="@array/preferences_measurementValues"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Diving"
+        android:key="pref_diving">
+
+
+        <ListPreference
+            android:key="rescueBufferTime"
+            android:title="@string/preferences_bufferTitle"
+            android:summary="@string/preferences_bufferSummary"
+            android:defaultValue="@string/preferences_bufferDefault"
+            android:entries="@array/preferences_buffer"
+            android:entryValues="@array/preferences_bufferValues"/>
+
+        <!-- The inputs here should be dynamic in the future. -->
+        <ListPreference
+            android:key="diveTable"
+            android:title="@string/preferences_tableTitle"
+            android:summary="@string/preferences_tableSummary"
+            android:defaultValue="@string/preferences_tableDefault"
+            android:entries="@array/preferences_table"
+            android:entryValues="@array/preferences_tableValues"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

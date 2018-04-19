@@ -12,4 +12,89 @@
     <string name="login_error_incorrect_password">This password is incorrect</string>
     <string name="login_error_field_required">This field is required</string>
     <string name="login_oauth_login_hint">Login with an existing external account:</string>
+
+
+
+    <string name="preferences_activityTitle">Preferences</string>
+
+    <!-- This is for the language ListPreference in preferences.xml -->
+    <string name="preferences_languageTitle">Language</string>
+    <string name="preferences_languageSummary">Language to use in the application.</string>
+    <string name="preferences_languageDefault">EN</string>
+
+    <string-array name="preferences_language">
+        <item>English</item>
+        <item>Norwegian</item>
+    </string-array>
+
+    <string-array name="preferences_languageValues">
+        <item>EN</item>
+        <item>NO</item>
+    </string-array>
+
+
+    <!-- This is for the measurement units ListPreference in preferences.xml -->
+    <string name="preferences_measurementTitle">Measurement units</string>
+    <string name="preferences_measurementSummary">Measurement units to use in the application.</string>
+    <string name="preferences_measurementDefault">metric</string>
+
+    <string-array name="preferences_measurement">
+        <item>Metric</item>
+        <item>Imperial</item>
+    </string-array>
+
+    <string-array name="preferences_measurementValues">
+        <item>metric</item>
+        <item>imperial</item>
+    </string-array>
+
+    <!-- This is for the rescue buffer time ListPreference in preferences.xml -->
+    <string name="preferences_bufferTitle">Rescue buffer time</string>
+    <string name="preferences_bufferSummary">Time from timer runs out to a rescue team should be called.</string>
+    <string name="preferences_bufferDefault">180</string>
+
+    <!-- minutes -->
+    <string-array name="preferences_buffer">
+        <item>1 min</item>
+        <item>2 min</item>
+        <item>3 min</item>
+        <item>4 min</item>
+        <item>5 min</item>
+        <item>6 min</item>
+        <item>7 min</item>
+        <item>8 min</item>
+        <item>9 min</item>
+        <item>10 min</item>
+    </string-array>
+
+    <!-- given in seconds. -->
+    <string-array name="preferences_bufferValues">
+        <item>60</item>
+        <item>120</item>
+        <item>180</item>
+        <item>240</item>
+        <item>300</item>
+        <item>360</item>
+        <item>420</item>
+        <item>480</item>
+        <item>540</item>
+        <item>600</item>
+    </string-array>
+
+
+    <!-- This is for the dive table ListPreference in preferences.xml -->
+    <string name="preferences_tableTitle">Dive table</string>
+    <string name="preferences_tableSummary">Table standard to use in the application.</string>
+    <string name="preferences_tableDefault">PADI</string>
+
+    <string-array name="preferences_table">
+        <item>PADI</item>
+        <item>NDF</item>
+    </string-array>
+
+    <string-array name="preferences_tableValues">
+        <item>PADI</item>
+        <item>NDF</item>
+    </string-array>
+
 </resources>
