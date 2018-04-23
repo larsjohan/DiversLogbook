@@ -1,7 +1,21 @@
 <resources>
+
+    <!-- GENERAL -->
     <string name="app_name">DiversLogBook</string>
     <string name="title_activity_login">Sign in</string>
     <string name="Oauth2_client_secret">1014277544390-j75qgr3hr04es2viltvcidti0ao0qv6r.apps.googleusercontent.com</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="meters">meters</string>
+    <string name="minutes">minutes</string>
+    <string name="minutes_short">m</string>
+    <string name="hours">hours</string>
+    <string name="hours_short">h</string>
+    <string name="choose">Choose</string>
+    <string name="liters">liters</string>
+    <string name="bar">bar</string>
+    <string name="degrees">degrees</string>
+    <string name="more24">24h +</string>
 
     <!-- Strings related to login -->
     <string name="login_email_hint">Email</string>
@@ -85,6 +99,9 @@
     <string name="preferences_tableTitle">Dive table</string>
     <string name="preferences_tableSummary">Table standard to use in the application.</string>
     <string name="preferences_tableDefault">PADI</string>
+    <string name="preferences_logoutTitle">Log out</string>
+    <string name="preferences_logoutSummary">Logs you out of the application.</string>
+    <string name="preferences_key_logout">logout</string>
 
     <string-array name="preferences_table">
         <item>PADI</item>
@@ -96,38 +113,59 @@
         <item>NDF</item>
     </string-array>
 
-
-<<<<<<< HEAD
-    <string name="meters">meters</string>
-    <string name="minutes">minutes</string>
-    <string name="choose">Choose</string>
-
+    <!-- PLAN TAB -->
     <string name="plan_title">Plan your dive</string>
     <string name="plan_buddy">Diving buddy:</string>
-    <string name="plan_buddy_input">Start writing name of buddy..</string>
+    <string name="plan_buddy_input">Name of buddy..</string>
     <string name="plan_guard">Surface guard:</string>
-    <string name="plan_guard_input">Start writing name of guard..</string>
+    <string name="plan_guard_input">Name of guard..</string>
     <string name="plan_location">Location:</string>
-    <string name="plan_location_input">Start writing name of location..</string>
+    <string name="plan_location_input">Name of location..</string>
     <string name="plan_dive_type">Type of dive:</string>
+
+    <string-array name="plan_dive_type_input">
+        <item>Photography</item>
+        <item>Recreation</item>
+        <item>Search and rescue</item>
+        <item>Work</item>
+    </string-array>
+
+    <string-array name="plan_dive_type_input_values">
+        <item>photo</item>
+        <item>recreation</item>
+        <item>search</item>
+        <item>work</item>
+    </string-array>
+    
     <string name="plan_depth">Planned depth:</string>
     <string name="plan_planned_time">Planned diving time:</string>
     <string name="plan_security_stops">Security stops:</string>
     <string name="plan_tank_size">Tank size:</string>
     <string name="plan_start_tank_pressure">Tank pressure:</string>
+    <string name="plan_dive_gas">Dive gas:</string>
+
+    <string-array name="plan_dive_gas_input">
+        <item>Air</item>
+        <item>Nitrox</item>
+    </string-array>
+
     <string name="plan_fo2">F02:</string>
     <string name="plan_o2_percent">O2%:</string>
     <string name="plan_weather">Weather:</string>
+
+    <string-array name="plan_weather_input">
+        <item>Klart</item>
+        <item>Nedbør</item>
+        <item>Storm</item>
+        <item>Overskyet</item>
+    </string-array>
+
     <string name="plan_tempSurface">Temperature on surface:</string>
     <string name="plan_tempWater">Temperature in water:</string>
     <string name="plan_lastDive">Time since last dive:</string>
     <string name="plan_lastAlcohol">Time since last alcohol intake:</string>
     <string name="plan_notes">Notes:</string>
-    
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="preferences_logoutTitle">Log out</string>
-    <string name="preferences_logoutSummary">Logs you out of the application.</string>
-    <string name="preferences_key_logout">logout</string>
-    
+    <string name="create_plan">Create plan</string>
+
 </resources>
