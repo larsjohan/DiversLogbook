@@ -23,6 +23,7 @@ import no.ntnu.diverslogbook.fragments.DiveFragment;
 import no.ntnu.diverslogbook.fragments.LogFragment;
 import no.ntnu.diverslogbook.fragments.PlanFragment;
 import no.ntnu.diverslogbook.fragments.ProfileFragment;
+import no.ntnu.diverslogbook.model.Diver;
 
 
 /**
@@ -48,11 +49,15 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.ic_log,
     };
 
+    private Diver diver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent fromLogin = getIntent();
+        this.diver = (Diver) fromLogin.getSerializableExtra("diver");
 
         // Set listener on preferences.
         PreferenceManager.getDefaultSharedPreferences(this)
