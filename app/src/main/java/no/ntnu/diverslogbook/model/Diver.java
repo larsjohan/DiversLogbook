@@ -21,13 +21,21 @@ import no.ntnu.diverslogbook.DiveLog;
  */
 public class Diver {
 
-    private final String id;
+    private String id;
 
-    private final String name;
+    private String name;
 
-    private final String email;
+    private String email;
 
-    private final String phone;
+    private String phone;
+
+
+    public Diver(){
+        this.id = null;
+        this.name = "Unknown";
+        this.email = "";
+        this.phone = "";
+    }
 
     public Diver(final String id, final String name, final String email, final String phonenumber) {
         this.id = id;

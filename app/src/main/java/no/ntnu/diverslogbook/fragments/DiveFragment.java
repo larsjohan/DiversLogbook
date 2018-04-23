@@ -9,12 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import no.ntnu.diverslogbook.R;
-import no.ntnu.diverslogbook.model.Diver;
+import no.ntnu.diverslogbook.adapters.DiverListAdapter;
+import no.ntnu.diverslogbook.util.Database;
 
 
 public class DiveFragment extends Fragment {
-
-    private ListView diverslist;
 
     public DiveFragment() {
         // Required empty public constructor
@@ -32,8 +31,8 @@ public class DiveFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dive, container, false);
 
-        this.diverslist = view.findViewById(R.id.lv_diverlist);
-
+        ListView diversList = view.findViewById(R.id.lv_diverlist);
+        diversList.setAdapter(new DiverListAdapter(view.getContext(), Database.getDivers()));
         return view;
     }
 

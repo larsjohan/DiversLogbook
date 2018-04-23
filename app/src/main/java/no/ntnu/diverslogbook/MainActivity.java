@@ -23,7 +23,6 @@ import no.ntnu.diverslogbook.fragments.DiveFragment;
 import no.ntnu.diverslogbook.fragments.LogFragment;
 import no.ntnu.diverslogbook.fragments.PlanFragment;
 import no.ntnu.diverslogbook.fragments.ProfileFragment;
-import no.ntnu.diverslogbook.model.Diver;
 
 
 /**
@@ -49,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.ic_log,
     };
 
-    private Diver diver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,10 +64,7 @@ public class MainActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         // Add Fragments to adapter one by one
-        ProfileFragment profile = new ProfileFragment();
-        profile.setDiver(this.diver);
-
-        adapter.addFragment(profile,  "Profile");
+        adapter.addFragment(new ProfileFragment(),  "Profile");
         adapter.addFragment(new PlanFragment(),     "Plan");
         adapter.addFragment(new DiveFragment(),     "Dive");
         adapter.addFragment(new LogFragment(),      "Log");
