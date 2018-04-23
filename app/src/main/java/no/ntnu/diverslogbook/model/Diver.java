@@ -2,6 +2,7 @@ package no.ntnu.diverslogbook.model;
 
 import android.graphics.Bitmap;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.io.Serializable;
@@ -18,30 +19,36 @@ import no.ntnu.diverslogbook.DiveLog;
  * @author Lars Johan
  * @see no.ntnu.diverslogbook.DiveLog
  */
-public class Diver implements Serializable{
+public class Diver {
 
-
-
-    private final FirebaseUser user;
+    private final String id;
 
     private final String name;
 
-    private Bitmap profileImage;
+    private final String email;
 
-    private List<DiveLog> logs;
+    private final String phone;
 
-
-
-
-    public Diver(final FirebaseUser user) {
-        this.user = user;
-
-        this.name = this.user.getDisplayName();
-
-        this. profileImage = null;
-
-        this.logs = new ArrayList<>();
+    public Diver(final String id, final String name, final String email, final String phonenumber) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phone = phonenumber;
     }
 
+    public String getId() {
+        return id;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
 }

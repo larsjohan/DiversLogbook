@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import no.ntnu.diverslogbook.model.Diver;
+import no.ntnu.diverslogbook.util.Database;
 
 /**
  * Handles login and authentication.
@@ -194,11 +195,14 @@ public class LoginActivity extends AppCompatActivity {
      */
     void updateUI() {
         if(this.user != null) {
+
+            Diver diver = new Diver(this.user.getUid(), this.user.getDisplayName(), this.user.getEmail(), this.user.getPhoneNumber());
+
+            if(!Database.containsDiver(diver)) {
+                Database.createDiver(diver);
+            }
+
             Intent startApp = new Intent(this, MainActivity.class);
-
-            Diver diver = new Diver(this.user);
-
-            startApp.putExtra("user", diver);
             startActivity(startApp);
             finish();   // Remove this screen from stack to avoid back-button from MainActivity to open a new instance of itself
         } else {

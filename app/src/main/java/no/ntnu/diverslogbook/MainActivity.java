@@ -56,9 +56,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent fromLogin = getIntent();
-        this.diver = (Diver) fromLogin.getSerializableExtra("diver");
-
         // Set listener on preferences.
         PreferenceManager.getDefaultSharedPreferences(this)
                 .registerOnSharedPreferenceChangeListener(new SettingsHandler(this));
@@ -69,7 +66,10 @@ public class MainActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         // Add Fragments to adapter one by one
-        adapter.addFragment(new ProfileFragment(),  "Profile");
+        ProfileFragment profile = new ProfileFragment();
+        profile.setDiver(this.diver);
+
+        adapter.addFragment(profile,  "Profile");
         adapter.addFragment(new PlanFragment(),     "Plan");
         adapter.addFragment(new DiveFragment(),     "Dive");
         adapter.addFragment(new LogFragment(),      "Log");

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import no.ntnu.diverslogbook.R;
+import no.ntnu.diverslogbook.model.Diver;
 
 
 public class DiveFragment extends Fragment {

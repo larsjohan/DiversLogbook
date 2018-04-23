@@ -8,9 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import no.ntnu.diverslogbook.R;
+import no.ntnu.diverslogbook.model.Diver;
 
 
 public class ProfileFragment extends Fragment {
+
+    private Diver diver;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -28,4 +31,7 @@ public class ProfileFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
+    public void setDiver(Diver diver) {
+        this.diver = diver;
+    }
 }
