@@ -20,6 +20,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import no.ntnu.diverslogbook.model.Diver;
+import no.ntnu.diverslogbook.util.Database;
+
 /**
  * Handles login and authentication.
  *
@@ -85,6 +88,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
+        Database.init();
 
         GoogleSignInOptions googleLoginOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.Oauth2_client_secret))
@@ -192,6 +197,13 @@ public class LoginActivity extends AppCompatActivity {
      */
     void updateUI() {
         if(this.user != null) {
+
+            Diver diver = new Diver(this.user.getUid(), this.user.getDisplayName(), this.user.getEmail(), this.user.getPhoneNumber());
+
+            if(!Database.containsDiver(diver)) {
+                Database.createDiver(diver);
+            }
+
             Intent startApp = new Intent(this, MainActivity.class);
             startActivity(startApp);
             finish();   // Remove this screen from stack to avoid back-button from MainActivity to open a new instance of itself
