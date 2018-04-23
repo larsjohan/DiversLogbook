@@ -42,10 +42,36 @@ public class DiverListAdapter extends ArrayAdapter<Diver> {
         name.setText(diver.getName());
         timeRemailning.setText("00:00");
         startStopDiveButton.setImageResource(R.drawable.ic_start_dive);
+        startStopDiveButton.setTag("start");
 
-
+        startStopDiveButton.setOnClickListener(this::onClick);
 
         return convertView;
     }
 
+
+    private void onClick(View view) {
+        ImageButton button = view.findViewById(R.id.b_diverslist_start_stop_dive);
+        toggleButtonIcon(button);
+    }
+
+    /**
+     * Toggles the image of the start/stop dive button and returns wether or not the
+     * start-icon is displayed.
+     * @param button The button to toggle
+     * @return true if the startbutton is currently displayed
+     */
+    private boolean toggleButtonIcon(ImageButton button) {
+        boolean isStartButton = button.getTag().equals("start");
+
+        if(isStartButton){
+            button.setImageResource(R.drawable.ic_stop_black_24dp);
+            button.setTag("stop");
+        } else {
+            button.setImageResource(R.drawable.ic_start_dive);
+            button.setTag("start");
+        }
+
+        return !isStartButton;
+    }
 }
