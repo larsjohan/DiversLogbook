@@ -97,6 +97,7 @@
     </string-array>
 
 
+<<<<<<< HEAD
     <string name="meters">meters</string>
     <string name="minutes">minutes</string>
     <string name="choose">Choose</string>
@@ -124,4 +125,9 @@
     <string name="plan_notes">Notes:</string>
     
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="preferences_logoutTitle">Log out</string>
+    <string name="preferences_logoutSummary">Logs you out of the application.</string>
+    <string name="preferences_key_logout">logout</string>
+    
 </resources>

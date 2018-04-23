@@ -46,4 +46,16 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:title="Account"
+        android:key="pref_account">
+
+        <Preference
+            android:key="@string/preferences_key_logout"
+            android:title="@string/preferences_logoutTitle"
+            android:summary="@string/preferences_logoutSummary">
+        </Preference>
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

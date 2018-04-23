@@ -85,6 +85,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
         GoogleSignInOptions googleLoginOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.Oauth2_client_secret))
                 .requestEmail()
@@ -102,6 +103,12 @@ public class LoginActivity extends AppCompatActivity {
         facebookLogin.setOnClickListener(this::comingSoon);
         googleLogin.setOnClickListener(this::loginWithGoogle);
 
+
+        // The user pressed logout in preferences
+        if(getIntent().getBooleanExtra("logout", false)){
+            this.firebaseAuth.signOut();
+            Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -166,6 +173,7 @@ public class LoginActivity extends AppCompatActivity {
                     updateUI();
                 } catch (ApiException e) {
                     Log.w(getString(R.string.app_name), "Signin result failed: " + e.getMessage());
+                    Log.e("DiversLogBook", e.getStackTrace().toString());
                     this.account = null;
                     updateUI();
                 }
@@ -186,6 +194,7 @@ public class LoginActivity extends AppCompatActivity {
         if(this.user != null) {
             Intent startApp = new Intent(this, MainActivity.class);
             startActivity(startApp);
+            finish();   // Remove this screen from stack to avoid back-button from MainActivity to open a new instance of itself
         } else {
             Toast.makeText(this, "Login failed. Try again.", Toast.LENGTH_LONG).show();
         }
