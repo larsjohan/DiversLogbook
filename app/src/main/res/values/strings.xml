@@ -101,5 +101,8 @@
     <string name="preferences_logoutTitle">Log out</string>
     <string name="preferences_logoutSummary">Logs you out of the application.</string>
     <string name="preferences_key_logout">logout</string>
+    <string name="dive_role_diver_button_text">Diver</string>
+    <string name="dive_role_surface_guard_button_text">Surface Guard</string>
+    <string name="profile_image_description">The divers profile image</string>
 
 </resources>
