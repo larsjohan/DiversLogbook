@@ -16,7 +16,7 @@ public class DiveLog {
 
     // General data.
     private String location;
-    private DiveType diveType;
+    private String diveType;
     private int plannedDepth;
     private HoursAndMinutes timeSinceLastDive;       // Blank if more than 24h.
     private HoursAndMinutes timeSinceAlcoholIntake;  // Blank if more than 24h.
@@ -32,13 +32,14 @@ public class DiveLog {
     private int tankSize;           // In liters.
     private int startTankPressure;  // Start and end pressure
     private int endTankPressure;    // calculates total air usage.
+    private String diveGas;
 
     // Set these if nitrox:
     private float fO2;
     private int o2Percent;
 
     // Environment.
-    private Weather weather;
+    private String weather;
     private Current current;
     private float tempSurface;
     private float tempWater;
@@ -49,9 +50,9 @@ public class DiveLog {
      *
      * @params Data about the planned dive.
      */
-    public DiveLog(String diver, String guard, String buddy, String location, DiveType diveType, int plannedDepth,
+    public DiveLog(String diver, String guard, String buddy, String location, String diveType, int plannedDepth,
                    HoursAndMinutes lastDive, HoursAndMinutes lastAlcohol, ArrayList<SecurityStop> stops, int plannedTime,
-                   int tankSize, int startTankPressure, Weather weather, float tempSurface, float tempWater, String notes) {
+                   int tankSize, int startTankPressure, String diveGas, String weather, float tempSurface, float tempWater, String notes) {
 
         this.diver = diver;
         this.surfaceGuard = guard;
@@ -65,6 +66,7 @@ public class DiveLog {
         this.plannedDiveTime = plannedTime;
         this.tankSize = tankSize;
         this.startTankPressure = startTankPressure;
+        this.diveGas = diveGas;
         this.weather = weather;
         this.tempSurface = tempSurface;
         this.tempWater = tempWater;
@@ -132,37 +134,6 @@ public class DiveLog {
         LIGHT,
         MEDIUM,
         STRONG
-    }
-
-
-    /**
-     * Different types of weather.
-     */
-    public enum Weather {
-        KLART,
-        NEDBØR,
-        STORM,
-        OVERKSYET
-    }
-
-
-    /**
-     * Different types of gas for diving.
-     */
-    public enum DiveGas {
-        AIR,
-        NITROX
-    }
-
-
-    /**
-     * All different types of diving.
-     */
-    public enum DiveType {
-        RECREATION,
-        WORK,
-        PHOTOGRAPHY,
-        SEARCH_AND_RESCUE
     }
 
 
