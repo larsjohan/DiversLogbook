@@ -130,6 +130,10 @@
         <item>Work</item>
     </string-array>
 
+    <string name="dive_role_diver_button_text">Diver</string>
+    <string name="dive_role_surface_guard_button_text">Surface Guard</string>
+    <string name="profile_image_description">The divers profile image</string>
+
     <string-array name="plan_dive_type_input_values">
         <item>photo</item>
         <item>recreation</item>
