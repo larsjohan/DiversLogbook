@@ -1,6 +1,7 @@
 package no.ntnu.diverslogbook;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -74,6 +75,10 @@ public class LoginActivity extends AppCompatActivity {
      */
     private FirebaseUser user;
 
+    public LoginActivity(){
+        Database.init();
+    }
+
 
     /**
      * {@inheritDoc}
@@ -87,9 +92,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
-        Database.init();
 
         GoogleSignInOptions googleLoginOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.Oauth2_client_secret))
@@ -199,6 +201,8 @@ public class LoginActivity extends AppCompatActivity {
         if(this.user != null) {
 
             Diver diver = new Diver(this.user.getUid(), this.user.getDisplayName(), this.user.getEmail(), this.user.getPhoneNumber());
+
+            Database.setLoggedInDiver(diver.getId());
 
             if(!Database.containsDiver(diver)) {
                 Database.createDiver(diver);
