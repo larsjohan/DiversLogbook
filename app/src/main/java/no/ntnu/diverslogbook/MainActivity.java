@@ -143,6 +143,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Override this function so that fragments can use it.
+     *
+     * @param requestCode The request code
+     * @param resultCode The result code
+     * @param data Data from activity
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
     // Adapter for the viewpager using FragmentPagerAdapter
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();

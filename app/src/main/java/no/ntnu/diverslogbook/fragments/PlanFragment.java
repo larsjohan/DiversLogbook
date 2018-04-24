@@ -1,6 +1,8 @@
 package no.ntnu.diverslogbook.fragments;
 
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -19,10 +21,14 @@ import com.google.android.gms.common.util.ArrayUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import no.ntnu.diverslogbook.DiveLog;
 import no.ntnu.diverslogbook.R;
+import no.ntnu.diverslogbook.SecurityStops;
 import no.ntnu.diverslogbook.model.Diver;
 import no.ntnu.diverslogbook.model.Location;
 import no.ntnu.diverslogbook.util.Database;
+
+import static android.app.Activity.RESULT_OK;
 
 
 /**
@@ -45,6 +51,11 @@ public class PlanFragment extends Fragment {
      * The fragment view.
      */
     private static View view;
+
+    /**
+     * Result tag.
+     */
+    private static int RESULT = 0;
 
 
     /**
@@ -98,6 +109,25 @@ public class PlanFragment extends Fragment {
      */
     public void chooseSecurity(View view) {
         Log.d("TAG", "CHOOSING SECURITY!!");
+        Intent getString = new Intent(getActivity(), SecurityStops.class);
+        startActivityForResult(getString, RESULT);
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        getActivity();
+
+        // Check which request we're responding to
+        if (requestCode == RESULT) {
+            // Make sure the request was successful
+
+            if (resultCode == Activity.RESULT_OK) {
+
+                //String input = data.getStringExtra("result");
+                Log.d("TAG", "BACK FROM CHOOSING SECURITY STOPS!!");
+            }
+        }
     }
 
 

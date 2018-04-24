@@ -140,7 +140,7 @@
         <item>search</item>
         <item>work</item>
     </string-array>
-    
+
     <string name="plan_depth">Planned depth:</string>
     <string name="plan_planned_time">Planned diving time:</string>
     <string name="plan_security_stops">Security stops:</string>
@@ -170,5 +170,7 @@
     <string name="plan_lastAlcohol">Time since last alcohol intake:</string>
     <string name="plan_notes">Notes:</string>
     <string name="create_plan">Create plan</string>
+
+    <string name="plan_security_stops_title">Security stops</string>
 
 </resources>
