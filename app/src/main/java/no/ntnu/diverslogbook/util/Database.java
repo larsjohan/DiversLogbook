@@ -2,7 +2,6 @@ package no.ntnu.diverslogbook.util;
 
 import android.util.Log;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -10,6 +9,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import no.ntnu.diverslogbook.model.Diver;
@@ -26,6 +26,11 @@ import no.ntnu.diverslogbook.model.Location;
  * @see DatabaseReference
  */
 public abstract class Database {
+
+    /**
+     * The GUID of the logged in user
+     */
+    private static String LOGGED_IN_DIVER_GUID = "";
 
     /**
      * The root-element in the database
@@ -67,6 +72,11 @@ public abstract class Database {
      */
     private static final List<Diver> DIVERLIST = new ArrayList<>();
 
+    /**
+     * Registered observers for
+     */
+    private static final ObserverManager OBSERVER_MANAGER = new ObserverManager();
+
 
     /**
      * Check if a diver exists
@@ -86,8 +96,8 @@ public abstract class Database {
      * @see Diver
      */
     public static Diver getDiver(String id) {
-        for(Diver diver : DIVERLIST){
-            if(diver.getId().equals(id)){
+        for (Diver diver : DIVERLIST) {
+            if (diver.getId().equals(id)) {
                 return diver;
             }
         }
@@ -135,11 +145,15 @@ public abstract class Database {
      * @return The currently logged in diver
      */
     public static Diver getLoggedInDiver() {
-        try {
-            return getDiver(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        } catch (NullPointerException npe) {
-            return null;
-        }
+        return getDiver(LOGGED_IN_DIVER_GUID);
+    }
+
+    public static String getLoggedInDiverGuid(){
+        return LOGGED_IN_DIVER_GUID;
+    }
+
+    public static void setLoggedInDiver(String guid) {
+        LOGGED_IN_DIVER_GUID = guid;
     }
 
 
@@ -160,6 +174,13 @@ public abstract class Database {
         LOCATIONS.removeEventListener(LOCATIONS_LISTENER);
     }
 
+    public static void registerObserver(Observer observer) {
+        OBSERVER_MANAGER.register(observer);
+    }
+
+    public static void unregisterObserver(Observer observer) {
+        OBSERVER_MANAGER.unregister(observer);
+    }
 
     /**
      * A listener for all changes to the Diver-section in the database.
@@ -176,11 +197,12 @@ public abstract class Database {
          */
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-            Log.d("DiveApp", "Received update from DB");
-            for(DataSnapshot data : dataSnapshot.getChildren()) {
+            for (DataSnapshot data : dataSnapshot.getChildren()) {
                 Diver diver = data.getValue(Diver.class);
-                if(!DIVERLIST.contains(diver)){
+
+                if (!DIVERLIST.contains(diver)) {
                     DIVERLIST.add(diver);
+                    OBSERVER_MANAGER.notifyChange(diver);
                 }
             }
         }
@@ -218,6 +240,7 @@ public abstract class Database {
 
                 if (!LOCATIONLIST.contains(location)){
                     LOCATIONLIST.add(location);
+                    OBSERVER_MANAGER.notifyChange(location);
                 }
             }
         }
