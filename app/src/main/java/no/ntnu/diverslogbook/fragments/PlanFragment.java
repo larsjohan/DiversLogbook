@@ -3,11 +3,18 @@ package no.ntnu.diverslogbook.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageView;
+
+import com.google.android.gms.common.util.ArrayUtils;
 
 import no.ntnu.diverslogbook.R;
 
@@ -22,6 +29,16 @@ public class PlanFragment extends Fragment {
      * All users that uses the application.
      */
     private static String[] USERS = new String[]{};
+
+    /**
+     * All locations in the application.
+     */
+    private static String[] LOCATIONS = new String[]{};
+
+    /**
+     * The fragment view.
+     */
+    private static View view;
 
 
     /**
@@ -44,7 +61,7 @@ public class PlanFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_plan, container, false);
+        view = inflater.inflate(R.layout.fragment_plan, container, false);
 
         // Set onclick listener on the "choose security" button.
         Button chooseSecurityButton = view.findViewById(R.id.chooseSecurity);
@@ -54,13 +71,14 @@ public class PlanFragment extends Fragment {
         Button createPlanButton = view.findViewById(R.id.createPlan);
         createPlanButton.setOnClickListener((v) -> createPlan(v));
 
-        // Initialize the search list for users.
-        USERS = this.getUsers();
+        // Initialize the search list for users and locations.
+        USERS = getUsers();
+        LOCATIONS = getLocations();
 
         // Initialize auto complete text inputs.
-        initChooseBuddy();
-        initChooseGuard();
-        initChooseLocation();
+        setAdapterAndListener(USERS, R.id.buddy, R.id.buddyIcon, R.drawable.ic_person_green_24dp);
+        setAdapterAndListener(USERS, R.id.guard, R.id.guardIcon, R.drawable.ic_person_green_24dp);
+        setAdapterAndListener(LOCATIONS, R.id.loaction, R.id.locationIcon, R.drawable.ic_location_on_green_24dp);
 
         // Inflate the layout for this fragment
         return view;
@@ -93,32 +111,41 @@ public class PlanFragment extends Fragment {
      * @return All users
      */
     private String[] getUsers() {
-        String[] users = {"Lise", "Camilla", "Bjørn", "Siri", "Espen", "Knut"};
+        String[] users = {"Lise Olsen", "Camilla Furnes", "Bjørn Dæhli", "Siri Bjørnsom", "Espen Furnes", "Knut Norli"};
         return users;
     }
 
 
     /**
-     * Initialize the auto complete list for choosing a buddy.
+     * Get all locations from the database.
+     *
+     * @return All locations
      */
-    private void initChooseBuddy() {
-
+    private String[] getLocations() {
+        String[] locations = {"Tromøya", "Eydehavn", "Kilsund", "Saltrød"};
+        return  locations;
     }
 
 
     /**
-     * Initialize the auto complete list for choosing a guard.
+     * Set an adapter and a listener on an auto complete input field.
+     *
+     * @param items Items to search through
+     * @param inputId Id of auto complete field
+     * @param iconId Id of corresponding icon
+     * @param newIcon Id of new icon to display
      */
-    private void initChooseGuard() {
+    private void setAdapterAndListener(String[] items, int inputId, int iconId, int newIcon) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, items);
+        AutoCompleteTextView input = view.findViewById(inputId);
+        input.setAdapter(adapter);
 
-    }
+        input.setOnItemClickListener((parent, v, position, id) -> {
 
-
-    /**
-     * Initialize the auto complete list for choosing a location.
-     */
-    private void initChooseLocation() {
-
+                    ImageView icon = view.findViewById(iconId);
+                    icon.setImageDrawable(ContextCompat.getDrawable(getActivity(), newIcon));
+                }
+        );
     }
 
 }
