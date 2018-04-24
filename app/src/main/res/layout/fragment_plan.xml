@@ -188,7 +188,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="37dp"
-            android:text="@string/plan_buddy_input"
+            android:hint="@string/plan_buddy_input"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/textView2"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -209,7 +209,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/plan_guard_input"
+            android:hint="@string/plan_guard_input"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/textView3"
             app:layout_constraintTop_toBottomOf="@+id/buddy" />
@@ -230,7 +230,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/plan_location_input"
+            android:hint="@string/plan_location_input"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/textView4"
             app:layout_constraintTop_toBottomOf="@+id/guard" />
@@ -265,6 +265,7 @@
             android:textSize="14sp"
             android:ems="10"
             android:inputType="number"
+            android:gravity="center_horizontal"
             app:layout_constraintStart_toEndOf="@+id/textView6"
             app:layout_constraintTop_toBottomOf="@+id/diveType" />
 
@@ -287,6 +288,7 @@
             android:ems="10"
             android:inputType="number"
             android:textSize="14sp"
+            android:gravity="center_horizontal"
             app:layout_constraintStart_toEndOf="@+id/textView7"
             app:layout_constraintTop_toBottomOf="@+id/depth" />
 
@@ -320,6 +322,7 @@
             android:ems="10"
             android:inputType="number"
             android:textSize="14sp"
+            android:gravity="center_horizontal"
             app:layout_constraintStart_toEndOf="@+id/textView9"
             app:layout_constraintTop_toBottomOf="@+id/chooseSecurity" />
 
@@ -342,6 +345,7 @@
             android:ems="10"
             android:inputType="number"
             android:textSize="14sp"
+            android:gravity="center_horizontal"
             app:layout_constraintStart_toEndOf="@+id/textView10"
             app:layout_constraintTop_toBottomOf="@+id/tankSize" />
 
@@ -396,6 +400,7 @@
             android:ems="10"
             android:inputType="numberDecimal"
             android:textSize="14sp"
+            android:gravity="center_horizontal"
             app:layout_constraintStart_toEndOf="@+id/textView12"
             app:layout_constraintTop_toBottomOf="@+id/weather" />
 
@@ -418,6 +423,7 @@
             android:ems="10"
             android:inputType="numberDecimal"
             android:textSize="14sp"
+            android:gravity="center_horizontal"
             app:layout_constraintStart_toEndOf="@+id/textView13"
             app:layout_constraintTop_toBottomOf="@+id/tempSurface" />
 
@@ -432,7 +438,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/lastDiveCheckbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -443,14 +449,14 @@
             app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
         <CheckBox
-            android:id="@+id/checkBox2"
+            android:id="@+id/lastAlcoholCheckbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="35dp"
             android:text="@string/more24"
             app:layout_constraintStart_toEndOf="@+id/lastAlcohol"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+            app:layout_constraintTop_toBottomOf="@+id/lastDiveCheckbox" />
 
         <EditText
             android:id="@+id/notes"
@@ -465,25 +471,29 @@
 
         <EditText
             android:id="@+id/lastDive"
-            android:layout_width="80dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="25dp"
             android:ems="10"
             android:inputType="time"
             android:textSize="14sp"
+            android:hint="@string/h_and_m"
+            android:gravity="center_horizontal"
             app:layout_constraintStart_toEndOf="@+id/textView14"
             app:layout_constraintTop_toBottomOf="@+id/tempWater" />
 
         <EditText
             android:id="@+id/lastAlcohol"
-            android:layout_width="85dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="28dp"
             android:ems="10"
             android:inputType="time"
             android:textSize="14sp"
+            android:hint="@string/h_and_m"
+            android:gravity="center_horizontal"
             app:layout_constraintStart_toEndOf="@+id/textView15"
             app:layout_constraintTop_toBottomOf="@+id/lastDive" />
 

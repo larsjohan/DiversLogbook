@@ -10,13 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
-
-import com.google.android.gms.common.util.ArrayUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +27,6 @@ import no.ntnu.diverslogbook.model.Diver;
 import no.ntnu.diverslogbook.model.Location;
 import no.ntnu.diverslogbook.util.Database;
 
-import static android.app.Activity.RESULT_OK;
-
 
 /**
  * Manages the planning of a dive.
@@ -40,22 +37,28 @@ public class PlanFragment extends Fragment {
     /**
      * All users that uses the application.
      */
-    private static List<String> USERS = new ArrayList<>();
+    private List<String> USERS = new ArrayList<>();
 
     /**
      * All locations in the application.
      */
-    private static List<String> LOCATIONS = new ArrayList<>();
+    private List<String> LOCATIONS = new ArrayList<>();
 
     /**
      * The fragment view.
      */
-    private static View view;
+    private View view;
 
     /**
      * Result tag.
      */
-    private static int RESULT = 0;
+    private int RESULT = 0;
+
+
+    /**
+     * List of security stops.
+     */
+    private ArrayList<DiveLog.SecurityStop> securityStops = new ArrayList<>();
 
 
     /**
@@ -80,6 +83,17 @@ public class PlanFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_plan, container, false);
 
+        initializePlanView();
+
+        // Inflate the layout for this fragment
+        return view;
+    }
+
+
+    /**
+     * Does all of the initialization for the plan view.
+     */
+    private void initializePlanView() {
         // Set onclick listener on the "choose security" button.
         Button chooseSecurityButton = view.findViewById(R.id.chooseSecurity);
         chooseSecurityButton.setOnClickListener((v) -> chooseSecurity(v));
@@ -97,8 +111,26 @@ public class PlanFragment extends Fragment {
         setAdapterAndListener(USERS, R.id.guard, R.id.guardIcon, R.drawable.ic_person_green_24dp);
         setAdapterAndListener(LOCATIONS, R.id.loaction, R.id.locationIcon, R.drawable.ic_location_on_green_24dp);
 
-        // Inflate the layout for this fragment
-        return view;
+        // Set listeners on the checkboxes for 24h or more.
+        CheckBox dive24h = view.findViewById(R.id.lastDiveCheckbox);
+        dive24h.setOnCheckedChangeListener((buttonView, isChecked) -> onCheckBoxChange(isChecked, R.id.lastDive));
+
+        CheckBox alcohol24h = view.findViewById(R.id.lastAlcoholCheckbox);
+        alcohol24h.setOnCheckedChangeListener((buttonView, isChecked) -> onCheckBoxChange(isChecked, R.id.lastAlcohol));
+    }
+
+
+    /**
+     * Whenever there's a change in a checkbox, the change
+     * is validated. If it is checked, do not enable numeric
+     * input.
+     *
+     * @param isChecked If the checkbox is checked or not
+     * @param inputId View id of input to manage
+     */
+    private void onCheckBoxChange(boolean isChecked, int inputId) {
+        EditText input = view.findViewById(inputId);
+        input.setEnabled(!isChecked);
     }
 
 
@@ -109,11 +141,19 @@ public class PlanFragment extends Fragment {
      */
     public void chooseSecurity(View view) {
         Log.d("TAG", "CHOOSING SECURITY!!");
-        Intent getString = new Intent(getActivity(), SecurityStops.class);
-        startActivityForResult(getString, RESULT);
+        Intent intent = new Intent(getActivity(), SecurityStops.class);
+        intent.putExtra("security_stops", securityStops);
+        startActivityForResult(intent, RESULT);
     }
 
 
+    /**
+     * Retrieve data from the SecurityStops activity.
+     *
+     * @param requestCode The request code
+     * @param resultCode The result code
+     * @param data Data received from activity
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         getActivity();
@@ -143,8 +183,6 @@ public class PlanFragment extends Fragment {
 
     /**
      * Get all users from the database.
-     *
-     * @return All users
      */
     private void getUsers() {
         List<Diver> divers = Database.getDivers();
@@ -159,8 +197,6 @@ public class PlanFragment extends Fragment {
 
     /**
      * Get all locations from the database.
-     *
-     * @return All locations
      */
     private void getLocations() {
         List<Location> locations = Database.getLocations();

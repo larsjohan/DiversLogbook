@@ -11,6 +11,7 @@
     <string name="minutes_short">m</string>
     <string name="hours">hours</string>
     <string name="hours_short">h</string>
+    <string name="h_and_m">h : m</string>
     <string name="choose">Choose</string>
     <string name="liters">liters</string>
     <string name="bar">bar</string>
@@ -116,11 +117,11 @@
     <!-- PLAN TAB -->
     <string name="plan_title">Plan your dive</string>
     <string name="plan_buddy">Diving buddy:</string>
-    <string name="plan_buddy_input">Name of buddy..</string>
+    <string name="plan_buddy_input">Start writing name of buddy..</string>
     <string name="plan_guard">Surface guard:</string>
-    <string name="plan_guard_input">Name of guard..</string>
+    <string name="plan_guard_input">Start writing name of guard..</string>
     <string name="plan_location">Location:</string>
-    <string name="plan_location_input">Name of location..</string>
+    <string name="plan_location_input">Start writing name of location..</string>
     <string name="plan_dive_type">Type of dive:</string>
 
     <string-array name="plan_dive_type_input">
@@ -172,5 +173,10 @@
     <string name="create_plan">Create plan</string>
 
     <string name="plan_security_stops_title">Security stops</string>
+    <string name="plan_stops_depth_title">Depth in meters</string>
+    <string name="plan_stops_duration_min">Duration in minutes</string>
+    <string name="plan_save_stops">Save security stops</string>
+    <string name="plan_stops_new">Add new stop</string>
+    <string name="plan_stops_remove">Remove last stop</string>
 
 </resources>
