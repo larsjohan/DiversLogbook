@@ -16,7 +16,13 @@ import android.widget.ImageView;
 
 import com.google.android.gms.common.util.ArrayUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import no.ntnu.diverslogbook.R;
+import no.ntnu.diverslogbook.model.Diver;
+import no.ntnu.diverslogbook.model.Location;
+import no.ntnu.diverslogbook.util.Database;
 
 
 /**
@@ -28,12 +34,12 @@ public class PlanFragment extends Fragment {
     /**
      * All users that uses the application.
      */
-    private static String[] USERS = new String[]{};
+    private static List<String> USERS = new ArrayList<>();
 
     /**
      * All locations in the application.
      */
-    private static String[] LOCATIONS = new String[]{};
+    private static List<String> LOCATIONS = new ArrayList<>();
 
     /**
      * The fragment view.
@@ -72,8 +78,8 @@ public class PlanFragment extends Fragment {
         createPlanButton.setOnClickListener((v) -> createPlan(v));
 
         // Initialize the search list for users and locations.
-        USERS = getUsers();
-        LOCATIONS = getLocations();
+        getUsers();
+        getLocations();
 
         // Initialize auto complete text inputs.
         setAdapterAndListener(USERS, R.id.buddy, R.id.buddyIcon, R.drawable.ic_person_green_24dp);
@@ -110,9 +116,14 @@ public class PlanFragment extends Fragment {
      *
      * @return All users
      */
-    private String[] getUsers() {
-        String[] users = {"Lise Olsen", "Camilla Furnes", "Bjørn Dæhli", "Siri Bjørnsom", "Espen Furnes", "Knut Norli"};
-        return users;
+    private void getUsers() {
+        List<Diver> divers = Database.getDivers();
+        Log.d("TAG", "USERS IN DATABASE UNDER HERE!");
+
+        for (Diver diver : divers) {
+            USERS.add(diver.getName());
+            Log.d("TAG", diver.getName());
+        }
     }
 
 
@@ -121,9 +132,12 @@ public class PlanFragment extends Fragment {
      *
      * @return All locations
      */
-    private String[] getLocations() {
-        String[] locations = {"Tromøya", "Eydehavn", "Kilsund", "Saltrød"};
-        return  locations;
+    private void getLocations() {
+        List<Location> locations = Database.getLocations();
+
+        for (Location location : locations) {
+            LOCATIONS.add(location.getName());
+        }
     }
 
 
@@ -135,8 +149,8 @@ public class PlanFragment extends Fragment {
      * @param iconId Id of corresponding icon
      * @param newIcon Id of new icon to display
      */
-    private void setAdapterAndListener(String[] items, int inputId, int iconId, int newIcon) {
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, items);
+    private void setAdapterAndListener(List<?> items, int inputId, int iconId, int newIcon) {
+        ArrayAdapter<?> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, items);
         AutoCompleteTextView input = view.findViewById(inputId);
         input.setAdapter(adapter);
 
