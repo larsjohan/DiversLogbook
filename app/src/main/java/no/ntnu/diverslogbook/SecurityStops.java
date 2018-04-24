@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -80,16 +83,35 @@ public class SecurityStops extends AppCompatActivity {
      */
     private void addStop(View view) {
         TableRow row = new TableRow(this);
-        EditText depth = new EditText(this);
-        EditText duration = new EditText(this);
-
-        // Add input fields to new row.
-        row.addView(depth, new TableRow.LayoutParams(0));
-        row.addView(duration, new TableRow.LayoutParams(1));
-
-        table.addView(row);
         ++rowCounter;
 
+        // Create text view which shows row number.
+        TextView count = new TextView(this);
+        count.setText(String.valueOf(rowCounter));
+        count.setTextSize(18);
+        count.setGravity(Gravity.CENTER);
+
+        // Create input field for depth.
+        EditText depth = new EditText(this);
+        depth.setWidth(0);
+        depth.setGravity(Gravity.CENTER_HORIZONTAL);
+        depth.setInputType(InputType.TYPE_NUMBER_FLAG_SIGNED);
+        depth.setHint(R.string.depth);
+
+        // Create input field for duration.
+        EditText duration = new EditText(this);
+        duration.setWidth(0);
+        duration.setGravity(Gravity.CENTER_HORIZONTAL);
+        duration.setInputType(InputType.TYPE_NUMBER_FLAG_SIGNED);
+        duration.setHint(R.string.duration);
+
+        // Add input fields to new row.
+        row.addView(count, new TableRow.LayoutParams(0));
+        row.addView(depth, new TableRow.LayoutParams(1));
+        row.addView(duration, new TableRow.LayoutParams(2));
+
+        // Add row to table and enable the remove button.
+        table.addView(row);
         removeButton.setEnabled(true);
     }
 

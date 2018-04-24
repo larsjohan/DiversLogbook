@@ -17,6 +17,9 @@
     <string name="bar">bar</string>
     <string name="degrees">degrees</string>
     <string name="more24">24h +</string>
+    <string name="hashtag">#</string>
+    <string name="depth">depth</string>
+    <string name="duration">duration</string>
 
     <!-- Strings related to login -->
     <string name="login_email_hint">Email</string>
