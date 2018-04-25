@@ -200,7 +200,7 @@ public class LoginActivity extends AppCompatActivity {
     void updateUI() {
         if(this.user != null) {
 
-            Diver diver = new Diver(this.user.getUid(), this.user.getDisplayName(), this.user.getEmail(), this.user.getPhoneNumber());
+            Diver diver = new Diver(this.user.getUid(), this.user.getDisplayName(), this.user.getEmail(), this.user.getPhoneNumber(), this.user.getPhotoUrl().toString());
 
             Database.setLoggedInDiver(diver.getId());
 
