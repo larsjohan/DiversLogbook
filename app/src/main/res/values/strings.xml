@@ -174,5 +174,10 @@
     <string name="preferences_dive_number">Dive start number</string>
     <string name="preferences_dive_number_summary">Start counting dives from another number than 1</string>
     <string name="preferences_dive_number_default_value">1</string>
+    <string name="profile_default_name">Unknown</string>
+    <string name="profile_email_label">Email:</string>
+    <string name="profile_email_default_value">someone@example.com</string>
+    <string name="profile_phone_label">Phonenumber:</string>
+    <string name="profile_phone_default_value">+47 123 45 678</string>
 
 </resources>
