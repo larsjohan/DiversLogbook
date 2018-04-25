@@ -171,5 +171,8 @@
     <string name="plan_notes">Notes:</string>
 
     <string name="create_plan">Create plan</string>
+    <string name="preferences_dive_number">Dive start number</string>
+    <string name="preferences_dive_number_summary">Start counting dives from another number than 1</string>
+    <string name="preferences_dive_number_default_value">1</string>
 
 </resources>
