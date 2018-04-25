@@ -15,6 +15,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.net.Inet4Address;
 import java.util.ArrayList;
 
 
@@ -72,7 +73,7 @@ public class SecurityStops extends AppCompatActivity {
 
         // Set onclick listener on the "add new stop" button.
         Button addButton = findViewById(R.id.addStop);
-        addButton.setOnClickListener((v) -> addStop(v));
+        addButton.setOnClickListener((v) -> addSpecificStop(0,0));
 
         // Set onclick listener on the "remove last stop" button.
         removeButton = findViewById(R.id.remove);
@@ -85,7 +86,7 @@ public class SecurityStops extends AppCompatActivity {
 
         // Set security stops.
         Intent intent = getIntent();
-        ArrayList<DiveLog.SecurityStop> stops = (ArrayList<DiveLog.SecurityStop>) intent.getSerializableExtra("security_stops");
+        ArrayList<DiveLog.SecurityStop> stops = (ArrayList<DiveLog.SecurityStop>) intent.getSerializableExtra(Globals.SECURITYSTOPS);
         updateUIWithStops(stops);
     }
 
@@ -161,16 +162,6 @@ public class SecurityStops extends AppCompatActivity {
 
 
     /**
-     * Creates a new security stop row.
-     *
-     * @param view
-     */
-    private void addStop(View view) {
-        addSpecificStop(0,0);
-    }
-
-
-    /**
      * Removes the last security stop row.
      * @param view
      */
@@ -199,7 +190,7 @@ public class SecurityStops extends AppCompatActivity {
         saveSecurityStops();
 
         Intent returnIntent = new Intent();
-        returnIntent.putExtra("security_stops", securityStops);
+        returnIntent.putExtra(Globals.SECURITYSTOPS, securityStops);
         setResult(Activity.RESULT_OK, returnIntent);
 
         finish();
@@ -217,15 +208,30 @@ public class SecurityStops extends AppCompatActivity {
 
             // Get depth.
             EditText depthInput = (EditText) row.getChildAt(1);
-            int depth = Integer.valueOf(depthInput.getText().toString());
+            String depthString = depthInput.getText().toString();
+            int depth = 0;
+
+            if (!depthString.equals("")) {
+                depth = Integer.valueOf(depthString);
+            }
+
 
             // Get duration.
             EditText durationInput = (EditText) row.getChildAt(2);
-            int duration = Integer.valueOf(durationInput.getText().toString());
+            String durationString = durationInput.getText().toString();
+            int duration = 0;
 
-            // Add the security stop.
-            DiveLog.SecurityStop stop = new DiveLog.SecurityStop(depth, duration);
-            securityStops.add(stop);
+            if (!durationString.equals("")) {
+                duration = Integer.valueOf(durationString);
+            }
+
+            // Add the security stop if it has valid input.
+            if (depth > 0 && duration > 0) {
+                DiveLog.SecurityStop stop = new DiveLog.SecurityStop(depth, duration);
+                securityStops.add(stop);
+            }
+
+
         }
     }
 }

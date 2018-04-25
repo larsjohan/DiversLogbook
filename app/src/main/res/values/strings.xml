@@ -13,6 +13,7 @@
     <string name="hours_short">h</string>
     <string name="h_and_m">h : m</string>
     <string name="choose">Choose</string>
+    <string name="edit">Edit</string>
     <string name="liters">liters</string>
     <string name="bar">bar</string>
     <string name="degrees">degrees</string>
@@ -20,6 +21,7 @@
     <string name="hashtag">#</string>
     <string name="depth">depth</string>
     <string name="duration">duration</string>
+
 
     <!-- Strings related to login -->
     <string name="login_email_hint">Email</string>
@@ -119,6 +121,8 @@
 
     <!-- PLAN TAB -->
     <string name="plan_title">Plan your dive</string>
+    <string name="plan_date">Date:</string>
+    <string name="plan_date_hint">dd/mm/yyyy</string>
     <string name="plan_buddy">Diving buddy:</string>
     <string name="plan_buddy_input">Start writing name of buddy..</string>
     <string name="plan_guard">Surface guard:</string>
@@ -173,6 +177,7 @@
     <string name="plan_lastDive">Time since last dive:</string>
     <string name="plan_lastAlcohol">Time since last alcohol intake:</string>
     <string name="plan_notes">Notes:</string>
+    <string name="plan_notes_hint">Optional notes..</string>
     <string name="create_plan">Create plan</string>
 
     <string name="plan_security_stops_title">Security stops</string>

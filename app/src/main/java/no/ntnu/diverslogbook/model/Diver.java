@@ -29,6 +29,8 @@ public class Diver {
 
     private String phone;
 
+    private ArrayList<DiveLog> diveLogs;
+
 
     public Diver(){
         this.id = "";
@@ -42,6 +44,7 @@ public class Diver {
         this.name = name;
         this.email = email;
         this.phone = phonenumber;
+        this.diveLogs = new ArrayList<>();
     }
 
     public String getId() {
@@ -60,6 +63,10 @@ public class Diver {
         return phone;
     }
 
+    public ArrayList<DiveLog> getDiveLogs() {
+        return diveLogs;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -74,6 +81,10 @@ public class Diver {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public void addDiveLog(DiveLog log) {
+        diveLogs.add(log);
     }
 
     public void copy(Diver source) {

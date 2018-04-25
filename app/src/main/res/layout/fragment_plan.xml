@@ -3,12 +3,23 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="30dp"
+            android:text="@string/plan_date"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView2"
@@ -18,7 +29,7 @@
             android:layout_marginTop="30dp"
             android:text="@string/plan_buddy"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <TextView
             android:id="@+id/textView3"
@@ -170,25 +181,39 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
+        <EditText
+            android:id="@+id/date"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:inputType="date"
+            android:textSize="14sp"
+            android:hint="@string/plan_date_hint"
+            android:gravity="center_horizontal"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <AutoCompleteTextView
             android:id="@+id/buddy"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="19dp"
+            android:layout_marginTop="8dp"
             android:hint="@string/plan_buddy_input"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/date" />
 
         <ImageView
             android:id="@+id/buddyIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="27dp"
+            android:layout_marginTop="12dp"
             app:layout_constraintStart_toEndOf="@+id/buddy"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/date"
             app:srcCompat="@drawable/ic_person_add_black_24dp" />
 
         <AutoCompleteTextView
@@ -306,11 +331,11 @@
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="9dp"
             android:ems="10"
+            android:gravity="center_horizontal"
             android:inputType="number"
             android:textSize="14sp"
-            android:gravity="center_horizontal"
             app:layout_constraintStart_toEndOf="@+id/textView9"
             app:layout_constraintTop_toBottomOf="@+id/chooseSecurity" />
 
@@ -384,11 +409,11 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="26dp"
             android:ems="10"
+            android:gravity="center_horizontal"
             android:inputType="numberDecimal"
             android:textSize="14sp"
-            android:gravity="center_horizontal"
             app:layout_constraintStart_toEndOf="@+id/textView12"
             app:layout_constraintTop_toBottomOf="@+id/weather" />
 
@@ -447,17 +472,6 @@
             app:layout_constraintTop_toBottomOf="@+id/lastDiveCheckbox" />
 
         <EditText
-            android:id="@+id/notes"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
-            android:ems="10"
-            android:inputType="textMultiLine"
-            app:layout_constraintStart_toEndOf="@+id/textView16"
-            app:layout_constraintTop_toBottomOf="@+id/lastAlcohol" />
-
-        <EditText
             android:id="@+id/lastDive"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
@@ -484,6 +498,19 @@
             android:gravity="center_horizontal"
             app:layout_constraintStart_toEndOf="@+id/textView15"
             app:layout_constraintTop_toBottomOf="@+id/lastDive" />
+
+        <EditText
+            android:id="@+id/notes"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="@string/plan_notes_hint"
+            android:inputType="textMultiLine"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/textView16"
+            app:layout_constraintTop_toBottomOf="@+id/lastAlcohol" />
 
         <Button
             android:id="@+id/createPlan"

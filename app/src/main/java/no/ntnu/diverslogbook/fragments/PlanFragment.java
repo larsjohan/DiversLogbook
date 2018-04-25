@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +19,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import no.ntnu.diverslogbook.DiveLog;
+import no.ntnu.diverslogbook.Globals;
 import no.ntnu.diverslogbook.R;
 import no.ntnu.diverslogbook.SecurityStops;
 import no.ntnu.diverslogbook.model.Diver;
@@ -95,6 +98,16 @@ public class PlanFragment extends Fragment {
      * Does all of the initialization for the plan view.
      */
     private void initializePlanView() {
+        // Initialize the search list for users and locations.
+        getUsers();
+        getLocations();
+
+        // Set date to today's date.
+        EditText date = view.findViewById(R.id.date);
+        Date d = new Date();
+        CharSequence today  = DateFormat.format("dd/MM/yyyy ", d.getTime());
+        date.setText(today);
+
         // Set onclick listener on the "choose security" button.
         Button chooseSecurityButton = view.findViewById(R.id.chooseSecurity);
         chooseSecurityButton.setOnClickListener((v) -> chooseSecurity(v));
@@ -102,10 +115,6 @@ public class PlanFragment extends Fragment {
         // Set onclick listener on the "create plan" button.
         Button createPlanButton = view.findViewById(R.id.createPlan);
         createPlanButton.setOnClickListener((v) -> createPlan(v));
-
-        // Initialize the search list for users and locations.
-        getUsers();
-        getLocations();
 
         // Initialize auto complete text inputs.
         setAdapterAndListener(USERS, R.id.buddy, R.id.buddyIcon, R.drawable.ic_person_green_24dp);
@@ -141,11 +150,8 @@ public class PlanFragment extends Fragment {
      * @param view The view
      */
     public void chooseSecurity(View view) {
-        Log.d("TAG", "CHOOSING SECURITY!!");
         Intent intent = new Intent(getActivity(), SecurityStops.class);
-        //intent.putExtra("security_stops", securityStops);
-        //intent.putParcelableArrayListExtra("security_stops", securityStops);
-        intent.putExtra("security_stops", securityStops);
+        intent.putExtra(Globals.SECURITYSTOPS, securityStops);
         startActivityForResult(intent, RESULT);
     }
 
@@ -168,8 +174,12 @@ public class PlanFragment extends Fragment {
             if (resultCode == Activity.RESULT_OK) {
 
                 //String input = data.getStringExtra("result");
-                securityStops = (ArrayList< DiveLog.SecurityStop>) data.getSerializableExtra("security_stops");
-                Log.d("TAG", "BACK FROM CHOOSING SECURITY STOPS!!");
+                securityStops = (ArrayList< DiveLog.SecurityStop>) data.getSerializableExtra(Globals.SECURITYSTOPS);
+                ImageView icon = view.findViewById(R.id.securityIcon);
+                icon.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_security_green_24dp));
+
+                Button securityButton = view.findViewById(R.id.chooseSecurity);
+                securityButton.setText(R.string.edit);
             }
         }
     }
