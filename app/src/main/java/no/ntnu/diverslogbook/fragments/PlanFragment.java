@@ -83,6 +83,7 @@ public class PlanFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_plan, container, false);
 
+        getActivity().setTitle(R.string.plan_title);
         initializePlanView();
 
         // Inflate the layout for this fragment
@@ -142,6 +143,8 @@ public class PlanFragment extends Fragment {
     public void chooseSecurity(View view) {
         Log.d("TAG", "CHOOSING SECURITY!!");
         Intent intent = new Intent(getActivity(), SecurityStops.class);
+        //intent.putExtra("security_stops", securityStops);
+        //intent.putParcelableArrayListExtra("security_stops", securityStops);
         intent.putExtra("security_stops", securityStops);
         startActivityForResult(intent, RESULT);
     }
@@ -165,6 +168,7 @@ public class PlanFragment extends Fragment {
             if (resultCode == Activity.RESULT_OK) {
 
                 //String input = data.getStringExtra("result");
+                securityStops = (ArrayList< DiveLog.SecurityStop>) data.getSerializableExtra("security_stops");
                 Log.d("TAG", "BACK FROM CHOOSING SECURITY STOPS!!");
             }
         }
@@ -186,11 +190,14 @@ public class PlanFragment extends Fragment {
      */
     private void getUsers() {
         List<Diver> divers = Database.getDivers();
-        Log.d("TAG", "USERS IN DATABASE UNDER HERE!");
 
-        for (Diver diver : divers) {
-            USERS.add(diver.getName());
-            Log.d("TAG", diver.getName());
+        if (divers.size() == 0) {
+            Database.registerObserver(changedObject -> {
+
+                if (changedObject instanceof Diver){
+                    USERS.add(((Diver) changedObject).getName());
+                }
+            });
         }
     }
 
@@ -201,8 +208,13 @@ public class PlanFragment extends Fragment {
     private void getLocations() {
         List<Location> locations = Database.getLocations();
 
-        for (Location location : locations) {
-            LOCATIONS.add(location.getName());
+        if (locations.size() == 0) {
+            Database.registerObserver(changedObject -> {
+
+                if (changedObject instanceof Location){
+                    LOCATIONS.add(((Location) changedObject).getName());
+                }
+            });
         }
     }
 

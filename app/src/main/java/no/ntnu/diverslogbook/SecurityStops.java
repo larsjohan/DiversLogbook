@@ -2,6 +2,7 @@ package no.ntnu.diverslogbook;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -32,7 +33,7 @@ public class SecurityStops extends AppCompatActivity {
      * Keeps track of the amount of rows.
      * Also used for row indexes.
      */
-    private int rowCounter = 1;
+    private int rowCounter = 0;
 
 
     /**
@@ -58,6 +59,14 @@ public class SecurityStops extends AppCompatActivity {
         setContentView(R.layout.activity_security_stops);
         setTitle(R.string.plan_security_stops_title);
 
+        initialize();
+    }
+
+
+    /**
+     * Initialize all data and listeners.
+     */
+    private void initialize() {
         // Get and set table view.
         table = findViewById(R.id.stopTable);
 
@@ -73,15 +82,40 @@ public class SecurityStops extends AppCompatActivity {
         // Set onclick listener on the "save security stops" button.
         Button saveButton = findViewById(R.id.saveStops);
         saveButton.setOnClickListener((v) -> goBack(v));
+
+        // Set security stops.
+        Intent intent = getIntent();
+        ArrayList<DiveLog.SecurityStop> stops = (ArrayList<DiveLog.SecurityStop>) intent.getSerializableExtra("security_stops");
+        updateUIWithStops(stops);
     }
 
 
     /**
-     * Creates a new security stop row.
-     *
-     * @param view
+     * Update UI with security stops sent from planning tab.
      */
-    private void addStop(View view) {
+    private void updateUIWithStops(ArrayList<DiveLog.SecurityStop> stops) {
+        if (stops.size() > 0) {
+            securityStops.clear();
+
+            for (DiveLog.SecurityStop stop : stops) {
+                Log.d("TAG", "DEPTH: " + stop.getDepth() + ", DURATION: " + stop.getDuration());
+                addSpecificStop(stop.getDepth(), stop.getDuration());
+            }
+
+        } else {
+            Log.d("TAG", "THERE ARE NO SECURITY STOPS!");
+            addSpecificStop(5,3);
+        }
+    }
+
+
+    /**
+     * Creates a new specific security stop.
+     *
+     * @param depthValue Depth in meters
+     * @param durationValue Duration in minutes
+     */
+    private void addSpecificStop(int depthValue, int durationValue) {
         TableRow row = new TableRow(this);
         ++rowCounter;
 
@@ -90,20 +124,30 @@ public class SecurityStops extends AppCompatActivity {
         count.setText(String.valueOf(rowCounter));
         count.setTextSize(18);
         count.setGravity(Gravity.CENTER);
+        count.setWidth(20);
 
         // Create input field for depth.
         EditText depth = new EditText(this);
-        depth.setWidth(0);
-        depth.setGravity(Gravity.CENTER_HORIZONTAL);
+        depth.setWidth(150);
+        depth.setGravity(Gravity.CENTER);
         depth.setInputType(InputType.TYPE_NUMBER_FLAG_SIGNED);
         depth.setHint(R.string.depth);
 
+        if (depthValue > 0) {
+            depth.setText(String.valueOf(depthValue));
+        }
+
+
         // Create input field for duration.
         EditText duration = new EditText(this);
-        duration.setWidth(0);
-        duration.setGravity(Gravity.CENTER_HORIZONTAL);
+        duration.setWidth(150);
+        duration.setGravity(Gravity.CENTER);
         duration.setInputType(InputType.TYPE_NUMBER_FLAG_SIGNED);
         duration.setHint(R.string.duration);
+
+        if (durationValue > 0) {
+            duration.setText(String.valueOf(durationValue));
+        }
 
         // Add input fields to new row.
         row.addView(count, new TableRow.LayoutParams(0));
@@ -113,6 +157,16 @@ public class SecurityStops extends AppCompatActivity {
         // Add row to table and enable the remove button.
         table.addView(row);
         removeButton.setEnabled(true);
+    }
+
+
+    /**
+     * Creates a new security stop row.
+     *
+     * @param view
+     */
+    private void addStop(View view) {
+        addSpecificStop(0,0);
     }
 
 
@@ -142,10 +196,36 @@ public class SecurityStops extends AppCompatActivity {
      * @param view The view
      */
     private void goBack(View view){
-        Intent returnIntent = new Intent();
+        saveSecurityStops();
 
-        //returnIntent.putExtra("result", input);
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("security_stops", securityStops);
         setResult(Activity.RESULT_OK, returnIntent);
+
         finish();
+    }
+
+
+    /**
+     * Save all chosen security stops.
+     */
+    private void saveSecurityStops() {
+        int size = table.getChildCount();
+
+        for (int i = 1; i < size; i++) {
+            TableRow row = (TableRow) table.getChildAt(i);
+
+            // Get depth.
+            EditText depthInput = (EditText) row.getChildAt(1);
+            int depth = Integer.valueOf(depthInput.getText().toString());
+
+            // Get duration.
+            EditText durationInput = (EditText) row.getChildAt(2);
+            int duration = Integer.valueOf(durationInput.getText().toString());
+
+            // Add the security stop.
+            DiveLog.SecurityStop stop = new DiveLog.SecurityStop(depth, duration);
+            securityStops.add(stop);
+        }
     }
 }

@@ -1,5 +1,9 @@
 package no.ntnu.diverslogbook;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -141,7 +145,7 @@ public class DiveLog {
      * Defines a security stop where the diver stays
      * at a certain depth for a specific amount of time.
      */
-    public class SecurityStop {
+    public static class SecurityStop implements Serializable {
 
         public int duration;    // In minutes.
         public int depth;       // In meters.
@@ -149,12 +153,31 @@ public class DiveLog {
 
         /**
          * Create a new security stop object.
-         * @param duration
-         * @param depth
+         *
+         * @param depth Depth in meters
+         * @param duration Duration in minutes
          */
-        public SecurityStop(int duration, int depth) {
-            this.duration = duration;
+        public SecurityStop(int depth, int duration) {
             this.depth = depth;
+            this.duration = duration;
+        }
+
+        /**
+         * Get depth.
+         *
+         * @return depth
+         */
+        public int getDepth() {
+            return this.depth;
+        }
+
+        /**
+         * Get duration.
+         *
+         * @return duration
+         */
+        public int getDuration() {
+            return this.duration;
         }
     }
 
@@ -162,7 +185,7 @@ public class DiveLog {
     /**
      * Defines a specified amount of hours and minutes.
      */
-    public class HoursAndMinutes {
+    public static class HoursAndMinutes {
 
         public int hours;
         public int minutes;
