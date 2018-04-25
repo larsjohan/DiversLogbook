@@ -1,6 +1,7 @@
 package no.ntnu.diverslogbook;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,9 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+
+import no.ntnu.diverslogbook.model.Diver;
+import no.ntnu.diverslogbook.util.Database;
 
 /**
  * Handles login and authentication.
@@ -71,6 +75,10 @@ public class LoginActivity extends AppCompatActivity {
      */
     private FirebaseUser user;
 
+    public LoginActivity(){
+        Database.init();
+    }
+
 
     /**
      * {@inheritDoc}
@@ -102,6 +110,12 @@ public class LoginActivity extends AppCompatActivity {
         facebookLogin.setOnClickListener(this::comingSoon);
         googleLogin.setOnClickListener(this::loginWithGoogle);
 
+
+        // The user pressed logout in preferences
+        if(getIntent().getBooleanExtra("logout", false)){
+            this.firebaseAuth.signOut();
+            Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -166,6 +180,7 @@ public class LoginActivity extends AppCompatActivity {
                     updateUI();
                 } catch (ApiException e) {
                     Log.w(getString(R.string.app_name), "Signin result failed: " + e.getMessage());
+                    Log.e("DiversLogBook", e.getStackTrace().toString());
                     this.account = null;
                     updateUI();
                 }
@@ -184,8 +199,18 @@ public class LoginActivity extends AppCompatActivity {
      */
     void updateUI() {
         if(this.user != null) {
+
+            Diver diver = new Diver(this.user.getUid(), this.user.getDisplayName(), this.user.getEmail(), this.user.getPhoneNumber());
+
+            Database.setLoggedInDiver(diver.getId());
+
+            if(!Database.containsDiver(diver)) {
+                Database.createDiver(diver);
+            }
+
             Intent startApp = new Intent(this, MainActivity.class);
             startActivity(startApp);
+            finish();   // Remove this screen from stack to avoid back-button from MainActivity to open a new instance of itself
         } else {
             Toast.makeText(this, "Login failed. Try again.", Toast.LENGTH_LONG).show();
         }
