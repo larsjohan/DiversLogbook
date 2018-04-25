@@ -182,7 +182,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
         <EditText
-            android:id="@+id/date"
+            android:id="@+id/dateChoice"
             android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -204,7 +204,7 @@
             android:hint="@string/plan_buddy_input"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/date" />
+            app:layout_constraintTop_toBottomOf="@+id/dateChoice" />
 
         <ImageView
             android:id="@+id/buddyIcon"
@@ -213,7 +213,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="12dp"
             app:layout_constraintStart_toEndOf="@+id/buddy"
-            app:layout_constraintTop_toBottomOf="@+id/date"
+            app:layout_constraintTop_toBottomOf="@+id/dateChoice"
             app:srcCompat="@drawable/ic_person_add_black_24dp" />
 
         <AutoCompleteTextView

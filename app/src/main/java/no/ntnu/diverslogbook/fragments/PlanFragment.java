@@ -17,10 +17,13 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import no.ntnu.diverslogbook.DiveLog;
 import no.ntnu.diverslogbook.Globals;
@@ -103,9 +106,9 @@ public class PlanFragment extends Fragment {
         getLocations();
 
         // Set date to today's date.
-        EditText date = view.findViewById(R.id.date);
+        EditText date = view.findViewById(R.id.dateChoice);
         Date d = new Date();
-        CharSequence today  = DateFormat.format("dd/MM/yyyy ", d.getTime());
+        String today  = (String) DateFormat.format("dd/MM/yyyy ", d.getTime());
         date.setText(today);
 
         // Set onclick listener on the "choose security" button.
@@ -186,16 +189,6 @@ public class PlanFragment extends Fragment {
 
 
     /**
-     * Creates a new plan object and saves it in the database.
-     *
-     * @param view The view
-     */
-    public void createPlan(View view) {
-        Log.d("TAG", "CREATING PLAN!!");
-    }
-
-
-    /**
      * Get all users from the database.
      */
     private void getUsers() {
@@ -248,6 +241,134 @@ public class PlanFragment extends Fragment {
                     icon.setImageDrawable(ContextCompat.getDrawable(getActivity(), newIcon));
                 }
         );
+    }
+
+
+    /**
+     * Creates a new plan object and saves it in the database.
+     *
+     * @param v The view
+     */
+    public void createPlan(View v) {
+        // Date.
+        EditText dateInput = view.findViewById(R.id.dateChoice);
+        String date = dateInput.getText().toString();
+
+        // Buddy.
+        AutoCompleteTextView buddyInput = view.findViewById(R.id.buddy);
+        String buddy = buddyInput.getText().toString();
+
+        // Guard.
+        AutoCompleteTextView guardInput = view.findViewById(R.id.guard);
+        String guard = guardInput.getText().toString();
+
+        // Location.
+        AutoCompleteTextView locationInput = view.findViewById(R.id.loaction);
+        String location = locationInput.getText().toString();
+
+        // Dive type.
+        Spinner diveTypeSpinner = view.findViewById(R.id.diveType);
+        String diveType = diveTypeSpinner.getSelectedItem().toString();
+
+        // Max depth.
+        EditText depthInput = view.findViewById(R.id.depth);
+        String depth = depthInput.getText().toString();
+
+        // Diving time.
+        EditText divingTimeInput = view.findViewById(R.id.divingTime);
+        String divingTime = divingTimeInput.getText().toString();
+
+        // Tank size.
+        EditText tankSizeInput = view.findViewById(R.id.tankSize);
+        String tankSize = tankSizeInput.getText().toString();
+
+        // Tank pressure.
+        EditText tankPressureInput = view.findViewById(R.id.tankPressure);
+        String tankPressure = tankPressureInput.getText().toString();
+
+        // Dive gas.
+        Spinner diveGasSpinner = view.findViewById(R.id.diveGas);
+        String diveGas = diveGasSpinner.getSelectedItem().toString();
+
+        // Weather.
+        Spinner weatherSpinner = view.findViewById(R.id.weather);
+        String weather = weatherSpinner.getSelectedItem().toString();
+
+        // Temp. on surface.
+        EditText tempSurfaceInput = view.findViewById(R.id.tempSurface);
+        String tempSurface = tempSurfaceInput.getText().toString();
+
+        // Temp. in water.
+        EditText tempWaterInput = view.findViewById(R.id.tempWater);
+        String tempWater = tempWaterInput.getText().toString();
+
+        // Time since last dive.
+        CheckBox lastDive24 = view.findViewById(R.id.lastDiveCheckbox);
+        String lastDive;
+
+        if (lastDive24.isChecked()) {
+            lastDive = Globals.MORETHAN24H;
+        } else {
+            EditText lastDiveInput = view.findViewById(R.id.lastDive);
+            lastDive = lastDiveInput.getText().toString();
+        }
+
+        // Time since last alcohol intake.
+        CheckBox lastAlcohol24 = view.findViewById(R.id.lastAlcoholCheckbox);
+        String lastAlcohol;
+
+        if (lastAlcohol24.isChecked()) {
+            lastAlcohol = Globals.MORETHAN24H;
+        } else {
+            EditText lastAlcoholInput = view.findViewById(R.id.lastAlcohol);
+            lastAlcohol = lastAlcoholInput.getText().toString();
+        }
+
+        // Notes.
+        EditText notesInput = view.findViewById(R.id.notes);
+        String notes = notesInput.getText().toString();
+
+        // Check data and manage it.
+        if (planDataIsValid(date, buddy, guard, location, depth,
+                divingTime, tankSize, tankPressure,
+                tempSurface, tempWater, lastDive, lastAlcohol)) {
+
+            // Update database and give success message.
+        } else {
+            // Error message.
+        }
+    }
+
+
+    private boolean planDataIsValid(String date, String buddy, String guard, String location, String depth,
+                                    String divingTime, String tankSize, String tankPressure, String tempSurface,
+                                    String tempWater, String lastDive, String lastAlcohol) {
+
+        boolean allDataOk = true;
+
+        Pattern pattern = Pattern.compile("\\d{1,2}(/)\\d{1,2}(/)\\d{4}");
+        Matcher matcher = pattern.matcher(date);
+        boolean dateIsValid = matcher.find();
+
+        boolean buddyOk = USERS.contains(buddy);
+        boolean guardOk = USERS.contains(guard);
+        boolean buddyGuardTheSame = (buddy.equals(guard));
+        boolean locationOk = LOCATIONS.contains(location);
+
+        pattern = Pattern.compile("\\d*");
+        matcher = pattern.matcher(depth);
+        boolean depthOk = matcher.find();
+
+        matcher = pattern.matcher(divingTime);
+        boolean divingTimeOk = matcher.find();
+
+        matcher = pattern.matcher(tankSize);
+        boolean tankSizeOk = matcher.find();
+
+        matcher = pattern.matcher(tankPressure);
+
+
+        return true;
     }
 
 }

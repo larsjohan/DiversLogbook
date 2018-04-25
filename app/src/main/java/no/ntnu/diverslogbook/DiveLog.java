@@ -13,6 +13,8 @@ import java.util.ArrayList;
  */
 public class DiveLog {
 
+    private String date;
+
     // Users.
     private String diver;
     private String surfaceGuard;
@@ -54,10 +56,11 @@ public class DiveLog {
      *
      * @params Data about the planned dive.
      */
-    public DiveLog(String diver, String guard, String buddy, String location, String diveType, int plannedDepth,
+    public DiveLog(String date, String diver, String guard, String buddy, String location, String diveType, int plannedDepth,
                    HoursAndMinutes lastDive, HoursAndMinutes lastAlcohol, ArrayList<SecurityStop> stops, int plannedTime,
                    int tankSize, int startTankPressure, String diveGas, String weather, float tempSurface, float tempWater, String notes) {
 
+        this.date = date;
         this.diver = diver;
         this.surfaceGuard = guard;
         this.diveBuddy = buddy;

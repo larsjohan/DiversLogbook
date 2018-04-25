@@ -17,6 +17,11 @@ public class Location {
     private String name;
 
 
+    public Location() {
+
+    }
+
+
     /**
      * Create a new location object.
      *
