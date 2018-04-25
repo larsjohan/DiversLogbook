@@ -26,6 +26,13 @@
         android:title="Diving"
         android:key="pref_diving">
 
+        <EditTextPreference
+            android:key="startNumber"
+            android:title="Dive start number"
+            android:summary="Start counting dives from another number than 1"
+            android:inputType="number"
+            android:defaultValue="1" />
+
 
         <ListPreference
             android:key="rescueBufferTime"
