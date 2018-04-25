@@ -131,6 +131,14 @@ public abstract class Database {
         return LOCATIONLIST;
     }
 
+    /**
+     * Adds a new location to the database
+     *
+     * @param location The location to add
+     */
+    private static void addLocation(Location location){
+        LOCATIONS.push().setValue(location);
+    }
 
     /**
      * Create a diver if it doesn't exist
@@ -167,6 +175,11 @@ public abstract class Database {
     public static void init(){
         DIVERS.addValueEventListener(DIVERS_LISTENER);
         LOCATIONS.addValueEventListener(LOCATIONS_LISTENER);
+        Location location = new Location(1, "Oppland, Gjøvik, Mjøsa");
+        Location location1 = new Location(2, "Møre og Romsdal, Ålesund, Alnes");
+
+        addLocation(location);
+        addLocation(location1);
     }
 
 
