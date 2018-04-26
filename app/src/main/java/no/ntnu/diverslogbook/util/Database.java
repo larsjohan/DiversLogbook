@@ -151,6 +151,15 @@ public abstract class Database {
         }
     }
 
+    /**
+     * Update a diver whenever there's been added a new dive log.
+     *
+     * @param diver The diver to update
+     * @see Diver
+     */
+    public static void updateDiver(Diver diver) {
+        DIVERS.child(LOGGED_IN_DIVER_GUID).setValue(diver);
+    }
 
     /**
      * Return a reference to the diver that is logged in on this device

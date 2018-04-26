@@ -3,14 +3,12 @@ package no.ntnu.diverslogbook.model;
 
 import java.util.ArrayList;
 
-import no.ntnu.diverslogbook.DiveLog;
-
 /**
  * This class represents a diver/user.
  * Keeps a reference to the authenticated frebase-user nad keeps information that is stored about the user
  *
  * @author Lars Johan
- * @see no.ntnu.diverslogbook.DiveLog
+ * @see DiveLog
  */
 public class Diver {
 
@@ -33,6 +31,7 @@ public class Diver {
         this.email = "";
         this.phone = "";
         this.profilePhotoURI = null;
+        this.diveLogs = new ArrayList<>();
     }
 
     public Diver(final String id, final String name, final String email, final String phoneNumber, final String profilePhotoURI) {

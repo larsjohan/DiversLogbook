@@ -190,6 +190,7 @@
     <string name="plan_notes">Notes:</string>
     <string name="plan_notes_hint">Optional notes..</string>
     <string name="create_plan">Create plan</string>
+    <string name="finish_plan">Finish plan</string>
 
     <string name="plan_security_stops_title">Security stops</string>
     <string name="plan_stops_depth_title">Depth in meters</string>
@@ -197,5 +198,15 @@
     <string name="plan_save_stops">Save security stops</string>
     <string name="plan_stops_new">Add new stop</string>
     <string name="plan_stops_remove">Remove last stop</string>
+
+    <string name="plan_success">Your diving plan was successfully added!</string>
+    <string name="plan_error">Error! Check your inputs again and verify that your inputs are correct.</string>
+
+    <string-array name="plan_current">
+        <item>None</item>
+        <item>Light</item>
+        <item>Medium</item>
+        <item>Strong</item>
+    </string-array>
 
 </resources>

@@ -2,7 +2,6 @@ package no.ntnu.diverslogbook;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -15,8 +14,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import java.net.Inet4Address;
 import java.util.ArrayList;
+
+import no.ntnu.diverslogbook.model.DiveLog;
 
 
 /**

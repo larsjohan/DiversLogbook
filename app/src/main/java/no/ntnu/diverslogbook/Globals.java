@@ -15,4 +15,9 @@ public class Globals {
      * Used when checking the value of time since last dive and alcohol intake.
      */
     public static final String MORETHAN24H = "more_than_24_hours";
+
+    /**
+     * Used to verify if the diver is allowed to dive or not.
+     */
+    public static final int MAX_HOURS_SINCE_ALCOHOL = 12;
 }
