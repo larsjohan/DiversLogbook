@@ -33,7 +33,9 @@ public class ObserverManager {
      * @see Observer
      */
     public synchronized void register(Observer observer) {
-        this.observers.add(observer);
+        if(!this.observers.contains(observer)) {
+            this.observers.add(observer);
+        }
         Log.d("DiverApp", "Registered new observer: " + this.observers.size());
     }
 
