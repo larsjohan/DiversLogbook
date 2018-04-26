@@ -1,5 +1,6 @@
 package no.ntnu.diverslogbook;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -7,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Contains all data related to a dive.
  */
-public class DiveLog {
+public class DiveLog implements Serializable {
 
     // Users.
     private String diver;
@@ -45,6 +46,33 @@ public class DiveLog {
     private float tempWater;
 
 
+    // Mock data
+    public DiveLog() {
+        this.diver = "Diver 1";
+        this.surfaceGuard = "guard 1";
+        this.diveBuddy = "Buddy 1";
+        this.location = "Langesund, Norway";
+        this.diveType = "Recreational";
+        this.plannedDepth = 1337;
+        this.timeSinceLastDive = new HoursAndMinutes(24,1);
+        this.timeSinceAlcoholIntake = new HoursAndMinutes(24,1);
+        ArrayList<SecurityStop> stops = new ArrayList<>();
+        stops.add(new SecurityStop(2, 5));
+        stops.add(new SecurityStop(4, 20));
+        this.securityStops = stops;
+        this.plannedDiveTime = 1337;
+        this.tankSize = 420;
+        this.startTankPressure = 420;
+        this.endTankPressure = 100;
+        this.diveGas = "nox";
+        this.weather = "Cloudy";
+        this.tempSurface = 15.7f;
+        this.tempWater = 4.7f;
+        this.notes = "This is the best note ever. What happens when the info in here " +
+                "get really really really long. Does the text jump down or does it go off screen?";
+    }
+
+
     /**
      * Creates a log object after planning a dive.
      *
@@ -70,6 +98,7 @@ public class DiveLog {
         this.weather = weather;
         this.tempSurface = tempSurface;
         this.tempWater = tempWater;
+        this.current = Current.MEDIUM;
         this.notes = notes;
     }
 
@@ -125,6 +154,98 @@ public class DiveLog {
         this.o2Percent = o2Percent;
     }
 
+    public String getDiver() {
+        return diver;
+    }
+
+    public String getSurfaceGuard() {
+        return surfaceGuard;
+    }
+
+    public String getDiveBuddy() {
+        return diveBuddy;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public String getDiveType() {
+        return diveType;
+    }
+
+    public int getPlannedDepth() {
+        return plannedDepth;
+    }
+
+    public HoursAndMinutes getTimeSinceLastDive() {
+        return timeSinceLastDive;
+    }
+
+    public HoursAndMinutes getTimeSinceAlcoholIntake() {
+        return timeSinceAlcoholIntake;
+    }
+
+    public ArrayList<SecurityStop> getSecurityStops() {
+        return securityStops;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public int getPlannedDiveTime() {
+        return plannedDiveTime;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    public int getTankSize() {
+        return tankSize;
+    }
+
+    public int getStartTankPressure() {
+        return startTankPressure;
+    }
+
+    public int getEndTankPressure() {
+        return endTankPressure;
+    }
+
+    public String getDiveGas() {
+        return diveGas;
+    }
+
+    public float getfO2() {
+        return fO2;
+    }
+
+    public int getO2Percent() {
+        return o2Percent;
+    }
+
+    public String getWeather() {
+        return weather;
+    }
+
+    public Current getCurrent() {
+        return current;
+    }
+
+    public float getTempSurface() {
+        return tempSurface;
+    }
+
+    public float getTempWater() {
+        return tempWater;
+    }
+
 
     /**
      * Different types of water current.
@@ -141,7 +262,7 @@ public class DiveLog {
      * Defines a security stop where the diver stays
      * at a certain depth for a specific amount of time.
      */
-    public class SecurityStop {
+    public class SecurityStop implements Serializable{
 
         public int duration;    // In minutes.
         public int depth;       // In meters.
@@ -162,7 +283,7 @@ public class DiveLog {
     /**
      * Defines a specified amount of hours and minutes.
      */
-    public class HoursAndMinutes {
+    public class HoursAndMinutes implements Serializable{
 
         public int hours;
         public int minutes;
