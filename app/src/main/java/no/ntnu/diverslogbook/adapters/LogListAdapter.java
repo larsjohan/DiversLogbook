@@ -46,7 +46,7 @@ public class LogListAdapter extends ArrayAdapter<DiveLog> {
         /** Mock data */
         DiveLog diveLog = getItem(position);
         String diveNr = "1";
-        diveNumber.setText(zeroPad(diveNr));
+        diveNumber.setText("#" + zeroPad(diveNr));
         date.setText("2018-04-25");
         location.setText("Langesund, Norway");
         /**           */

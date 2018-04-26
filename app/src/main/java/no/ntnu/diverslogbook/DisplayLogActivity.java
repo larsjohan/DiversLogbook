@@ -23,11 +23,21 @@ public class DisplayLogActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_displaylog);
 
+
+        // TODO:
+        /**
+         *
+         * ACTUAL DIVE TIME
+         * SATURATION
+         *
+         */
+
+
         Intent intent = getIntent();
         DiveLog diveLog = (DiveLog) intent.getSerializableExtra("LogToDisplay");
 
         // Set toolbar text. (Dive number + Location)
-        String diveNr = "0001";
+        String diveNr = "#0001";
         getSupportActionBar().setTitle(diveNr + ": " +  diveLog.getLocation());
 
 
@@ -87,7 +97,7 @@ public class DisplayLogActivity extends AppCompatActivity {
         } // end loop
 
 
-        ((TextView) findViewById(R.id.tv_displaylog_divetime)).setText(Integer.toString(diveLog.getPlannedDiveTime()));
+        ((TextView) findViewById(R.id.tv_displaylog_planneddivetime)).setText(Integer.toString(diveLog.getPlannedDiveTime()));
         ((TextView) findViewById(R.id.tv_displaylog_tanksize)).setText(Integer.toString(diveLog.getTankSize()));
         ((TextView) findViewById(R.id.tv_displaylog_startpressure)).setText(Integer.toString(diveLog.getStartTankPressure()));
         ((TextView) findViewById(R.id.tv_displaylog_divegas)).setText(diveLog.getDiveGas());
