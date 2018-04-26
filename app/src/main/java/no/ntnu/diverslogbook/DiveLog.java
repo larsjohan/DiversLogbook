@@ -55,7 +55,7 @@ public class DiveLog implements Serializable {
         this.diveType = "Recreational";
         this.plannedDepth = 1337;
         this.timeSinceLastDive = new HoursAndMinutes(24,1);
-        this.timeSinceAlcoholIntake = new HoursAndMinutes(24,1);
+        this.timeSinceAlcoholIntake = new HoursAndMinutes(2,1);
         ArrayList<SecurityStop> stops = new ArrayList<>();
         stops.add(new SecurityStop(2, 5));
         stops.add(new SecurityStop(4, 20));

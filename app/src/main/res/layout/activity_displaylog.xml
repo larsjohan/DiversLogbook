@@ -7,407 +7,507 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-    <android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@android:color/white" >
 
-        <TextView
-            android:id="@+id/tv_displaylog_date"
+        <TableLayout
+            android:id="@+id/tableLayout1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="0dp"
-            android:gravity="center"
-            android:text="Date"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="wrap_content">
+
+
+        <!-- Date -->
+
+            <TableRow
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="2.5dp">
+                <TextView
+                    android:id="@+id/tv_displaylog_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Date"
+                    android:textSize="24sp"
+                    android:textStyle="bold"/>
+            </TableRow>
+
+
+        <!-- A line -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="1dp"
+                android:background="@android:color/black" />
+
+
 
         <!-- Surface guard -->
 
-        <TextView
-            android:id="@+id/tv_displaylog_surfaceguard_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Surface guard:"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_displaylog_date" />
+            <TableRow
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:padding="2.5dp">
 
-        <TextView
-            android:id="@+id/tv_displaylog_surfaceguard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:text="Surface guard"
-            app:layout_constraintStart_toEndOf="@+id/tv_displaylog_surfaceguard_text"
-            app:layout_constraintTop_toBottomOf="@+id/tv_displaylog_date" />
+                <TextView
+                    android:id="@+id/tv_displaylog_surfaceguard_text"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="Surface guard:" />
+
+                <TextView
+                    android:id="@+id/tv_displaylog_surfaceguard"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Surface guard" />
+            </TableRow>
+
 
         <!-- Dive buddy -->
 
-        <TextView
-            android:id="@+id/tv_displaylog_divebuddy_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Dive buddy:"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_displaylog_surfaceguard" />
+            <TableRow
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:padding="2.5dp">
 
-        <TextView
-            android:id="@+id/tv_displaylog_divebuddy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:text="Dive buddy"
-            app:layout_constraintStart_toEndOf="@+id/tv_displaylog_divebuddy_text"
-            app:layout_constraintTop_toBottomOf="@+id/tv_displaylog_surfaceguard" />
+                <TextView
+                    android:id="@+id/tv_displaylog_divebuddy_text"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="Dive buddy:" />
+
+                <TextView
+                    android:id="@+id/tv_displaylog_divebuddy"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Dive buddy" />
+            </TableRow>
 
 
         <!-- Dive type -->
 
-        <TextView
-            android:id="@+id/tv_displaylog_divetype_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Dive type:"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_displaylog_divebuddy" />
+            <TableRow
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:padding="2.5dp">
 
-        <TextView
-            android:id="@+id/tv_displaylog_divetype"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:text="Dive type"
-            app:layout_constraintStart_toEndOf="@+id/tv_displaylog_divetype_text"
-            app:layout_constraintTop_toBottomOf="@+id/tv_displaylog_divebuddy" />
+                <TextView
+                    android:id="@+id/tv_displaylog_divetype_text"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="Dive type:" />
+
+                <TextView
+                    android:id="@+id/tv_displaylog_divetype"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Dive type" />
+            </TableRow>
 
 
         <!-- Planned depth -->
 
-        <TextView
-            android:id="@+id/tv_displaylog_planneddepth_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Planned depth:"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_displaylog_divetype" />
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:padding="2.5dp">
 
-        <TextView
-            android:id="@+id/tv_displaylog_planneddepth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:text="Planned depth"
-            app:layout_constraintStart_toEndOf="@+id/tv_displaylog_planneddepth_text"
-            app:layout_constraintTop_toBottomOf="@+id/tv_displaylog_divetype" />
+                <TextView
+                    android:id="@+id/tv_displaylog_planneddepth_text"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="Planned depth:" />
+
+                <TextView
+                    android:id="@+id/tv_displaylog_planneddepth"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Planned depth"/>
+            </TableRow>
 
 
 
 
         <!-- Time since last dive -->
 
-        <TextView
-            android:id="@+id/tv_displaylog_tsld_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Time since last dive:"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_displaylog_planneddepth" />
+            <TableRow
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:padding="2.5dp">
 
-        <TextView
-            android:id="@+id/tv_displaylog_tsld"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:text="Time since last dive"
-            app:layout_constraintStart_toEndOf="@+id/tv_displaylog_tsld_text"
-            app:layout_constraintTop_toBottomOf="@+id/tv_displaylog_planneddepth" />
+                <TextView
+                    android:id="@+id/tv_displaylog_tsld_text"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="S:I" />
+
+                <TextView
+                    android:id="@+id/tv_displaylog_tsld"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Time since last dive" />
+            </TableRow>
 
 
         <!-- Time since last alcohol intake -->
 
-        <TextView
-            android:id="@+id/tv_displaylog_tslai_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Time since last alcohol intake:"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_displaylog_tsld" />
+            <TableRow
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:padding="2.5dp">
 
-        <TextView
-            android:id="@+id/tv_displaylog_tslai"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:text="Time since last alcohol intake"
-            app:layout_constraintStart_toEndOf="@+id/tv_displaylog_tslai_text"
-            app:layout_constraintTop_toBottomOf="@+id/tv_displaylog_tsld" />
+                <TextView
+                    android:id="@+id/tv_displaylog_tslai_text"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="Last alcohol intake:" />
+
+                <TextView
+                    android:id="@+id/tv_displaylog_tslai"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Time since last alcohol intake" />
+            </TableRow>
 
 
         <!-- Security stops -->
 
-        <TextView
-            android:id="@+id/tv_displaylog_security_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Security stops:"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_displaylog_tslai" />
+            <TableRow
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:padding="2.5dp">
 
-        <TableLayout
-            android:id="@+id/tl_displaylog_security"
-            android:layout_width="287dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toEndOf="@+id/tv_displaylog_security_text"
-            app:layout_constraintTop_toBottomOf="@+id/tv_displaylog_tslai">
+                    <TextView
+                        android:id="@+id/tv_displaylog_security_text"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:text="Security stops:" />
+
+                <TableLayout
+                    android:id="@+id/tl_displaylog_security"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="40dp"
+                    >
 
 
-        </TableLayout>
+                </TableLayout>
+            </TableRow>
+
+
 
         <!-- Dive time -->
 
-        <TextView
-            android:id="@+id/tv_displaylog_divetime_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Dive time:"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tl_displaylog_security" />
+            <TableRow
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:padding="2.5dp">
 
-        <TextView
-            android:id="@+id/tv_displaylog_divetime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:text="Dive time"
-            app:layout_constraintStart_toEndOf="@+id/tv_displaylog_divetime_text"
-            app:layout_constraintTop_toBottomOf="@+id/tl_displaylog_security" />
+                <TextView
+                    android:id="@+id/tv_displaylog_divetime_text"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="Dive time:" />
+
+                <TextView
+                    android:id="@+id/tv_displaylog_divetime"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Dive time" />
+            </TableRow>
 
 
         <!-- Tank size -->
 
-        <TextView
-            android:id="@+id/tv_displaylog_tanksize_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Tank size:"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_displaylog_divetime" />
+            <TableRow
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:padding="2.5dp">
 
-        <TextView
-            android:id="@+id/tv_displaylog_tanksize"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:text="Tank size"
-            app:layout_constraintStart_toEndOf="@+id/tv_displaylog_tanksize_text"
-            app:layout_constraintTop_toBottomOf="@+id/tv_displaylog_divetime" />
+                <TextView
+                    android:id="@+id/tv_displaylog_tanksize_text"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="Tank size:" />
+
+                <TextView
+                    android:id="@+id/tv_displaylog_tanksize"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Tank size" />
+            </TableRow>
 
 
         <!-- Start tank pressure -->
 
-        <TextView
-            android:id="@+id/tv_displaylog_startpressure_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Start tank pressure:"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_displaylog_tanksize" />
+            <TableRow
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:padding="2.5dp">
 
-        <TextView
-            android:id="@+id/tv_displaylog_startpressure"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:text="start tank pressure"
-            app:layout_constraintStart_toEndOf="@+id/tv_displaylog_startpressure_text"
-            app:layout_constraintTop_toBottomOf="@+id/tv_displaylog_tanksize" />
+                <TextView
+                    android:id="@+id/tv_displaylog_startpressure_text"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="Start tank pressure:" />
+
+                <TextView
+                    android:id="@+id/tv_displaylog_startpressure"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="start tank pressure" />
+            </TableRow>
 
 
         <!-- Dive gas -->
 
-        <TextView
-            android:id="@+id/tv_displaylog_divegas_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Dive gas:"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_displaylog_startpressure" />
+            <TableRow
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:padding="2.5dp">
 
-        <TextView
-            android:id="@+id/tv_displaylog_divegas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:text="divegas"
-            app:layout_constraintStart_toEndOf="@+id/tv_displaylog_divegas_text"
-            app:layout_constraintTop_toBottomOf="@+id/tv_displaylog_startpressure" />
+                <TextView
+                    android:id="@+id/tv_displaylog_divegas_text"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="Dive gas:" />
+
+                <TextView
+                    android:id="@+id/tv_displaylog_divegas"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="divegas" />
+            </TableRow>
 
 
         <!-- Weather -->
 
-        <TextView
-            android:id="@+id/tv_displaylog_weather_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Weather:"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_displaylog_divegas" />
+            <TableRow
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:padding="2.5dp">
 
-        <TextView
-            android:id="@+id/tv_displaylog_weather"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:text="weather"
-            app:layout_constraintStart_toEndOf="@+id/tv_displaylog_weather_text"
-            app:layout_constraintTop_toBottomOf="@+id/tv_displaylog_divegas" />
+                <TextView
+                    android:id="@+id/tv_displaylog_weather_text"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="Weather:" />
+
+                <TextView
+                    android:id="@+id/tv_displaylog_weather"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+
+                    android:text="weather" />
+            </TableRow>
 
 
         <!-- Temperature surface -->
 
-        <TextView
-            android:id="@+id/tv_displaylog_tempsurf_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Surface Temperature:"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_displaylog_weather" />
+            <TableRow
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:padding="2.5dp">
 
-        <TextView
-            android:id="@+id/tv_displaylog_tempsurf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:text="Surface Temperature"
-            app:layout_constraintStart_toEndOf="@+id/tv_displaylog_tempsurf_text"
-            app:layout_constraintTop_toBottomOf="@+id/tv_displaylog_weather" />
+                <TextView
+                    android:id="@+id/tv_displaylog_tempsurf_text"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="Surface Temperature:" />
+
+                <TextView
+                    android:id="@+id/tv_displaylog_tempsurf"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Surface Temperature" />
+            </TableRow>
 
 
         <!-- Temperature water -->
 
-        <TextView
-            android:id="@+id/tv_displaylog_tempwater_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Water Temperature:"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_displaylog_tempsurf" />
+            <TableRow
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:padding="2.5dp">
 
-        <TextView
-            android:id="@+id/tv_displaylog_tempwater"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:text="Water Temperature"
-            app:layout_constraintStart_toEndOf="@+id/tv_displaylog_tempwater_text"
-            app:layout_constraintTop_toBottomOf="@+id/tv_displaylog_tempsurf" />
+                <TextView
+                    android:id="@+id/tv_displaylog_tempwater_text"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="Water Temperature:" />
+
+                <TextView
+                    android:id="@+id/tv_displaylog_tempwater"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Water Temperature" />
+            </TableRow>
 
 
         <!-- Current -->
 
-        <TextView
-            android:id="@+id/tv_displaylog_current_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Current:"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_displaylog_tempwater" />
+            <TableRow
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:padding="2.5dp">
 
-        <TextView
-            android:id="@+id/tv_displaylog_current"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:text="Current"
-            app:layout_constraintStart_toEndOf="@+id/tv_displaylog_current_text"
-            app:layout_constraintTop_toBottomOf="@+id/tv_displaylog_tempwater" />
+                <TextView
+                    android:id="@+id/tv_displaylog_current_text"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="Current:" />
+
+                <TextView
+                    android:id="@+id/tv_displaylog_current"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Current" />
+            </TableRow>
 
 
         <!-- Notes -->
 
-        <TextView
-            android:id="@+id/tv_displaylog_notes_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Notes:"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_displaylog_current" />
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:padding="2.5dp">
 
-        <TextView
-            android:id="@+id/tv_displaylog_notes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="8dp"
-            android:text="Notes"
-            app:layout_constraintTop_toBottomOf="@+id/tv_displaylog_notes_text"/>
+                <TextView
+                    android:id="@+id/tv_displaylog_notes_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="Notes:" />
+
+            </TableRow>
+
+            <TextView
+                android:id="@+id/tv_displaylog_notes"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="8dp"
+                android:text="Notes"/>
 
 
-        <!-- Testing -->
 
-        <TextView
-            android:id="@+id/tv_displaylog_test"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="200dp"
-            android:text="Notes"
-            app:layout_constraintStart_toEndOf="@+id/tv_displaylog_notes_text"
-            app:layout_constraintTop_toBottomOf="@+id/tv_displaylog_current" />
 
-    </android.support.constraint.ConstraintLayout>
+        </TableLayout>
+    </LinearLayout>
 
 </ScrollView>
