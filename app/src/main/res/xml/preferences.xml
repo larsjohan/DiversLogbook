@@ -26,6 +26,13 @@
         android:title="Diving"
         android:key="pref_diving">
 
+        <EditTextPreference
+            android:key="startNumber"
+            android:title="@string/preferences_dive_number"
+            android:summary="@string/preferences_dive_number_summary"
+            android:inputType="number"
+            android:defaultValue="@string/preferences_dive_number_default_value" />
+
 
         <ListPreference
             android:key="rescueBufferTime"

@@ -1,6 +1,9 @@
 package no.ntnu.diverslogbook.fragments;
 
 
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -15,6 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 import no.ntnu.diverslogbook.R;
 import no.ntnu.diverslogbook.model.Diver;
+import no.ntnu.diverslogbook.task.DownloadProfileImageTask;
 import no.ntnu.diverslogbook.util.Database;
 import no.ntnu.diverslogbook.util.Observer;
 
@@ -44,7 +48,9 @@ public class ProfileFragment extends Fragment {
                 if(changedObject instanceof Diver && ((Diver) changedObject).getId().equals(Database.getLoggedInDiverGuid())){
                     updateView(view, (Diver) changedObject);
                     view.invalidate();
+                    return true; // Unregister observer if found
                 }
+                return false; // Keep the observer if not loaded yet
             });
         } else {
             updateView(view, diver);
@@ -61,8 +67,13 @@ public class ProfileFragment extends Fragment {
         TextView email = view.findViewById(R.id.tv_profile_email);
         TextView phone = view.findViewById(R.id.tv_profile_phone);
 
+        image.setImageDrawable(getActivity().getDrawable(R.drawable.ic_image_placeholder_50dp));
         name.setText(diver.getName());
         email.setText(diver.getEmail());
         phone.setText(diver.getPhone());
+
+        new DownloadProfileImageTask(this.getActivity()).execute(diver.getProfilePhotoURI());
+
     }
+
 }

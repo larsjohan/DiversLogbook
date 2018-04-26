@@ -1,16 +1,5 @@
 package no.ntnu.diverslogbook.model;
 
-import android.graphics.Bitmap;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import no.ntnu.diverslogbook.DiveLog;
-
 
 /**
  * This class represents a diver/user.
@@ -29,19 +18,24 @@ public class Diver {
 
     private String phone;
 
+    private String profilePhotoURI;
+
 
     public Diver(){
         this.id = "";
         this.name = "Unknown";
         this.email = "";
         this.phone = "";
+        this.profilePhotoURI = null;
     }
 
-    public Diver(final String id, final String name, final String email, final String phonenumber) {
+    public Diver(final String id, final String name, final String email, final String phoneNumber, final String profilePhotoURI) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.phone = phonenumber;
+        this.phone = phoneNumber;
+        this.profilePhotoURI = profilePhotoURI;
+
     }
 
     public String getId() {
@@ -60,6 +54,14 @@ public class Diver {
         return phone;
     }
 
+
+    public String getProfilePhotoURI() {
+        return profilePhotoURI;
+    }
+
+    public void setProfilePhotoURI(String profilePhotoURI) {
+        this.profilePhotoURI = profilePhotoURI;
+    }
     public void setId(String id) {
         this.id = id;
     }
