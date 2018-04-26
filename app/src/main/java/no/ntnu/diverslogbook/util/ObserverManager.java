@@ -1,5 +1,7 @@
 package no.ntnu.diverslogbook.util;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -32,6 +34,7 @@ public class ObserverManager {
      */
     public synchronized void register(Observer observer) {
         this.observers.add(observer);
+        Log.d("DiverApp", "Registered new observer: " + this.observers.size());
     }
 
     /**
@@ -42,6 +45,7 @@ public class ObserverManager {
      */
     public synchronized void unregister(Observer observer) {
         this.observers.remove(observer);
+        Log.d("DiverApp", "UnRegistered observer: " + this.observers.size());
     }
 
     /**
@@ -53,7 +57,12 @@ public class ObserverManager {
     public synchronized <T> void notifyChange(T changedObject){
         Iterator<Observer> iterator = this.observers.iterator();
         while (iterator.hasNext()){
-            iterator.next().update(changedObject);
+            Observer current = iterator.next();
+            boolean removeObserver = current.update(changedObject);
+
+            if(removeObserver){
+                unregister(current);
+            }
         }
     }
 
