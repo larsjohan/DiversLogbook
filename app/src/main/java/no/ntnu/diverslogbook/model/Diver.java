@@ -87,6 +87,10 @@ public class Diver {
         this.phone = phone;
     }
 
+    public void setDiveLogs(ArrayList<DiveLog> diveLogs) {
+        this.diveLogs = diveLogs;
+    }
+
     public void addDiveLog(DiveLog log) {
         diveLogs.add(log);
     }

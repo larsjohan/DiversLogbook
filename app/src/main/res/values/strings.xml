@@ -177,10 +177,10 @@
     <string name="plan_weather">Weather:</string>
 
     <string-array name="plan_weather_input">
-        <item>Klart</item>
-        <item>Nedbør</item>
+        <item>Clear</item>
+        <item>Rain</item>
         <item>Storm</item>
-        <item>Overskyet</item>
+        <item>Cloudy</item>
     </string-array>
 
     <string name="plan_tempSurface">Temperature on surface:</string>

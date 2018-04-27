@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import no.ntnu.diverslogbook.FinishPlan;
 import no.ntnu.diverslogbook.model.DiveLog;
 import no.ntnu.diverslogbook.Globals;
 import no.ntnu.diverslogbook.R;
@@ -45,7 +46,6 @@ public class PlanFragment extends Fragment {
      */
     private EditText dateInput;
     private AutoCompleteTextView buddyInput;
-    private String buddy;
     private AutoCompleteTextView guardInput;
     private AutoCompleteTextView locationInput;
     private Spinner diveTypeSpinner;
@@ -115,12 +115,44 @@ public class PlanFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_plan, container, false);
-
         getActivity().setTitle(R.string.plan_title);
-        initializePlanView();
+
+        checkIfNewPlanExists();
+
 
         // Inflate the layout for this fragment
         return view;
+    }
+
+
+    /**
+     * Check if the user already has an unfinished plan or not.
+     */
+    private void checkIfNewPlanExists() {
+        Database.registerObserver(changedObject -> {
+
+            // Finding the diver object that is equal to the logged in diver object.
+            // I do this because the logged in user is not getting the list of dive logs for some reason..
+            // TODO: Why is dive logs not available from the logged in user?
+            if (changedObject instanceof Diver && ((Diver) changedObject).getId().equals(Database.getLoggedInDiver().getId())){
+                DiveLog unfinishedLog = null;
+
+                // Go through all dive logs for this user.
+                for (DiveLog log : ((Diver) changedObject).getDiveLogs()) {
+
+                    // If there is an unfinished log, make the user finish the plan.
+                    if (log.getActualDepth() == 0) {
+                        unfinishedLog = log;
+                    }
+                }
+
+                if (unfinishedLog == null) {
+                    initializePlanView();
+                } else {
+                    navigateToFinishPlan(unfinishedLog);
+                }
+            }
+        });
     }
 
 
@@ -214,7 +246,6 @@ public class PlanFragment extends Fragment {
             if (resultCode == Activity.RESULT_OK) {
 
                 securityStops = (ArrayList<DiveLog.SecurityStop>) data.getSerializableExtra(Globals.SECURITYSTOPS);
-                Log.d("TAG", "In fragment: " + securityStops.size() + " stops.");
                 ImageView icon = view.findViewById(R.id.securityIcon);
                 icon.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_security_green_24dp));
 
@@ -422,20 +453,8 @@ public class PlanFragment extends Fragment {
                                     Integer.valueOf(divingTime), Integer.valueOf(tankSize), Integer.valueOf(tankPressure),
                                     diveGas, weather, Float.parseFloat(tempSurface), Float.parseFloat(tempWater), notes);
 
-        // Try to retrieve logged in user.
-        Diver diver = Database.getLoggedInDiver();
-
-        // Update the user with the new dive log.
-        if (diver == null) {
-            Database.registerObserver(changedObject -> {
-                if (changedObject instanceof Diver && ((Diver) changedObject).getId().equals(Database.getLoggedInDiverGuid())){
-
-                    updateUser((Diver) changedObject, newLog);
-                }
-            });
-        } else {
-            updateUser(diver, newLog);
-        }
+        // Update user with the new dive log.
+        updateUser(Database.getLoggedInDiver(), newLog);
     }
 
 
@@ -470,104 +489,20 @@ public class PlanFragment extends Fragment {
     private void updateUser(Diver diver, DiveLog newLog) {
         diver.addDiveLog(newLog);
         Database.updateDiver(diver);
-
-        disableAllInputs();
-        createPlanButton.setText(R.string.finish_plan);
-
         Toast.makeText(getActivity(), R.string.plan_success, Toast.LENGTH_LONG).show();
+        navigateToFinishPlan(newLog);
     }
 
 
     /**
-     * Make all "planning" inputs disabled.
+     * Navigate to a screen where the user can finished the newly
+     * created diving plan.
+     *
+     * @param log A new diving log
      */
-    private void disableAllInputs() {
-        dateInput.setEnabled(false);
-        buddyInput.setEnabled(false);
-        guardInput.setEnabled(false);
-        locationInput.setEnabled(false);
-        diveTypeSpinner.setEnabled(false);
-        depthInput.setEnabled(false);
-        divingTimeInput.setEnabled(false);
-        tankSizeInput.setEnabled(false);
-        tankPressureInput.setEnabled(false);
-        diveGasSpinner.setEnabled(false);
-        weatherSpinner.setEnabled(false);
-        tempSurfaceInput.setEnabled(false);
-        tempWaterInput.setEnabled(false);
-        lastDive24.setEnabled(false);
-        lastDiveInput.setEnabled(false);
-        lastAlcohol24.setEnabled(false);
-        lastAlcoholInput.setEnabled(false);
-        notesInput.setEnabled(false);
-        chooseSecurityButton.setEnabled(false);
+    private void navigateToFinishPlan(DiveLog log) {
+        Intent intent = new Intent(getActivity(), FinishPlan.class);
+        intent.putExtra(Globals.FINISHPLAN, log);
+        startActivity(intent);
     }
-
-
-    /**
-     * Clear all input fields.
-     */
-    private void clearAllInputs() {
-        dateInput.setText("");
-        dateInput.setEnabled(true);
-
-        buddyInput.setText("");
-        buddyInput.setEnabled(true);
-
-        guardInput.setText("");
-        guardInput.setEnabled(true);
-
-        locationInput.setText("");
-        locationInput.setEnabled(true);
-
-        diveTypeSpinner.setSelection(0);
-        diveTypeSpinner.setEnabled(true);
-
-        depthInput.setText("");
-        depthInput.setEnabled(true);
-
-        divingTimeInput.setText("");
-        divingTimeInput.setEnabled(true);
-
-        tankSizeInput.setText("");
-        tankSizeInput.setEnabled(true);
-
-        tankPressureInput.setText("");
-        tankPressureInput.setEnabled(true);
-
-        diveGasSpinner.setSelection(0);
-        diveGasSpinner.setEnabled(true);
-
-        weatherSpinner.setSelection(0);
-        weatherSpinner.setEnabled(true);
-
-        tempSurfaceInput.setText("");
-        tempSurfaceInput.setEnabled(true);
-
-        tempWaterInput.setText("");
-        tempWaterInput.setEnabled(true);
-
-        lastDive24.setChecked(false);
-        lastDive24.setEnabled(true);
-
-        lastDiveInput.setText("");
-        lastDiveInput.setEnabled(true);
-
-        lastDive24.setChecked(false);
-        lastAlcohol24.setEnabled(true);
-
-        lastAlcoholInput.setText("");
-        lastAlcoholInput.setEnabled(true);
-
-        notesInput.setText("");
-        notesInput.setEnabled(true);
-
-        chooseSecurityButton.setEnabled(true);
-        chooseSecurityButton.setText(R.string.choose);
-
-        createPlanButton.setText(R.string.create_plan);
-
-        // TODO: Hide the newest input fields
-    }
-
 }

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import no.ntnu.diverslogbook.model.DiveLog;
 import no.ntnu.diverslogbook.model.Diver;
 import no.ntnu.diverslogbook.model.Location;
 
@@ -28,9 +29,9 @@ import no.ntnu.diverslogbook.model.Location;
 public abstract class Database {
 
     /**
-     * The GUID of the logged in user
+     * The object of the logged in diver.
      */
-    private static String LOGGED_IN_DIVER_GUID = "";
+    private static Diver LOGGED_IN_DIVER = null;
 
     /**
      * The root-element in the database
@@ -146,7 +147,7 @@ public abstract class Database {
      * @see Diver
      */
     public static void createDiver(Diver diver) {
-        if(!containsDiver(diver)) {
+        if (!containsDiver(diver)) {
             DIVERS.child(diver.getId()).setValue(diver);
         }
     }
@@ -158,7 +159,7 @@ public abstract class Database {
      * @see Diver
      */
     public static void updateDiver(Diver diver) {
-        DIVERS.child(LOGGED_IN_DIVER_GUID).setValue(diver);
+        DIVERS.child(LOGGED_IN_DIVER.getId()).setValue(diver);
     }
 
     /**
@@ -166,15 +167,11 @@ public abstract class Database {
      * @return The currently logged in diver
      */
     public static Diver getLoggedInDiver() {
-        return getDiver(LOGGED_IN_DIVER_GUID);
+        return LOGGED_IN_DIVER;
     }
 
-    public static String getLoggedInDiverGuid(){
-        return LOGGED_IN_DIVER_GUID;
-    }
-
-    public static void setLoggedInDiver(String guid) {
-        LOGGED_IN_DIVER_GUID = guid;
+    public static void setLoggedInDiver(Diver diver) {
+        LOGGED_IN_DIVER = diver;
     }
 
 
@@ -224,7 +221,13 @@ public abstract class Database {
                 if (!DIVERLIST.contains(diver)) {
                     DIVERLIST.add(diver);
                     OBSERVER_MANAGER.notifyChange(diver);
+                } else if (diver.equals(LOGGED_IN_DIVER)) {
+                    LOGGED_IN_DIVER = diver;
                 }
+            }
+
+            if (!DIVERLIST.contains(LOGGED_IN_DIVER)) {
+                createDiver(LOGGED_IN_DIVER);
             }
         }
 

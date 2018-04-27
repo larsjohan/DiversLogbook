@@ -45,7 +45,7 @@ public class ProfileFragment extends Fragment {
 
         if(diver == null) {
             Database.registerObserver(changedObject -> {
-                if(changedObject instanceof Diver && ((Diver) changedObject).getId().equals(Database.getLoggedInDiverGuid())){
+                if(changedObject instanceof Diver && ((Diver) changedObject).getId().equals(Database.getLoggedInDiver().getId())){
                     updateView(view, (Diver) changedObject);
                     view.invalidate();
                 }

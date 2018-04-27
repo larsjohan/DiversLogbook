@@ -82,7 +82,7 @@ public class DiveLog implements Serializable {
         // These should be set after the first initialization.
         this.startTime = null;
         this.endTime = null;
-        this.current = null;
+        this.current = "";
         this.actualDepth = 0;
         this.endTankPressure = 0;
         this.notesAfter = "";
@@ -119,7 +119,7 @@ public class DiveLog implements Serializable {
         // These should be set after the first initialization.
         this.startTime = null;
         this.endTime = null;
-        this.current = null;
+        this.current = "";
         this.actualDepth = 0;
         this.endTankPressure = 0;
         this.notesAfter = "";

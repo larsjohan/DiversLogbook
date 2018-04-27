@@ -12,6 +12,11 @@ public class Globals {
     public static final String SECURITYSTOPS = "security_stops";
 
     /**
+     * Used for sending a newly created plan with intent.
+     */
+    public static final String FINISHPLAN = "finish_plan";
+
+    /**
      * Used when checking the value of time since last dive and alcohol intake.
      */
     public static final String MORETHAN24H = "more_than_24_hours";
