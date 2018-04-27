@@ -190,7 +190,8 @@
     <string name="plan_notes">Notes:</string>
     <string name="plan_notes_hint">Optional notes..</string>
     <string name="create_plan">Create plan</string>
-    <string name="finish_plan">Finish plan</string>
+    <string name="finish_plan">Update plan after dive</string>
+    <string name="plan_finish_button">Update plan</string>
 
     <string name="plan_security_stops_title">Security stops</string>
     <string name="plan_stops_depth_title">Depth in meters</string>
@@ -199,14 +200,19 @@
     <string name="plan_stops_new">Add new stop</string>
     <string name="plan_stops_remove">Remove last stop</string>
 
-    <string name="plan_success">Your diving plan was successfully added!</string>
+    <string name="plan_success">Your diving plan was successfully saved!</string>
+    <string name="plan_finish_success">Success! Your diving log is now finished.</string>
     <string name="plan_error">Error! Check your inputs again and verify that your inputs are correct.</string>
 
-    <string-array name="plan_current">
+    <string name="plan_current">Current in water:</string>
+    <string-array name="plan_current_input">
         <item>None</item>
         <item>Light</item>
         <item>Medium</item>
         <item>Strong</item>
     </string-array>
+
+    <string name="plan_actual_depth">Actual depth:</string>
+    <string name="plan_end_tank_pressure">Tank pressure now:</string>
 
 </resources>

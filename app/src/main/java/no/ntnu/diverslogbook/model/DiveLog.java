@@ -181,6 +181,16 @@ public class DiveLog implements Serializable {
 
 
     /**
+     * Set the notes from after the dive.
+     *
+     * @param notesAfter Notes
+     */
+    public void setNotesAfter(String notesAfter) {
+        this.notesAfter = notesAfter;
+    }
+
+
+    /**
      * If Nitrox was chosen as tank gas, set specific data.
      *
      * @param fO2 The fO2 value

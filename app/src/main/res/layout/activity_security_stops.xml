@@ -60,6 +60,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/danger"
+            android:padding="15dp"
+            android:layout_margin="15dp"
             android:text="@string/plan_stops_remove" />
 
         <Button
@@ -68,6 +70,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/success"
+            android:padding="15dp"
+            android:layout_margin="15dp"
             android:text="@string/plan_stops_new" />
     </LinearLayout>
 
@@ -86,6 +90,8 @@
             android:backgroundTint="@color/colorPrimary"
             android:text="@string/plan_save_stops"
             android:textColor="@color/white"
+            android:padding="15dp"
+            android:layout_margin="10dp"
             android:layout_gravity="center_horizontal|center"/>
 
 

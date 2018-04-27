@@ -157,7 +157,12 @@ public class SecurityStops extends AppCompatActivity {
 
         // Add row to table and enable the remove button.
         table.addView(row);
-        removeButton.setEnabled(true);
+
+        if (rowCounter > 1) {
+            removeButton.setEnabled(true);
+        } else {
+            removeButton.setEnabled(false);
+        }
     }
 
 
