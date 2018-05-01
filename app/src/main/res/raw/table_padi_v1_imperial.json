@@ -881,7 +881,7 @@
 		],
 		"SI": [
 			{
-				"staurationStart": "A",
+				"saturationStart": "A",
 				"intervals":[
 					{
 						"start": {
@@ -896,7 +896,7 @@
 					}
 				]
 			},{
-				"staurationStart": "B",
+				"saturationStart": "B",
 				"intervals":[
 					{
 						"start": {
@@ -921,7 +921,7 @@
 					}
 				]
 			},{
-				"staurationStart": "C",
+				"saturationStart": "C",
 				"intervals":[
 					{
 						"start": {
@@ -956,7 +956,7 @@
 					}
 				]
 			},{
-				"staurationStart": "D",
+				"saturationStart": "D",
 				"intervals":[
 					{
 						"start": {
@@ -1001,7 +1001,7 @@
 					}
 				]
 			},{
-				"staurationStart": "E",
+				"saturationStart": "E",
 				"intervals":[
 					{
 						"start": {
@@ -1056,7 +1056,7 @@
 					}
 				]
 			},{
-				"staurationStart": "F",
+				"saturationStart": "F",
 				"intervals":[
 					{
 						"start": {
@@ -1121,7 +1121,7 @@
 					}
 				]
 			},{
-				"staurationStart": "G",
+				"saturationStart": "G",
 				"intervals":[
 					{
 						"start": {
@@ -1196,7 +1196,7 @@
 					}
 				]
 			},{
-				"staurationStart": "H",
+				"saturationStart": "H",
 				"intervals":[
 					{
 						"start": {
@@ -1281,7 +1281,7 @@
 					}
 				]
 			},{
-				"staurationStart": "I",
+				"saturationStart": "I",
 				"intervals":[
 					{
 						"start": {
@@ -1376,7 +1376,7 @@
 					}
 				]
 			},{
-				"staurationStart": "J",
+				"saturationStart": "J",
 				"intervals":[
 					{
 						"start": {
@@ -1481,7 +1481,7 @@
 					}
 				]
 			},{
-				"staurationStart": "K",
+				"saturationStart": "K",
 				"intervals":[
 					{
 						"start": {
@@ -1596,7 +1596,7 @@
 					}
 				]
 			},{
-				"staurationStart": "L",
+				"saturationStart": "L",
 				"intervals":[
 					{
 						"start": {
@@ -1721,7 +1721,7 @@
 					}
 				]
 			},{
-				"staurationStart": "M",
+				"saturationStart": "M",
 				"intervals":[
 					{
 						"start": {
@@ -1856,7 +1856,7 @@
 					}
 				]
 			},{
-				"staurationStart": "N",
+				"saturationStart": "N",
 				"intervals":[
 					{
 						"start": {
@@ -2001,7 +2001,7 @@
 					}
 				]
 			},{
-				"staurationStart": "O",
+				"saturationStart": "O",
 				"intervals":[
 					{
 						"start": {
@@ -2156,7 +2156,7 @@
 					}
 				]
 			},{
-				"staurationStart": "P",
+				"saturationStart": "P",
 				"intervals":[
 					{
 						"start": {
@@ -2321,7 +2321,7 @@
 					}
 				]
 			},{
-				"staurationStart": "Q",
+				"saturationStart": "Q",
 				"intervals":[
 					{
 						"start": {
@@ -2496,7 +2496,7 @@
 					}
 				]
 			},{
-				"staurationStart": "R",
+				"saturationStart": "R",
 				"intervals":[
 					{
 						"start": {
@@ -2681,7 +2681,7 @@
 					}
 				]
 			},{
-				"staurationStart": "S",
+				"saturationStart": "S",
 				"intervals":[
 					{
 						"start": {
@@ -2876,7 +2876,7 @@
 					}
 				]
 			},{
-				"staurationStart": "T",
+				"saturationStart": "T",
 				"intervals":[
 					{
 						"start": {
@@ -3081,7 +3081,7 @@
 					}
 				]
 			},{
-				"staurationStart": "U",
+				"saturationStart": "U",
 				"intervals":[
 					{
 						"start": {
@@ -3296,7 +3296,7 @@
 					}
 				]
 			},{
-				"staurationStart": "V",
+				"saturationStart": "V",
 				"intervals":[
 					{
 						"start": {
@@ -3521,7 +3521,7 @@
 					}
 				]
 			},{
-				"staurationStart": "W",
+				"saturationStart": "W",
 				"intervals":[
 					{
 						"start": {
@@ -3756,7 +3756,7 @@
 					}
 				]
 			},{
-				"staurationStart": "X",
+				"saturationStart": "X",
 				"intervals":[
 					{
 						"start": {
@@ -4001,7 +4001,7 @@
 					}
 				]
 			},{
-				"staurationStart": "Y",
+				"saturationStart": "Y",
 				"intervals":[
 					{
 						"start": {
@@ -4256,7 +4256,7 @@
 					}
 				]
 			},{
-				"staurationStart": "Z",
+				"saturationStart": "Z",
 				"intervals":[
 					{
 						"start": {
