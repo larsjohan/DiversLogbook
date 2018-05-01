@@ -8,13 +8,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import no.ntnu.diverslogbook.model.DiveLog;
 import no.ntnu.diverslogbook.model.Diver;
+import no.ntnu.diverslogbook.model.Location;
 
 /**
  * Provides global access to the database.
@@ -29,9 +29,9 @@ import no.ntnu.diverslogbook.model.Diver;
 public abstract class Database {
 
     /**
-     * The GUID of the logged in user
+     * The object of the logged in diver.
      */
-    private static String LOGGED_IN_DIVER_GUID = "";
+    private static Diver LOGGED_IN_DIVER = null;
 
     /**
      * The root-element in the database
@@ -51,7 +51,22 @@ public abstract class Database {
     /**
      * The root element for all log-elements in the database
      */
-    private static final DatabaseReference LOGS = DATABASE.child("logs");
+    private static final DatabaseReference LOGS = DATABASE.child("log");
+
+    /**
+     * The root element for all log-elements in the database
+     */
+    private static final DatabaseReference LOCATIONS = DATABASE.child("location");
+
+    /**
+     * Listener for divers-section of the database
+     */
+    private static final ValueEventListener LOCATIONS_LISTENER = new OnLocationDatabaseValueChanged();
+
+    /**
+     * A list of locations that is stored in the database
+     */
+    private static final List<Location> LOCATIONLIST = new ArrayList<>();
 
     /**
      * A list of divers that is stored in the database
@@ -85,7 +100,7 @@ public abstract class Database {
      * @return the Diver-instance, or null if not found
      * @see Diver
      */
-    public static Diver getDiver(@NotNull String id) {
+    public static Diver getDiver(String id) {
         for (Diver diver : DIVERLIST) {
             if (diver.getId().equals(id)) {
                 return diver;
@@ -93,6 +108,7 @@ public abstract class Database {
         }
         return null;
     }
+
 
     /**
      * Get a reference to all divers that has been loaded from the database
@@ -104,15 +120,46 @@ public abstract class Database {
         return DIVERLIST;
     }
 
+
+    /**
+     * Get a reference to all locations that has been loaded from the database
+     *
+     * @return A List of locations
+     * @see List
+     * @see Location
+     */
+    public static List<Location> getLocations() {
+        return LOCATIONLIST;
+    }
+
+    /**
+     * Adds a new location to the database
+     *
+     * @param location The location to add
+     */
+    private static void addLocation(Location location){
+        LOCATIONS.push().setValue(location);
+    }
+
     /**
      * Create a diver if it doesn't exist
      * @param diver The diver to create
      * @see Diver
      */
     public static void createDiver(Diver diver) {
-        if(!containsDiver(diver)) {
+        if (!containsDiver(diver)) {
             DIVERS.child(diver.getId()).setValue(diver);
         }
+    }
+
+    /**
+     * Update a diver whenever there's been added a new dive log.
+     *
+     * @param diver The diver to update
+     * @see Diver
+     */
+    public static void updateDiver(Diver diver) {
+        DIVERS.child(LOGGED_IN_DIVER.getId()).setValue(diver);
     }
 
     /**
@@ -120,15 +167,11 @@ public abstract class Database {
      * @return The currently logged in diver
      */
     public static Diver getLoggedInDiver() {
-        return getDiver(LOGGED_IN_DIVER_GUID);
+        return LOGGED_IN_DIVER;
     }
 
-    public static String getLoggedInDiverGuid(){
-        return LOGGED_IN_DIVER_GUID;
-    }
-
-    public static void setLoggedInDiver(String guid) {
-        LOGGED_IN_DIVER_GUID = guid;
+    public static void setLoggedInDiver(Diver diver) {
+        LOGGED_IN_DIVER = diver;
     }
 
 
@@ -137,13 +180,16 @@ public abstract class Database {
      */
     public static void init(){
         DIVERS.addValueEventListener(DIVERS_LISTENER);
+        LOCATIONS.addValueEventListener(LOCATIONS_LISTENER);
     }
+
 
     /**
      * Stops listening for updates from the database
      */
     public static void deInit() {
         DIVERS.removeEventListener(DIVERS_LISTENER);
+        LOCATIONS.removeEventListener(LOCATIONS_LISTENER);
     }
 
     public static void registerObserver(Observer observer) {
@@ -177,6 +223,10 @@ public abstract class Database {
                     OBSERVER_MANAGER.notifyChange(diver);
                 }
             }
+
+            if (!DIVERLIST.contains(LOGGED_IN_DIVER)) {
+                createDiver(LOGGED_IN_DIVER);
+            }
         }
 
         /**
@@ -190,5 +240,40 @@ public abstract class Database {
     }
 
 
+    /**
+     * A listener for all changes to the location section in the database.
+     *
+     * @see ValueEventListener
+     *
+     */
+    private static class OnLocationDatabaseValueChanged implements ValueEventListener {
 
+        /**
+         * Listen for changes in the stored locations.
+         *
+         * {@inheritDoc}
+         * @param dataSnapshot
+         */
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+
+            for (DataSnapshot data : dataSnapshot.getChildren()) {
+                Location location = data.getValue(Location.class);
+
+                if (!LOCATIONLIST.contains(location)){
+                    LOCATIONLIST.add(location);
+                    OBSERVER_MANAGER.notifyChange(location);
+                }
+            }
+        }
+
+        /**
+         * {@inheritDoc}
+         * @param databaseError
+         */
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            Log.e("DiveApp", "Unable to load data from database");
+        }
+    }
 }
