@@ -35,7 +35,7 @@ public class Timer extends CountDownTimer {
         Log.d("DiverApp", "mm: " + mm);
         long ss = sec % 60;
         Log.d("DiverApp", "ss: " + ss);
-        String time = "Time Remaining: " + mm + ":" + ss;
+        String time = mm + ":" + ss;
         this.textView.setText(time);
     }
 
