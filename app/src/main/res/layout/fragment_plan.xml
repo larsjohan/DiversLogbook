@@ -13,29 +13,27 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="284dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/plan_title"
-            android:textAlignment="center"
-            android:textSize="24sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="30dp"
+            android:text="@string/plan_date"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="30dp"
             android:text="@string/plan_buddy"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <TextView
             android:id="@+id/textView3"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="30dp"
@@ -45,7 +43,7 @@
 
         <TextView
             android:id="@+id/textView4"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="30dp"
@@ -55,7 +53,7 @@
 
         <TextView
             android:id="@+id/textView5"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="30dp"
@@ -65,7 +63,7 @@
 
         <TextView
             android:id="@+id/textView6"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="30dp"
@@ -75,7 +73,7 @@
 
         <TextView
             android:id="@+id/textView7"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="30dp"
@@ -85,7 +83,7 @@
 
         <TextView
             android:id="@+id/textView8"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="30dp"
@@ -95,7 +93,7 @@
 
         <TextView
             android:id="@+id/textView9"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="30dp"
@@ -105,7 +103,7 @@
 
         <TextView
             android:id="@+id/textView10"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="30dp"
@@ -115,7 +113,7 @@
 
         <TextView
             android:id="@+id/divegas"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="30dp"
@@ -125,7 +123,7 @@
 
         <TextView
             android:id="@+id/textView11"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="30dp"
@@ -135,7 +133,7 @@
 
         <TextView
             android:id="@+id/textView12"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="30dp"
@@ -145,7 +143,7 @@
 
         <TextView
             android:id="@+id/textView13"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="30dp"
@@ -155,7 +153,7 @@
 
         <TextView
             android:id="@+id/textView14"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="30dp"
@@ -165,7 +163,7 @@
 
         <TextView
             android:id="@+id/textView15"
-            android:layout_width="95dp"
+            android:layout_width="100dp"
             android:layout_height="38dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="30dp"
@@ -175,7 +173,7 @@
 
         <TextView
             android:id="@+id/textView16"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="30dp"
@@ -183,34 +181,48 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
-        <AutoCompleteTextView
-            android:id="@+id/buddy"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/dateChoice"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="37dp"
-            android:text="@string/plan_buddy_input"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:inputType="date"
+            android:textSize="14sp"
+            android:hint="@string/plan_date_hint"
+            android:gravity="center_horizontal"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <AutoCompleteTextView
+            android:id="@+id/buddy"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            android:hint="@string/plan_buddy_input"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/dateChoice" />
 
         <ImageView
             android:id="@+id/buddyIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="46dp"
+            android:layout_marginTop="12dp"
             app:layout_constraintStart_toEndOf="@+id/buddy"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/dateChoice"
             app:srcCompat="@drawable/ic_person_add_black_24dp" />
 
         <AutoCompleteTextView
             android:id="@+id/guard"
-            android:layout_width="wrap_content"
+            android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/plan_guard_input"
+            android:hint="@string/plan_guard_input"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/textView3"
             app:layout_constraintTop_toBottomOf="@+id/buddy" />
@@ -227,11 +239,11 @@
 
         <AutoCompleteTextView
             android:id="@+id/loaction"
-            android:layout_width="wrap_content"
+            android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/plan_location_input"
+            android:hint="@string/plan_location_input"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/textView4"
             app:layout_constraintTop_toBottomOf="@+id/guard" />
@@ -251,7 +263,7 @@
             android:layout_width="160dp"
             android:layout_height="22dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="17dp"
             android:entries="@array/plan_dive_type_input"
             android:entryValues="@array/plan_dive_type_input_values"
             app:layout_constraintStart_toEndOf="@+id/textView5"
@@ -266,6 +278,7 @@
             android:textSize="14sp"
             android:ems="10"
             android:inputType="number"
+            android:gravity="center_horizontal"
             app:layout_constraintStart_toEndOf="@+id/textView6"
             app:layout_constraintTop_toBottomOf="@+id/diveType" />
 
@@ -284,10 +297,11 @@
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="15dp"
             android:ems="10"
             android:inputType="number"
             android:textSize="14sp"
+            android:gravity="center_horizontal"
             app:layout_constraintStart_toEndOf="@+id/textView7"
             app:layout_constraintTop_toBottomOf="@+id/depth" />
 
@@ -296,7 +310,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="29dp"
+            android:layout_marginTop="37dp"
             android:text="@string/minutes"
             app:layout_constraintStart_toEndOf="@+id/divingTime"
             app:layout_constraintTop_toBottomOf="@+id/textView17" />
@@ -306,7 +320,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="13dp"
             android:text="@string/choose"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@+id/textView8"
@@ -317,8 +331,9 @@
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="9dp"
             android:ems="10"
+            android:gravity="center_horizontal"
             android:inputType="number"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/textView9"
@@ -343,6 +358,7 @@
             android:ems="10"
             android:inputType="number"
             android:textSize="14sp"
+            android:gravity="center_horizontal"
             app:layout_constraintStart_toEndOf="@+id/textView10"
             app:layout_constraintTop_toBottomOf="@+id/tankSize" />
 
@@ -372,7 +388,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="25dp"
             app:layout_constraintStart_toEndOf="@+id/chooseSecurity"
             app:layout_constraintTop_toBottomOf="@+id/divingTime"
             app:srcCompat="@drawable/ic_security_black_24dp" />
@@ -393,8 +409,9 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="17dp"
+            android:layout_marginTop="26dp"
             android:ems="10"
+            android:gravity="center_horizontal"
             android:inputType="numberDecimal"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/textView12"
@@ -405,7 +422,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="35dp"
             android:text="@string/degrees"
             app:layout_constraintStart_toEndOf="@+id/tempSurface"
             app:layout_constraintTop_toBottomOf="@+id/weather" />
@@ -415,10 +432,11 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="11dp"
+            android:layout_marginTop="26dp"
             android:ems="10"
             android:inputType="numberDecimal"
             android:textSize="14sp"
+            android:gravity="center_horizontal"
             app:layout_constraintStart_toEndOf="@+id/textView13"
             app:layout_constraintTop_toBottomOf="@+id/tempSurface" />
 
@@ -427,66 +445,72 @@
             android:layout_width="wrap_content"
             android:layout_height="18dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="47dp"
             android:text="@string/degrees"
             app:layout_constraintStart_toEndOf="@+id/tempWater"
             app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/lastDiveCheckbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:text="@string/more24"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/lastDive"
             app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
         <CheckBox
-            android:id="@+id/checkBox2"
+            android:id="@+id/lastAlcoholCheckbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="27dp"
+            android:layout_marginTop="35dp"
             android:text="@string/more24"
             app:layout_constraintStart_toEndOf="@+id/lastAlcohol"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+            app:layout_constraintTop_toBottomOf="@+id/lastDiveCheckbox" />
+
+        <EditText
+            android:id="@+id/lastDive"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="25dp"
+            android:ems="10"
+            android:inputType="time"
+            android:textSize="14sp"
+            android:hint="@string/h_and_m"
+            android:gravity="center_horizontal"
+            app:layout_constraintStart_toEndOf="@+id/textView14"
+            app:layout_constraintTop_toBottomOf="@+id/tempWater" />
+
+        <EditText
+            android:id="@+id/lastAlcohol"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="28dp"
+            android:ems="10"
+            android:inputType="time"
+            android:textSize="14sp"
+            android:hint="@string/h_and_m"
+            android:gravity="center_horizontal"
+            app:layout_constraintStart_toEndOf="@+id/textView15"
+            app:layout_constraintTop_toBottomOf="@+id/lastDive" />
 
         <EditText
             android:id="@+id/notes"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="20dp"
             android:ems="10"
+            android:hint="@string/plan_notes_hint"
             android:inputType="textMultiLine"
+            android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/textView16"
             app:layout_constraintTop_toBottomOf="@+id/lastAlcohol" />
-
-        <EditText
-            android:id="@+id/lastDive"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="6dp"
-            android:ems="10"
-            android:inputType="time"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/textView14"
-            app:layout_constraintTop_toBottomOf="@+id/tempWater" />
-
-        <EditText
-            android:id="@+id/lastAlcohol"
-            android:layout_width="85dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="19dp"
-            android:ems="10"
-            android:inputType="time"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/textView15"
-            app:layout_constraintTop_toBottomOf="@+id/lastDive" />
 
         <Button
             android:id="@+id/createPlan"
@@ -495,8 +519,10 @@
             android:layout_marginBottom="15dp"
             android:layout_marginStart="148dp"
             android:layout_marginTop="36dp"
+            android:backgroundTint="@color/success"
             android:text="@string/create_plan"
             android:textSize="12sp"
+            android:padding="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/notes" />
