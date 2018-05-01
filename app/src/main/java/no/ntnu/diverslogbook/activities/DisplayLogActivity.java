@@ -1,4 +1,4 @@
-package no.ntnu.diverslogbook;
+package no.ntnu.diverslogbook.activities;
 
 
 import android.content.Intent;
@@ -13,9 +13,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Date;
 
-import no.ntnu.diverslogbook.model.DiveLog;
-import no.ntnu.diverslogbook.util.Database;
-import no.ntnu.diverslogbook.util.DiveTable;
+import no.ntnu.diverslogbook.R;
+import no.ntnu.diverslogbook.models.DiveLog;
+import no.ntnu.diverslogbook.utils.Database;
+import no.ntnu.diverslogbook.utils.DiveTable;
 
 
 /**

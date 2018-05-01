@@ -28,14 +28,14 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import no.ntnu.diverslogbook.FinishPlan;
-import no.ntnu.diverslogbook.model.DiveLog;
-import no.ntnu.diverslogbook.Globals;
+import no.ntnu.diverslogbook.activities.FinishPlanActivity;
+import no.ntnu.diverslogbook.models.DiveLog;
+import no.ntnu.diverslogbook.utils.Globals;
 import no.ntnu.diverslogbook.R;
-import no.ntnu.diverslogbook.SecurityStops;
-import no.ntnu.diverslogbook.model.Diver;
-import no.ntnu.diverslogbook.model.Location;
-import no.ntnu.diverslogbook.util.Database;
+import no.ntnu.diverslogbook.activities.SecurityStopsActivity;
+import no.ntnu.diverslogbook.models.Diver;
+import no.ntnu.diverslogbook.models.Location;
+import no.ntnu.diverslogbook.utils.Database;
 
 
 /**
@@ -213,7 +213,7 @@ public class PlanFragment extends Fragment {
      */
     private String getToday() {
         Date d = new Date();
-        String today  = (String) DateFormat.format("dd/MM/yyyy ", d.getTime());
+        String today  = (String) DateFormat.format("dd/MM/yyyy", d.getTime());
 
         return today;
     }
@@ -253,14 +253,14 @@ public class PlanFragment extends Fragment {
      * @param view The view
      */
     public void chooseSecurity(View view) {
-        Intent intent = new Intent(getActivity(), SecurityStops.class);
+        Intent intent = new Intent(getActivity(), SecurityStopsActivity.class);
         intent.putExtra(Globals.SECURITYSTOPS, securityStops);
         startActivityForResult(intent, SECURITY_STOPS_RESULT);
     }
 
 
     /**
-     * Retrieve data from the SecurityStops activity.
+     * Retrieve data from the SecurityStopsActivity activity.
      *
      * @param requestCode The request code
      * @param resultCode The result code
@@ -414,7 +414,7 @@ public class PlanFragment extends Fragment {
      *
      * @return true if all data is valid
      */
-    public boolean planDataIsValid(String date, String buddy, String guard, String location, String depth,
+    protected boolean planDataIsValid(String date, String buddy, String guard, String location, String depth,
                                     String divingTime, String tankSize, String tankPressure, String tempSurface,
                                     String tempWater, String lastDive, String lastAlcohol) {
 
@@ -566,7 +566,7 @@ public class PlanFragment extends Fragment {
      * @param log A new diving log
      */
     private void navigateToFinishPlan(Diver diver, DiveLog log) {
-        Intent intent = new Intent(getActivity(), FinishPlan.class);
+        Intent intent = new Intent(getActivity(), FinishPlanActivity.class);
         intent.putExtra(Globals.FINISH_PLAN_LOG, log);
         intent.putExtra(Globals.FINISH_PLAN_DIVER, diver);
         startActivityForResult(intent, FINISH_PLAN_RESULT);
@@ -611,7 +611,6 @@ public class PlanFragment extends Fragment {
         icon.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_add_location_black_24dp));
 
         // Update button text.
-        Button securityButton = view.findViewById(R.id.chooseSecurity);
-        securityButton.setText(R.string.choose);
+        chooseSecurityButton.setText(R.string.choose);
     }
 }

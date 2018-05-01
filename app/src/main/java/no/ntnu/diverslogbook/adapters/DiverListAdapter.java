@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,7 +14,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import no.ntnu.diverslogbook.R;
-import no.ntnu.diverslogbook.model.Diver;
+import no.ntnu.diverslogbook.models.Diver;
 
 public class DiverListAdapter extends ArrayAdapter<Diver> {
 

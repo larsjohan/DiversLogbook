@@ -4,7 +4,6 @@ package no.ntnu.diverslogbook.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +12,12 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import no.ntnu.diverslogbook.DisplayLogActivity;
-import no.ntnu.diverslogbook.model.DiveLog;
+import no.ntnu.diverslogbook.activities.DisplayLogActivity;
+import no.ntnu.diverslogbook.models.DiveLog;
 import no.ntnu.diverslogbook.R;
 import no.ntnu.diverslogbook.adapters.LogListAdapter;
-import no.ntnu.diverslogbook.model.Diver;
-import no.ntnu.diverslogbook.util.Database;
+import no.ntnu.diverslogbook.models.Diver;
+import no.ntnu.diverslogbook.utils.Database;
 
 /**
  * This is the log view, displays a list of all the logs for logged in user.

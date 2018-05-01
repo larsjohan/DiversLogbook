@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import no.ntnu.diverslogbook.exceptions.TableScopeException;
-import no.ntnu.diverslogbook.util.DiveTable;
+import no.ntnu.diverslogbook.utils.DiveTable;
 
 import static org.junit.Assert.*;
 

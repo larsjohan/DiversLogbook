@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 
-import no.ntnu.diverslogbook.LoginActivity;
+import no.ntnu.diverslogbook.activities.LoginActivity;
 import no.ntnu.diverslogbook.R;
 
 

@@ -1,7 +1,6 @@
-package no.ntnu.diverslogbook;
+package no.ntnu.diverslogbook.activities;
 
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,20 +8,15 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthProvider;
 
-import no.ntnu.diverslogbook.model.Diver;
-import no.ntnu.diverslogbook.util.Database;
+import no.ntnu.diverslogbook.R;
+import no.ntnu.diverslogbook.models.Diver;
+import no.ntnu.diverslogbook.utils.Database;
+import no.ntnu.diverslogbook.utils.oauth.OAuthProvider;
+import no.ntnu.diverslogbook.utils.oauth.GoogleLogin;
 
 /**
  * Handles login and authentication.
@@ -55,14 +49,9 @@ public class LoginActivity extends AppCompatActivity {
     private static final int EMAIL_LOGIN_RESULT = 4;
 
     /**
-     * Login client for google-login
+     * The provider the user has selected to log in with
      */
-    private GoogleSignInClient googleLoginClient;
-
-    /**
-     * Google account instance
-     */
-    private GoogleSignInAccount account;
+    OAuthProvider oAuthProvider;
 
     /**
      * Firebase authentication hook
@@ -75,6 +64,11 @@ public class LoginActivity extends AppCompatActivity {
      */
     private FirebaseUser user;
 
+
+    /**
+     * Constructor.
+     * Initializes the database
+     */
     public LoginActivity(){
         Database.init();
     }
@@ -83,8 +77,7 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * {@inheritDoc}
      *
-     * Creates a hook to google-authentication, and integration with firebase.
-     * Sets listeners for buttons in gui.
+     * Initializes listeners for buttons in GUI, and firebase Authentication.
      *
      * @param savedInstanceState
      */
@@ -93,19 +86,15 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        GoogleSignInOptions googleLoginOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.Oauth2_client_secret))
-                .requestEmail()
-                .build();
-
-        this.googleLoginClient = GoogleSignIn.getClient(this, googleLoginOptions);
-
+        // Init firebase
         this.firebaseAuth = FirebaseAuth.getInstance();
 
+        // Find oAuth buttons
         ImageButton googleLogin = findViewById(R.id.ib_login_with_google);
         ImageButton twitterLogin = findViewById(R.id.ib_login_with_twitter);
         ImageButton facebookLogin = findViewById(R.id.ib_login_with_facebook);
 
+        // Add listeners
         twitterLogin.setOnClickListener(this::comingSoon);
         facebookLogin.setOnClickListener(this::comingSoon);
         googleLogin.setOnClickListener(this::loginWithGoogle);
@@ -119,7 +108,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * When the activity starts: Makes a check if the user already is logged in.
+     * {@inheritDoc}
+     *
+     * When the activity starts: Check if the user already is logged in.
      */
     @Override
     protected void onStart() {
@@ -141,7 +132,8 @@ public class LoginActivity extends AppCompatActivity {
      * @param view context
      */
     void loginWithGoogle(View view){
-        Intent loginWithGoogle = this.googleLoginClient.getSignInIntent();
+        this.oAuthProvider = new GoogleLogin(this);
+        Intent loginWithGoogle = this.oAuthProvider.getLoginIntent();
         startActivityForResult(loginWithGoogle, GOOGLE_LOGIN_RESULT);
     }
 
@@ -161,29 +153,12 @@ public class LoginActivity extends AppCompatActivity {
         switch(requestCode){
             // Handle login/auth from Google
             case GOOGLE_LOGIN_RESULT:
-                Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-                try{
-                    this.account = task.getResult(ApiException.class);
-                    AuthCredential credential = GoogleAuthProvider.getCredential(this.account.getIdToken(), null);
-
-                    this.firebaseAuth.signInWithCredential(credential)
-                            .addOnCompleteListener(this, (loginTask) -> {
-                                if(loginTask.isSuccessful()){
-                                    this.user = this.firebaseAuth.getCurrentUser();
-                                    updateUI();
-                                }else{
-                                    Log.w(getString(R.string.app_name), "Authentication failed: " + loginTask.getException());
-                                    this.user = null;
-                                }
-                            });
-
-                    updateUI();
-                } catch (ApiException e) {
-                    Log.w(getString(R.string.app_name), "Signin result failed: " + e.getMessage());
-                    Log.e("DiversLogBook", e.getStackTrace().toString());
-                    this.account = null;
-                    updateUI();
-                }
+                    AuthCredential credential = (AuthCredential) this.oAuthProvider.getLoginCredentialFromActivityResult(data);
+                    if(credential != null) {
+                        firebaseSignIn(credential);
+                    } else {
+                        this.user = null;
+                    }
                 break;
             // Handle login/auth from Twitter
             case TWITTER_LOGIN_RESULT: break;
@@ -198,16 +173,34 @@ public class LoginActivity extends AppCompatActivity {
      * Starts the app if the user has been authenticated.
      */
     void updateUI() {
-
+        
         if (this.user != null) {
             Diver diver = new Diver(this.user.getUid(), this.user.getDisplayName(), this.user.getEmail(), this.user.getPhoneNumber(), this.user.getPhotoUrl().toString());
             Database.setLoggedInDiver(diver);
 
+
             Intent startApp = new Intent(this, MainActivity.class);
             startActivity(startApp);
             finish();   // Remove this screen from stack to avoid back-button from MainActivity to open a new instance of itself
-        } else {
-            Toast.makeText(this, "Login failed. Try again.", Toast.LENGTH_LONG).show();
         }
+    }
+
+
+    /**
+     * Authenticates the provided credentials and updates the GUI.
+     * @param credential The login credentials to log in with
+     */
+    private void firebaseSignIn(AuthCredential credential) {
+        this.firebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, (loginTask) -> {
+                    if(loginTask.isSuccessful()){
+                        this.user = this.firebaseAuth.getCurrentUser();
+                    }else{
+                        Toast.makeText(this, "Login Failed. Try again", Toast.LENGTH_SHORT).show();
+                        Log.w(getString(R.string.app_name), "Authentication failed: " + loginTask.getException());
+                        this.user = null;
+                    }
+                    updateUI();
+                });
     }
 }

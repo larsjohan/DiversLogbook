@@ -1,4 +1,4 @@
-package no.ntnu.diverslogbook.model;
+package no.ntnu.diverslogbook.models;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

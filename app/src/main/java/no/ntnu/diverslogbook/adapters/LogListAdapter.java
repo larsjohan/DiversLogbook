@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import no.ntnu.diverslogbook.model.DiveLog;
+import no.ntnu.diverslogbook.models.DiveLog;
 import no.ntnu.diverslogbook.R;
 
 public class LogListAdapter extends ArrayAdapter<DiveLog> {

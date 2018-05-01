@@ -1,12 +1,14 @@
 package no.ntnu.diverslogbook;
 
 import org.junit.Test;
+import org.mockito.internal.util.reflection.Whitebox;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import no.ntnu.diverslogbook.fragments.PlanFragment;
-import no.ntnu.diverslogbook.model.DiveLog;
+import no.ntnu.diverslogbook.models.DiveLog;
+import no.ntnu.diverslogbook.utils.Globals;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -18,44 +20,47 @@ import static org.junit.Assert.assertTrue;
  */
 public class CreateLogTest extends PlanFragment {
 
+
     /**
-     * All possible inputs from PlanFragment and FinishPlan.
+     * Tests the function that checks if all the input data is valid.
      */
-    private String date = "27/04/2018";
-    private String buddy = "Lars Johan Nybø";
-    private String guard = "Lee Khan";
-    private String location = "Oppland, Gjøvik, Mjøsa";
-    private String diveType = "Work";
-    private String plannedDepth = "30";
-    private String actualDepth = "25";
-    private String timeSinceLastDive = "19:50";
-    private String timeSinceAlcoholIntake = Globals.MORETHAN24H;
-    private ArrayList<DiveLog.SecurityStop> securityStops = new ArrayList<>();
-    private String notes = "";
-    private String notesAfter = "Very beautiful reefs here!";
-    private String plannedDiveTime = "40";
-    private LocalDateTime startTime = null;
-    private LocalDateTime endTime = null;
-    private String tankSize = "300";
-    private String startTankPressure = "400";
-    private int endTankPressure = 200;
-    private String diveGas = "Air";
-    private String weather = "Cloudy";
-    private String current = "Strong";
-    private String tempSurface = "22";
-    private String tempWater = "12";
-
-
     @Test
     public void allDataIsValid() {
+        String date = "27/04/2018";
+        String buddy = "Lars Johan Nybø";
+        String guard = "Lee Khan";
+        String location = "Oppland, Gjøvik, Mjøsa";
+        String plannedDepth = "30";
+        String timeSinceLastDive = "19:50";
+        String timeSinceAlcoholIntake = Globals.MORETHAN24H;
+        String plannedDiveTime = "40";
+        String tankSize = "300";
+        String startTankPressure = "400";
+        String tempSurface = "22";
+        String tempWater = "12";
+
+        List<String> USERS = Arrays.asList("Lars Johan Nybø", "Lee Khan", "Linn Hege Kristensen");
+        Whitebox.setInternalState(this, "USERS", USERS);
+
+        List<String> LOCATIONS = Arrays.asList("Oppland, Gjøvik, Mjøsa", "Møre og Romsdal, Ålesund, Alnes", "Aust-Agder, Arendal, Bjelland");
+        Whitebox.setInternalState(this, "LOCATIONS", LOCATIONS);
+
         assertTrue(planDataIsValid(date, buddy, guard, location, plannedDepth, plannedDiveTime, tankSize,
                 startTankPressure, tempSurface, tempWater, timeSinceLastDive, timeSinceAlcoholIntake));
     }
 
-    @Test
-    public void returnsHoursAndMinutes() {
-        DiveLog.HoursAndMinutes test = new DiveLog.HoursAndMinutes(19, 50);
 
-        assertEquals(getNewHoursAndMinutes(timeSinceLastDive), test);
+    /**
+     * Tests if the a correct HoursAndMinutes object is returned based on input provided.
+     */
+    @Test
+    public void getNewHoursAndMinutesTest() {
+        String timeSinceLastDive = "19:50";
+
+        DiveLog.HoursAndMinutes test = new DiveLog.HoursAndMinutes(19, 50);
+        DiveLog.HoursAndMinutes object = getNewHoursAndMinutes(timeSinceLastDive);
+
+        assertEquals(object.getHours(), test.getHours());
+        assertEquals(object.getMinutes(), test.getMinutes());
     }
 }

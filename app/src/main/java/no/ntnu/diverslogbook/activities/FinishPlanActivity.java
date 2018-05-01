@@ -1,4 +1,4 @@
-package no.ntnu.diverslogbook;
+package no.ntnu.diverslogbook.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,16 +15,18 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import no.ntnu.diverslogbook.model.DiveLog;
-import no.ntnu.diverslogbook.model.Diver;
-import no.ntnu.diverslogbook.util.Database;
+import no.ntnu.diverslogbook.utils.Globals;
+import no.ntnu.diverslogbook.R;
+import no.ntnu.diverslogbook.models.DiveLog;
+import no.ntnu.diverslogbook.models.Diver;
+import no.ntnu.diverslogbook.utils.Database;
 
 
 /**
  * Manages the last attributes that should be added to the unfinished dive plan/log.
  * At the moment the user has to finish the plan before (s)he can do anything else.
  */
-public class FinishPlan extends AppCompatActivity {
+public class FinishPlanActivity extends AppCompatActivity {
 
     /**
      * The dive log to finish.
@@ -84,11 +86,12 @@ public class FinishPlan extends AppCompatActivity {
      * @param view The view
      */
     public void finishPlan(View view) {
-        if (allInputDataIsValid()) {
-            Log.d("TAG", "Data is valid! Add to database.");
+        String depthValue = actualDepth.getText().toString();
+        String pressureValue = endTankPressure.getText().toString();
+
+        if (allInputDataIsValid(depthValue, pressureValue)) {
             updatePlanInDatabase();
         } else {
-            Log.d("TAG", "Data is not valid..");
             Toast.makeText(this, R.string.plan_error, Toast.LENGTH_LONG).show();
         }
     }
@@ -97,14 +100,15 @@ public class FinishPlan extends AppCompatActivity {
     /**
      * Check if all the input values are okay.
      *
+     * @param depthValue The actual depth
+     * @param pressureValue The tank pressure
      * @return true if all inputs are valid
      */
-    private boolean allInputDataIsValid() {
+    protected boolean allInputDataIsValid(String depthValue, String pressureValue) {
         Pattern pattern = Pattern.compile("\\d*");
         Matcher matcher;
 
         boolean actualDepthOk;
-        String depthValue = actualDepth.getText().toString();
 
         // There is no input in depth value.
         if (depthValue.equals("")) {
@@ -115,7 +119,6 @@ public class FinishPlan extends AppCompatActivity {
         }
 
         boolean endTankPressureOk;
-        String pressureValue = endTankPressure.getText().toString();
 
         // There is no input in end tank pressure value.
         if (pressureValue.equals("")) {
