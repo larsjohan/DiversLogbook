@@ -30,11 +30,8 @@ public class Timer extends CountDownTimer {
         this.remainingMillis = millisUntilFinished;
 
         long sec = millisUntilFinished / 1000;
-        Log.d("DiverApp", "sec: " + sec);
         long mm = sec / 60;
-        Log.d("DiverApp", "mm: " + mm);
         long ss = sec % 60;
-        Log.d("DiverApp", "ss: " + ss);
         String time = mm + ":" + ss;
         this.textView.setText(time);
     }
