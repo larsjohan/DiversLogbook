@@ -11,6 +11,7 @@ import java.lang.ref.WeakReference;
 import java.net.URL;
 
 import no.ntnu.diverslogbook.R;
+import no.ntnu.diverslogbook.utils.ImageCache;
 
 public class DownloadProfileImageTask extends AsyncTask<String, Void, Bitmap> {
 
@@ -20,12 +21,15 @@ public class DownloadProfileImageTask extends AsyncTask<String, Void, Bitmap> {
      */
     private WeakReference<Activity> profileActivity;
 
+    private String imageName = "";
+
     /**
      * Constructor
      * @param profileActivity The activity where the ImageView is located
      */
-    public DownloadProfileImageTask(Activity profileActivity) {
+    public DownloadProfileImageTask(Activity profileActivity, String imageName) {
         this.profileActivity = new WeakReference<>(profileActivity);
+        this.imageName = imageName;
     }
 
     /**
@@ -54,6 +58,7 @@ public class DownloadProfileImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView image = this.profileActivity.get().findViewById(R.id.iv_profile_image);
         if(bitmap != null) {
             image.setImageBitmap(bitmap);
+            ImageCache.put(this.profileActivity.get(), this.imageName, bitmap);
         }
     }
 }
