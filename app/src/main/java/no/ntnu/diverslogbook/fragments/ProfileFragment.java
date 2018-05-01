@@ -67,10 +67,8 @@ public class ProfileFragment extends Fragment {
 
         Bitmap profileImg = ImageCache.get(this.getContext(), diver.getId());
         if(profileImg != null){
-            Log.d("DiverApp", "Loaded profile image from cache");
             image.setImageBitmap(profileImg);
         } else {
-            Log.d("DiverApp", "Loaded profile image from web");
             new DownloadProfileImageTask(this.getActivity(), diver.getId()).execute(diver.getProfilePhotoURI());
         }
 

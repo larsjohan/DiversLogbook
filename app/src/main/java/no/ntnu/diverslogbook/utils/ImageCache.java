@@ -3,7 +3,6 @@ package no.ntnu.diverslogbook.utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -30,7 +29,6 @@ public abstract class ImageCache {
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
             fos.flush();
             fos.close();
-            Log.d("DiverApp", "File stored in cache: " + key);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -48,7 +46,6 @@ public abstract class ImageCache {
             FileInputStream is = new FileInputStream(image);
             Bitmap loadedImage = BitmapFactory.decodeStream(is);
             is.close();
-            Log.d("DiverApp", "File loaded from cache: " + key);
             return loadedImage;
         } catch (IOException e) {
             e.printStackTrace();
