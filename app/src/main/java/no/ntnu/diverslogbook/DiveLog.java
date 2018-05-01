@@ -60,7 +60,7 @@ public class DiveLog implements Serializable {
         endDiveTime.setMinutes(startDiveTime.getMinutes() + 40);
         this.startTime = startDiveTime;
         this.endTime = endDiveTime;
-        this.timeSinceLastDive = new HoursAndMinutes(24,1);
+        this.timeSinceLastDive = new HoursAndMinutes(0,30);
         this.timeSinceAlcoholIntake = new HoursAndMinutes(2,1);
         ArrayList<SecurityStop> stops = new ArrayList<>();
         stops.add(new SecurityStop(2, 5));

@@ -187,6 +187,7 @@
     <string name="displaylog_diveBuddy">Dive buddy:</string>
     <string name="displaylog_diveType">Dive type:</string>
     <string name="displaylog_plannedDepth">Planned depth:</string>
+    <string name="displaylog_actualDepth">Actual depth:</string>
     <string name="displaylog_tsld">S:I :</string>
     <string name="displaylog_tslai">Last alcohol intake:</string>
     <string name="displaylog_securityStops">Security stops:</string>

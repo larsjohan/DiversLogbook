@@ -11,6 +11,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Date;
 
+import no.ntnu.diverslogbook.util.DiveTable;
+
 import static java.lang.Math.toIntExact;
 
 public class DisplayLogActivity extends AppCompatActivity {
@@ -63,6 +65,10 @@ public class DisplayLogActivity extends AppCompatActivity {
         // Form planned depth output text.
         String plannedDepthOutput = (Integer.toString(diveLog.getPlannedDepth()) + " " + getString(R.string.displayloga_meters));
         setText(R.id.tv_displaylog_planneddepth, plannedDepthOutput);
+
+        // TODO: setText on actualdepth.
+
+
 
 
         // Handling HoursAndMinutes class input.
@@ -132,7 +138,28 @@ public class DisplayLogActivity extends AppCompatActivity {
         setText(R.id.tv_displaylog_endpressure,   Integer.toString(endTankPressure)     + " " + getString(R.string.displayloga_bar));
         setText(R.id.tv_displaylog_usedpressure, usedPressureAndAir);
 
-        setText(R.id.tv_displaylog_saturation, "FIX THiS ");
+
+        // TODO: check table & units from prefs.
+        // Get actual depth.
+
+
+        // Calculate proper saturation.
+        DiveTable diveTable = new DiveTable(this, DiveTable.Table.PADI_METRIC);
+        int actualDepth = 10; // meter //TODO: get this from divelog.
+        String saturationGroup = "";
+
+        if (diveLog.getTimeSinceLastDive().hours >= 24) {
+            // More than 24 hours since last dive
+            saturationGroup = diveTable.getPreSISaturationGroup(actualDepth, actualDiveTime);
+        } else {
+            String adjustedSaturation = diveTable.getSISaturation("G", diveLog.getTimeSinceLastDive().hours, diveLog.getTimeSinceLastDive().minutes);
+            saturationGroup = diveTable.getPostSISaturationGroup(adjustedSaturation, actualDiveTime, actualDepth);
+        }
+
+
+
+        setText(R.id.tv_displaylog_saturation, saturationGroup);
+
         setText(R.id.tv_displaylog_divegas, diveLog.getDiveGas());
         setText(R.id.tv_displaylog_weather, diveLog.getWeather());
 
