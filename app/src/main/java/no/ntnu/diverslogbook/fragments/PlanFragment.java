@@ -169,7 +169,11 @@ public class PlanFragment extends Fragment {
                 } else {
                     navigateToFinishPlan(diver, unfinishedLog);
                 }
+
+                return true;
             }
+
+            return false;
         });
     }
 
@@ -306,6 +310,8 @@ public class PlanFragment extends Fragment {
                     String name = ((Diver) changedObject).getName();
                     USERS.add(name);
                 }
+
+                return false;
             });
         }
     }
@@ -323,6 +329,8 @@ public class PlanFragment extends Fragment {
                 if (changedObject instanceof Location){
                     LOCATIONS.add(((Location) changedObject).getName());
                 }
+
+                return false;
             });
         }
     }
