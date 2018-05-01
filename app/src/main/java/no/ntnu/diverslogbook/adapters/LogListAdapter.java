@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import no.ntnu.diverslogbook.DiveLog;
+import no.ntnu.diverslogbook.model.DiveLog;
 import no.ntnu.diverslogbook.R;
 
 public class LogListAdapter extends ArrayAdapter<DiveLog> {
@@ -36,19 +36,21 @@ public class LogListAdapter extends ArrayAdapter<DiveLog> {
         TextView date = convertView.findViewById(R.id.tv_loglist_date);
         TextView location = convertView.findViewById(R.id.tv_loglist_location);
 
-        //DiveLog diveLog = getItem(position);
+        DiveLog diveLog = getItem(position);
 
-        //diveNumber.setText(diveLog.getDiveNumber());
-        //date.setText(diveLog.getDate());
-        //location.setText(diveLog.getLocation());
+        String diveNr = Integer.toString(diveLog.getDiveCount());
+        diveNr = "#" + zeroPad(diveNr);
+        diveNumber.setText(diveNr);
+        date.setText(diveLog.getDate());
+        location.setText(diveLog.getLocation());
 
 
         /** Mock data */
-        DiveLog diveLog = getItem(position);
+       /* DiveLog diveLog = getItem(position);
         String diveNr = "1";
         diveNumber.setText("#" + zeroPad(diveNr));
         date.setText("2018-04-25");
-        location.setText("Langesund, Norway");
+        location.setText("Langesund, Norway");*/
         /**           */
 
 

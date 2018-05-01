@@ -91,13 +91,16 @@ public class DiveLog implements Serializable {
         this.notesAfter = "";
     }*/
     // Mock data
+    @SuppressWarnings("deprecation")
     public DiveLog() {
-        
+        this.diveCount = 1;
+        this.date = "01/02/2018";
         this.surfaceGuard = "guard 1";
         this.diveBuddy = "Buddy 1";
         this.location = "Langesund, Norway";
         this.diveType = "Recreational";
         this.plannedDepth = 45;
+        this.actualDepth = 10;
         Date startDiveTime = new Date();
         Date endDiveTime = new Date();
         endDiveTime.setMinutes(startDiveTime.getMinutes() + 40);
@@ -117,8 +120,10 @@ public class DiveLog implements Serializable {
         this.weather = "Cloudy";
         this.tempSurface = 15.7f;
         this.tempWater = 4.7f;
+        this.current = "LIGHT";
         this.notes = "This is the best note ever. What happens when the info in here " +
                 "get really really really long. Does the text jump down or does it go off screen?";
+        this.notesAfter = "Secondary!";
     }
 
 
@@ -172,6 +177,17 @@ public class DiveLog implements Serializable {
     public void setDiveCount(int diveCount) {
         this.diveCount = diveCount;
     }
+
+
+    /**
+     * Set tank size.
+     *
+     * @param tankSize The tank size
+     */
+    public void setTankSize(int tankSize) {
+        this.tankSize = tankSize;
+    }
+
 
     /**
      * Set start time of this dive.
@@ -234,6 +250,166 @@ public class DiveLog implements Serializable {
 
 
     /**
+     * Sets the date of dive.
+     *
+     * @param date date
+     */
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+
+    /**
+     * Sets the surface guard of the dive.
+     *
+     * @param surfaceGuard surfaceGuard
+     */
+    public void setSurfaceGuard(String surfaceGuard) {
+        this.surfaceGuard = surfaceGuard;
+    }
+
+
+    /**
+     * Sets the dive buddy of the dive.
+     *
+     * @param diveBuddy diveBuddy
+     */
+    public void setDiveBuddy(String diveBuddy) {
+        this.diveBuddy = diveBuddy;
+    }
+
+
+    /**
+     * Sets the location
+     *
+     * @param location location
+     */
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+
+    /**
+     * Set dive type.
+     *
+     * @param diveType dive type
+     */
+    public void setDiveType(String diveType) {
+        this.diveType = diveType;
+    }
+
+    /**
+     * Set planned depth of dive.
+     *
+     * @param plannedDepth planned depth
+     */
+    public void setPlannedDepth(int plannedDepth) {
+        this.plannedDepth = plannedDepth;
+    }
+
+
+    /**
+     * Sets time since last dive.
+     *
+     * @param timeSinceLastDive time since last dive
+     */
+    public void setTimeSinceLastDive(HoursAndMinutes timeSinceLastDive) {
+        this.timeSinceLastDive = timeSinceLastDive;
+    }
+
+
+    /**
+     * Sets time since last alcohol intake.
+     *
+     * @param timeSinceAlcoholIntake time since last alcohol intake
+     */
+    public void setTimeSinceAlcoholIntake(HoursAndMinutes timeSinceAlcoholIntake) {
+        this.timeSinceAlcoholIntake = timeSinceAlcoholIntake;
+    }
+
+
+    /**
+     * Sets the security stops
+     *
+     * @param securityStops security stops
+     */
+    public void setSecurityStops(ArrayList<SecurityStop> securityStops) {
+        this.securityStops = securityStops;
+    }
+
+
+    /**
+     * Set notes.
+     *
+     * @param notes notes
+     */
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+
+    /**
+     * Set planned dive time.
+     *
+     * @param plannedDiveTime planned dive time
+     */
+    public void setPlannedDiveTime(int plannedDiveTime) {
+        this.plannedDiveTime = plannedDiveTime;
+    }
+
+
+    /**
+     * Set start tank pressure.
+     *
+     * @param startTankPressure start tank pressure
+     */
+    public void setStartTankPressure(int startTankPressure) {
+        this.startTankPressure = startTankPressure;
+    }
+
+
+    /**
+     * Set dive gas.
+     *
+     * @param diveGas dive gas
+     */
+    public void setDiveGas(String diveGas) {
+        this.diveGas = diveGas;
+    }
+
+
+    /**
+     * Sets the weather.
+     *
+     * @param weather weather
+     */
+    public void setWeather(String weather) {
+        this.weather = weather;
+    }
+
+
+    /**
+     * Sets the surface temperature.
+     *
+     * @param tempSurface surface temperature
+     */
+    public void setTempSurface(float tempSurface) {
+        this.tempSurface = tempSurface;
+    }
+
+
+    /**
+     * Sets the water temperature.
+     *
+     * @param tempWater water temperature
+     */
+    public void setTempWater(float tempWater) {
+        this.tempWater = tempWater;
+    }
+
+
+
+    /**
      * If Nitrox was chosen as tank gas, set specific data.
      *
      * @param fO2 The fO2 value
@@ -269,6 +445,22 @@ public class DiveLog implements Serializable {
     public String getDate() {
         return date;
     }
+
+
+    /**
+     * Get date/time of dive's start time.
+     *
+     * @return Date-object including startTime
+     */
+    public Date getStartTime() { return startTime; }
+
+
+    /**
+     * Get date/time of dive's end time.
+     *
+     * @return Date-object including endTime
+     */
+    public Date getEndTime() { return endTime; }
 
 
     /**
@@ -382,6 +574,14 @@ public class DiveLog implements Serializable {
 
 
     /**
+     * Get size of tank
+     *
+     * @return tank size
+     */
+    public int getTankSize() { return tankSize; }
+
+
+    /**
      * Get the tank pressure from before the planned dive.
      *
      * @return Tank pressure
@@ -461,6 +661,8 @@ public class DiveLog implements Serializable {
     }
 
 
+
+
     /**********************************************
      ****************** CLASSES *******************
      **********************************************/
@@ -519,7 +721,7 @@ public class DiveLog implements Serializable {
     /**
      * Defines a specified amount of hours and minutes.
      */
-    public static class HoursAndMinutes {
+    public static class HoursAndMinutes implements Serializable {
 
         private int hours;
         private int minutes;
