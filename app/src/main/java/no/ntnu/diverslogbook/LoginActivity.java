@@ -110,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         // The user pressed logout in preferences
-        if(getIntent().getBooleanExtra("logout", false)){
+        if (getIntent().getBooleanExtra("logout", false)){
             this.firebaseAuth.signOut();
             Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show();
         }
@@ -182,21 +182,11 @@ public class LoginActivity extends AppCompatActivity {
      * Starts the app if the user has been authenticated.
      */
     void updateUI() {
-        if(this.user != null) {
+        
+        if (this.user != null) {
+            Diver diver = new Diver(this.user.getUid(), this.user.getDisplayName(), this.user.getEmail(), this.user.getPhoneNumber(), this.user.getPhotoUrl().toString());
+            Database.setLoggedInDiver(diver);
 
-            Diver diver = new Diver(
-                    this.user.getUid(),
-                    this.user.getDisplayName(),
-                    this.user.getEmail(),
-                    this.user.getPhoneNumber(),
-                    this.user.getPhotoUrl().toString()
-            );
-
-            Database.setLoggedInDiver(diver.getId());
-
-            if(!Database.containsDiver(diver)) {
-                Database.createDiver(diver);
-            }
 
             Intent startApp = new Intent(this, MainActivity.class);
             startActivity(startApp);

@@ -23,6 +23,7 @@ import no.ntnu.diverslogbook.fragments.DiveFragment;
 import no.ntnu.diverslogbook.fragments.LogFragment;
 import no.ntnu.diverslogbook.fragments.PlanFragment;
 import no.ntnu.diverslogbook.fragments.ProfileFragment;
+import no.ntnu.diverslogbook.util.DiveTable;
 
 
 /**
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         // Set listener on preferences.
         PreferenceManager.getDefaultSharedPreferences(this)
                 .registerOnSharedPreferenceChangeListener(new SettingsHandler(this));
-
+        
 
         // Setup the tab navigation.
         viewPager = (ViewPager) findViewById(R.id.pager);
@@ -140,6 +141,19 @@ public class MainActivity extends AppCompatActivity {
         this.feedSize = Integer.parseInt(pref.getString("feedSize", getString(R.string.itemsDefault)));
         */
 
+    }
+
+
+    /**
+     * Override this function so that fragments can use it.
+     *
+     * @param requestCode The request code
+     * @param resultCode The result code
+     * @param data Data from activity
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
 

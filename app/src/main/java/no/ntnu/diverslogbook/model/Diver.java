@@ -1,14 +1,17 @@
 package no.ntnu.diverslogbook.model;
 
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
 /**
  * This class represents a diver/user.
  * Keeps a reference to the authenticated frebase-user nad keeps information that is stored about the user
  *
  * @author Lars Johan
- * @see no.ntnu.diverslogbook.DiveLog
+ * @see DiveLog
  */
-public class Diver {
+public class Diver implements Serializable {
 
     private String id;
 
@@ -17,6 +20,8 @@ public class Diver {
     private String email;
 
     private String phone;
+
+    private ArrayList<DiveLog> diveLogs;
 
     private String profilePhotoURI;
 
@@ -27,6 +32,7 @@ public class Diver {
         this.email = "";
         this.phone = "";
         this.profilePhotoURI = null;
+        this.diveLogs = new ArrayList<>();
     }
 
     public Diver(final String id, final String name, final String email, final String phoneNumber, final String profilePhotoURI) {
@@ -35,7 +41,7 @@ public class Diver {
         this.email = email;
         this.phone = phoneNumber;
         this.profilePhotoURI = profilePhotoURI;
-
+        this.diveLogs = new ArrayList<>();
     }
 
     public String getId() {
@@ -54,6 +60,9 @@ public class Diver {
         return phone;
     }
 
+    public ArrayList<DiveLog> getDiveLogs() {
+        return diveLogs;
+    }
 
     public String getProfilePhotoURI() {
         return profilePhotoURI;
@@ -62,6 +71,7 @@ public class Diver {
     public void setProfilePhotoURI(String profilePhotoURI) {
         this.profilePhotoURI = profilePhotoURI;
     }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -76,6 +86,14 @@ public class Diver {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public void setDiveLogs(ArrayList<DiveLog> diveLogs) {
+        this.diveLogs = diveLogs;
+    }
+
+    public void addDiveLog(DiveLog log) {
+        diveLogs.add(log);
     }
 
     public void copy(Diver source) {
