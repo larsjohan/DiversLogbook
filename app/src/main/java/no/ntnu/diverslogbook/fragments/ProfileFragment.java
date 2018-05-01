@@ -1,26 +1,18 @@
 package no.ntnu.diverslogbook.fragments;
 
 
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.jetbrains.annotations.Nullable;
-
 import no.ntnu.diverslogbook.R;
-import no.ntnu.diverslogbook.model.Diver;
-import no.ntnu.diverslogbook.task.DownloadProfileImageTask;
-import no.ntnu.diverslogbook.util.Database;
-import no.ntnu.diverslogbook.util.Observer;
+import no.ntnu.diverslogbook.models.Diver;
+import no.ntnu.diverslogbook.tasks.DownloadProfileImageTask;
+import no.ntnu.diverslogbook.utils.Database;
 
 
 public class ProfileFragment extends Fragment {
@@ -37,12 +29,10 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        Log.d("DiverApp", "Creating profile");
         Diver diver = Database.getLoggedInDiver();
 
 
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-
         if(diver == null) {
             Database.registerObserver(changedObject -> {
                 if(changedObject instanceof Diver && ((Diver) changedObject).getId().equals(Database.getLoggedInDiver().getId())){

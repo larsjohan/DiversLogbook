@@ -1,4 +1,4 @@
-package no.ntnu.diverslogbook.util;
+package no.ntnu.diverslogbook.utils.oauth;
 
 import android.content.Intent;
 

@@ -1,4 +1,4 @@
-package no.ntnu.diverslogbook.util.oauth;
+package no.ntnu.diverslogbook.utils.oauth;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +13,6 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import no.ntnu.diverslogbook.R;
-import no.ntnu.diverslogbook.util.OAuthProvider;
 
 /**
  * Enables sign in using an existing Google account.

@@ -7,7 +7,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import no.ntnu.diverslogbook.fragments.PlanFragment;
-import no.ntnu.diverslogbook.model.DiveLog;
+import no.ntnu.diverslogbook.models.DiveLog;
+import no.ntnu.diverslogbook.utils.Globals;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

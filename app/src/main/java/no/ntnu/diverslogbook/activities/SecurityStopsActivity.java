@@ -1,4 +1,4 @@
-package no.ntnu.diverslogbook;
+package no.ntnu.diverslogbook.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,13 +16,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import no.ntnu.diverslogbook.model.DiveLog;
+import no.ntnu.diverslogbook.utils.Globals;
+import no.ntnu.diverslogbook.R;
+import no.ntnu.diverslogbook.models.DiveLog;
 
 
 /**
  * Manages the adding of security stops.
  */
-public class SecurityStops extends AppCompatActivity {
+public class SecurityStopsActivity extends AppCompatActivity {
 
 
     /**

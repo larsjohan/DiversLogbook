@@ -1,4 +1,4 @@
-package no.ntnu.diverslogbook;
+package no.ntnu.diverslogbook.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

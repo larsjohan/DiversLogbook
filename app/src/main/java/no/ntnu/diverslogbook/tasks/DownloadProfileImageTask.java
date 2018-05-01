@@ -1,4 +1,4 @@
-package no.ntnu.diverslogbook.task;
+package no.ntnu.diverslogbook.tasks;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
