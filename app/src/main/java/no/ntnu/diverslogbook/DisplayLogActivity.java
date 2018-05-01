@@ -33,7 +33,9 @@ public class DisplayLogActivity extends AppCompatActivity {
         // TODO:
         /*
          *
+         * DATE
          * SATURATION
+         * CURRENT
          *
          */
 
@@ -53,22 +55,26 @@ public class DisplayLogActivity extends AppCompatActivity {
 
         // Updating the view with data from object:
         // TODO: Get date from object.
-        ((TextView) findViewById(R.id.tv_displaylog_date)).setText("01/01/2018");
-        ((TextView) findViewById(R.id.tv_displaylog_surfaceguard)).setText(diveLog.getSurfaceGuard());
-        ((TextView) findViewById(R.id.tv_displaylog_divebuddy)).setText(diveLog.getDiveBuddy());
-        ((TextView) findViewById(R.id.tv_displaylog_divetype)).setText(diveLog.getDiveType());
-        ((TextView) findViewById(R.id.tv_displaylog_planneddepth)).setText(Integer.toString(diveLog.getPlannedDepth()) + " meters");
+        setText(R.id.tv_displaylog_date, "01/01/2018");
+        setText(R.id.tv_displaylog_surfaceguard, diveLog.getSurfaceGuard());
+        setText(R.id.tv_displaylog_divebuddy, diveLog.getDiveBuddy());
+        setText(R.id.tv_displaylog_divetype, diveLog.getDiveType());
+
+        // Form planned depth output text.
+        String plannedDepthOutput = (Integer.toString(diveLog.getPlannedDepth()) + " " + getString(R.string.displayloga_meters));
+        setText(R.id.tv_displaylog_planneddepth, plannedDepthOutput);
 
 
         // Handling HoursAndMinutes class input.
         DiveLog.HoursAndMinutes lastDiveTmp = diveLog.getTimeSinceLastDive();
         DiveLog.HoursAndMinutes lastAlcoholTmp = diveLog.getTimeSinceAlcoholIntake();
-        // Set strings to "-" if over 24h since last..
-        String lastDive = (lastDiveTmp.hours >= 24) ? "-" : lastDiveTmp.hours + "h, " + lastDiveTmp.minutes + "min.";
-        String lastAlcohol = (lastAlcoholTmp.hours >= 24) ? "-" : lastAlcoholTmp.hours + "h, " + lastAlcoholTmp.minutes + "min.";
 
-        ((TextView) findViewById(R.id.tv_displaylog_tsld)).setText(lastDive);
-        ((TextView) findViewById(R.id.tv_displaylog_tslai)).setText(lastAlcohol);
+        // Get strings to display.
+        String lastDive =  lastTime(lastDiveTmp);
+        String lastAlcohol = lastTime(lastAlcoholTmp);
+
+        setText(R.id.tv_displaylog_tsld, lastDive);
+        setText(R.id.tv_displaylog_tslai, lastAlcohol);
 
 
         // Security stops
@@ -89,7 +95,7 @@ public class DisplayLogActivity extends AppCompatActivity {
             String index = Integer.toString(counter) + ".  ";
 
             // TODO: check for metric / imperial. Also could put this in strings.xml?
-            String stopText = index + duration + " minutes at " + depth + " meters.";
+            String stopText = index + duration + " " + getString(R.string.displayloga_stopDuration) + " " + depth + " " + getString(R.string.displayloga_meters) + ".";
 
             // Set text and increment counter.
             tv_stop.setText(stopText);
@@ -102,7 +108,7 @@ public class DisplayLogActivity extends AppCompatActivity {
         } // end loop
 
 
-        ((TextView) findViewById(R.id.tv_displaylog_planneddivetime)).setText(Integer.toString(diveLog.getPlannedDiveTime()) + " minutes");
+        setText(R.id.tv_displaylog_planneddivetime, Integer.toString(diveLog.getPlannedDiveTime()) + " " + getString(R.string.displayloga_minutes));
 
         // Calculate actual dive time:
         Date startDiveTime = diveLog.getStartTime();
@@ -118,25 +124,24 @@ public class DisplayLogActivity extends AppCompatActivity {
         int usedPressure = startTankPressure - endTankPressure;
         // Liter per minutes.
         int airUsage = (usedPressure * tankSize) / actualDiveTime;
-        String usedPressureAndAir = Integer.toString(usedPressure) + " bar (" + Integer.toString(airUsage) + " l/min)";
+        String usedPressureAndAir = Integer.toString(usedPressure) + " " + getString(R.string.displayloga_bar) + " (" + Integer.toString(airUsage) + " " + getString(R.string.displayloga_litrePerMinute) + ")";
 
-        ((TextView) findViewById(R.id.tv_displaylog_actualdivetime)).setText(Integer.toString(actualDiveTime) + " minutes");
-        ((TextView) findViewById(R.id.tv_displaylog_tanksize)).setText(Integer.toString(tankSize) + " litre");
-        ((TextView) findViewById(R.id.tv_displaylog_startpressure)).setText(Integer.toString(startTankPressure) + " bar");
-        ((TextView) findViewById(R.id.tv_displaylog_endpressure)).setText(Integer.toString(endTankPressure) + " bar");
-        ((TextView) findViewById(R.id.tv_displaylog_usedpressure)).setText(usedPressureAndAir);
+        setText(R.id.tv_displaylog_actualdivetime,Integer.toString(actualDiveTime)      + " " + getString(R.string.displayloga_minutes));
+        setText(R.id.tv_displaylog_tanksize,      Integer.toString(tankSize)            + " " + getString(R.string.displayloga_litre));
+        setText(R.id.tv_displaylog_startpressure, Integer.toString(startTankPressure)   + " " + getString(R.string.displayloga_bar));
+        setText(R.id.tv_displaylog_endpressure,   Integer.toString(endTankPressure)     + " " + getString(R.string.displayloga_bar));
+        setText(R.id.tv_displaylog_usedpressure, usedPressureAndAir);
 
-        ((TextView) findViewById(R.id.tv_displaylog_divegas)).setText(diveLog.getDiveGas());
-        ((TextView) findViewById(R.id.tv_displaylog_weather)).setText(diveLog.getWeather());
+        setText(R.id.tv_displaylog_saturation, "FIX THiS ");
+        setText(R.id.tv_displaylog_divegas, diveLog.getDiveGas());
+        setText(R.id.tv_displaylog_weather, diveLog.getWeather());
 
-        // TODO: implement functionality which converts from metric to imperial. Also change text from C to F.
-        ((TextView) findViewById(R.id.tv_displaylog_tempsurf)).setText(Float.toString(diveLog.getTempSurface()) + " °C");
-        ((TextView) findViewById(R.id.tv_displaylog_tempwater)).setText(Float.toString(diveLog.getTempWater()) + " °C");
+        // TODO: implement functionality which converts from metric to imperial. Also change text from C to F. R.string.displayloga_fahrenheit.
+        setText(R.id.tv_displaylog_tempsurf, Float.toString(diveLog.getTempSurface()) + " " + getString(R.string.displayloga_celcius));
+        setText(R.id.tv_displaylog_tempwater, Float.toString(diveLog.getTempWater()) + " " + getString(R.string.displayloga_celcius));
 
-
-        ((TextView) findViewById(R.id.tv_displaylog_current)).setText("fix this");
-        ((TextView) findViewById(R.id.tv_displaylog_notes)).setText(diveLog.getNotes());
-
+        setText(R.id.tv_displaylog_current, "FIX THiS ");
+        setText(R.id.tv_displaylog_notes, diveLog.getNotes());
 
 
 
@@ -144,13 +149,42 @@ public class DisplayLogActivity extends AppCompatActivity {
 
 
     /**
+     * This sets the text of a given TextView.
+     *
+     * @param id id of TextView to set text on
+     * @param text text to set
+     */
+    private void setText(int id, String text) {
+        ((TextView) findViewById(id)).setText(text);
+    }
+
+
+    /**
+     * Returns a string saying "-" or "time.hours h. time.minutes min."
+     *
+     * @param time
+     * @return {String} that
+     */
+    private String lastTime(DiveLog.HoursAndMinutes time) {
+        // Set string to be "-" while time since last is over 24h..
+        String last = "-";
+
+        if (time.hours < 24) {
+            last = time.hours + getString(R.string.displayloga_hourShort) + " " + time.minutes + getString(R.string.displayloga_minuteShort);
+        }
+
+        return last;
+    }
+
+
+    /**
      * Returns time difference between two Date objects in minutes.
      *
-     * @param d1
-     * @param d2
-     * @return
+     * @param d1 date1 to compare with
+     * @param d2 date2 to comapre with
+     * @return {long} minutes between parameters
      */
-    long timeDifference(Date d1, Date d2) {
+    private long timeDifference(Date d1, Date d2) {
         long diff = Math.abs(d1.getTime() - d2.getTime());
         long seconds = diff / 1000;
         long minutes = seconds / 60;

@@ -405,6 +405,33 @@
             </TableRow>
 
 
+        <!-- Saturation -->
+
+            <TableRow
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_displaylog_saturation_text"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="@string/displaylog_saturation" />
+
+                <TextView
+                    android:id="@+id/tv_displaylog_saturation"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/displaylog_saturation" />
+            </TableRow>
+
+
         <!-- Dive gas -->
 
             <TableRow
