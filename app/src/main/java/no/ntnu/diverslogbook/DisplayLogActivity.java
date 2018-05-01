@@ -19,7 +19,7 @@ public class DisplayLogActivity extends AppCompatActivity {
 
 
     public  DisplayLogActivity() {
-
+        // Needed empty constructor.
     }
 
 
@@ -162,7 +162,7 @@ public class DisplayLogActivity extends AppCompatActivity {
     /**
      * Returns a string saying "-" or "time.hours h. time.minutes min."
      *
-     * @param time
+     * @param time time since last ... (dive, alcohol intake, etc.)
      * @return {String} that
      */
     private String lastTime(DiveLog.HoursAndMinutes time) {
@@ -179,6 +179,7 @@ public class DisplayLogActivity extends AppCompatActivity {
 
     /**
      * Returns time difference between two Date objects in minutes.
+     * Using multiple variables for the simplicity of reading it.
      *
      * @param d1 date1 to compare with
      * @param d2 date2 to comapre with

@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
         PreferenceManager.getDefaultSharedPreferences(this)
                 .registerOnSharedPreferenceChangeListener(new SettingsHandler(this));
 
+        // Sets default preferences.
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
         // Setup the tab navigation.
         viewPager = (ViewPager) findViewById(R.id.pager);
