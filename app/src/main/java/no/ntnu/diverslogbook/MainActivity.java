@@ -23,6 +23,7 @@ import no.ntnu.diverslogbook.fragments.DiveFragment;
 import no.ntnu.diverslogbook.fragments.LogFragment;
 import no.ntnu.diverslogbook.fragments.PlanFragment;
 import no.ntnu.diverslogbook.fragments.ProfileFragment;
+import no.ntnu.diverslogbook.util.DiveTable;
 
 
 /**
@@ -57,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
         // Set listener on preferences.
         PreferenceManager.getDefaultSharedPreferences(this)
                 .registerOnSharedPreferenceChangeListener(new SettingsHandler(this));
+
+        DiveTable table = new DiveTable(this, DiveTable.Table.PADI_IMPERIAL);
+        String group = table.getPreSISaturationGroup(140, 15);
+        Log.d("DiverApp", "Depth: 45, Time: 45, Group: " + group);
 
 
         // Setup the tab navigation.
