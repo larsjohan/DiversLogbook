@@ -7,5 +7,5 @@ package no.ntnu.diverslogbook.util;
  * @see ObserverManager
  */
 public interface Observer<T> {
-    void update(T changedObject);
+    boolean update(T changedObject);
 }

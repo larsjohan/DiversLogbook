@@ -48,7 +48,9 @@ public class ProfileFragment extends Fragment {
                 if(changedObject instanceof Diver && ((Diver) changedObject).getId().equals(Database.getLoggedInDiver().getId())){
                     updateView(view, (Diver) changedObject);
                     view.invalidate();
+                    return true; // Unregister observer if found
                 }
+                return false; // Keep the observer if not loaded yet
             });
         } else {
             updateView(view, diver);

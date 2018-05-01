@@ -23,6 +23,7 @@ import no.ntnu.diverslogbook.fragments.DiveFragment;
 import no.ntnu.diverslogbook.fragments.LogFragment;
 import no.ntnu.diverslogbook.fragments.PlanFragment;
 import no.ntnu.diverslogbook.fragments.ProfileFragment;
+import no.ntnu.diverslogbook.util.DiveTable;
 
 
 /**
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         // Set listener on preferences.
         PreferenceManager.getDefaultSharedPreferences(this)
                 .registerOnSharedPreferenceChangeListener(new SettingsHandler(this));
-
+        
 
         // Setup the tab navigation.
         viewPager = (ViewPager) findViewById(R.id.pager);
