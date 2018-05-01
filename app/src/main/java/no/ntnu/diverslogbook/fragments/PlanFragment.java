@@ -211,7 +211,7 @@ public class PlanFragment extends Fragment {
      */
     private String getToday() {
         Date d = new Date();
-        String today  = (String) DateFormat.format("dd/MM/yyyy ", d.getTime());
+        String today  = (String) DateFormat.format("dd/MM/yyyy", d.getTime());
 
         return today;
     }
@@ -412,7 +412,7 @@ public class PlanFragment extends Fragment {
      *
      * @return true if all data is valid
      */
-    public boolean planDataIsValid(String date, String buddy, String guard, String location, String depth,
+    protected boolean planDataIsValid(String date, String buddy, String guard, String location, String depth,
                                     String divingTime, String tankSize, String tankPressure, String tempSurface,
                                     String tempWater, String lastDive, String lastAlcohol) {
 
@@ -609,7 +609,6 @@ public class PlanFragment extends Fragment {
         icon.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_add_location_black_24dp));
 
         // Update button text.
-        Button securityButton = view.findViewById(R.id.chooseSecurity);
-        securityButton.setText(R.string.choose);
+        chooseSecurityButton.setText(R.string.choose);
     }
 }
