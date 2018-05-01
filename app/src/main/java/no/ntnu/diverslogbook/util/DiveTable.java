@@ -44,8 +44,8 @@ public class DiveTable {
         int dataID = -1;
 
         switch (this.tableType){
-            case PADI_METRIC: break;
-            case PADI_IMPERIAL: dataID = resources.getIdentifier("table_padi_v1_imperial", resourceType, packageName); break;
+            case PADI_METRIC:   dataID = resources.getIdentifier("table_padi_v1_metric", resourceType, packageName);    break;
+            case PADI_IMPERIAL: dataID = resources.getIdentifier("table_padi_v1_imperial", resourceType, packageName);  break;
             case NDF_METRIC: break;
             case NDF_IMPARIAL: break;
             default:
