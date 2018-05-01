@@ -54,8 +54,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:padding="2.5dp">
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/tv_displaylog_surfaceguard_text"
@@ -82,8 +81,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:padding="2.5dp">
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/tv_displaylog_divebuddy_text"
@@ -110,8 +108,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:padding="2.5dp">
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/tv_displaylog_divetype_text"
@@ -138,8 +135,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:padding="2.5dp">
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/tv_displaylog_planneddepth_text"
@@ -168,8 +164,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:padding="2.5dp">
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/tv_displaylog_tsld_text"
@@ -196,8 +191,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:padding="2.5dp">
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/tv_displaylog_tslai_text"
@@ -224,40 +218,38 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:padding="2.5dp">
+                android:gravity="center_vertical">
 
-                    <TextView
-                        android:id="@+id/tv_displaylog_security_text"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:text="@string/displaylog_securityStops" />
+                <TextView
+                    android:id="@+id/tv_displaylog_security_text"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="@string/displaylog_securityStops" />
 
-                <TableLayout
-                    android:id="@+id/tl_displaylog_security"
+                <LinearLayout
+                    android:id="@+id/ll_displaylog_securitystopcontainer"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="40dp"
-                    >
+                    android:orientation="vertical">
 
+                </LinearLayout>
 
-                </TableLayout>
             </TableRow>
 
 
 
-        <!-- Dive time -->
+        <!-- Planned dive time -->
 
             <TableRow
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:padding="2.5dp">
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/tv_displaylog_planneddivetime_text"
@@ -278,14 +270,40 @@
             </TableRow>
 
 
+        <!-- Planned dive time -->
+
+            <TableRow
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_displaylog_actualdivetime_text"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="@string/displaylog_actualDiveTime" />
+
+                <TextView
+                    android:id="@+id/tv_displaylog_actualdivetime"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/displaylog_actualDiveTime" />
+            </TableRow>
+
+
         <!-- Tank size -->
 
             <TableRow
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:padding="2.5dp">
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/tv_displaylog_tanksize_text"
@@ -312,8 +330,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:padding="2.5dp">
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/tv_displaylog_startpressure_text"
@@ -334,14 +351,67 @@
             </TableRow>
 
 
+        <!-- End tank pressure -->
+
+            <TableRow
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_displaylog_endpressure_text"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="@string/displaylog_endTankPressure" />
+
+                <TextView
+                    android:id="@+id/tv_displaylog_endpressure"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/displaylog_endTankPressure" />
+            </TableRow>
+
+
+        <!-- Used tank pressure -->
+
+            <TableRow
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_displaylog_usedpressure_text"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="@string/displaylog_usedTankPressure" />
+
+                <TextView
+                    android:id="@+id/tv_displaylog_usedpressure"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/displaylog_usedTankPressure" />
+            </TableRow>
+
+
         <!-- Dive gas -->
 
             <TableRow
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:padding="2.5dp">
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/tv_displaylog_divegas_text"
@@ -368,8 +438,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:padding="2.5dp">
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/tv_displaylog_weather_text"
@@ -397,8 +466,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:padding="2.5dp">
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/tv_displaylog_tempsurf_text"
@@ -425,8 +493,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:padding="2.5dp">
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/tv_displaylog_tempwater_text"
@@ -453,8 +520,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:padding="2.5dp">
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/tv_displaylog_current_text"
@@ -481,8 +547,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:padding="2.5dp">
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/tv_displaylog_notes_text"

@@ -4,6 +4,7 @@ package no.ntnu.diverslogbook.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,6 @@ import no.ntnu.diverslogbook.DisplayLogActivity;
 import no.ntnu.diverslogbook.DiveLog;
 import no.ntnu.diverslogbook.R;
 import no.ntnu.diverslogbook.adapters.LogListAdapter;
-import no.ntnu.diverslogbook.util.Database;
 
 
 public class LogFragment extends Fragment {
@@ -36,6 +36,11 @@ public class LogFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_log, container, false);
+
+
+        // Set title of toolbar. (Causes all screens to have title Log..
+        //((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Log");
+
 
         ListView logList = view.findViewById(R.id.log_lv);
 

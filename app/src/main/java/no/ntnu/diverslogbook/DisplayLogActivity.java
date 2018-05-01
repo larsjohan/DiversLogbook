@@ -4,13 +4,19 @@ package no.ntnu.diverslogbook;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TableLayout;
-import android.widget.TableRow;
+import android.util.Log;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Date;
+
+import static java.lang.Math.toIntExact;
 
 public class DisplayLogActivity extends AppCompatActivity {
+
+    public static final String TAG = "DisplayLogActivity";
+
 
     public  DisplayLogActivity() {
 
@@ -25,81 +31,101 @@ public class DisplayLogActivity extends AppCompatActivity {
 
 
         // TODO:
-        /**
+        /*
          *
-         * ACTUAL DIVE TIME
          * SATURATION
          *
          */
 
-
+        // Get intent from previous screen.
         Intent intent = getIntent();
         DiveLog diveLog = (DiveLog) intent.getSerializableExtra("LogToDisplay");
 
         // Set toolbar text. (Dive number + Location)
         String diveNr = "#0001";
-        getSupportActionBar().setTitle(diveNr + ": " +  diveLog.getLocation());
+        try {
+            getSupportActionBar().setTitle(diveNr + ": " +  diveLog.getLocation());
+        }
+        catch (NullPointerException e) {
+            Log.e(TAG, "NullPointerException at setTitle." + e.getMessage());
+        }
 
 
         // Updating the view with data from object:
+        // TODO: Get date from object.
         ((TextView) findViewById(R.id.tv_displaylog_date)).setText("01/01/2018");
         ((TextView) findViewById(R.id.tv_displaylog_surfaceguard)).setText(diveLog.getSurfaceGuard());
         ((TextView) findViewById(R.id.tv_displaylog_divebuddy)).setText(diveLog.getDiveBuddy());
         ((TextView) findViewById(R.id.tv_displaylog_divetype)).setText(diveLog.getDiveType());
-        ((TextView) findViewById(R.id.tv_displaylog_planneddepth)).setText(Integer.toString(diveLog.getPlannedDepth()));
+        ((TextView) findViewById(R.id.tv_displaylog_planneddepth)).setText(Integer.toString(diveLog.getPlannedDepth()) + " meters");
 
 
         // Handling HoursAndMinutes class input.
         DiveLog.HoursAndMinutes lastDiveTmp = diveLog.getTimeSinceLastDive();
         DiveLog.HoursAndMinutes lastAlcoholTmp = diveLog.getTimeSinceAlcoholIntake();
         // Set strings to "-" if over 24h since last..
-        String lastDive = (lastDiveTmp.hours >= 24) ? "-" : lastDiveTmp.hours + "h, " + lastDiveTmp.minutes + "m.";
-        String lastAlcohol = (lastAlcoholTmp.hours >= 24) ? "-" : lastAlcoholTmp.hours + "h, " + lastAlcoholTmp.minutes + "m.";
+        String lastDive = (lastDiveTmp.hours >= 24) ? "-" : lastDiveTmp.hours + "h, " + lastDiveTmp.minutes + "min.";
+        String lastAlcohol = (lastAlcoholTmp.hours >= 24) ? "-" : lastAlcoholTmp.hours + "h, " + lastAlcoholTmp.minutes + "min.";
 
         ((TextView) findViewById(R.id.tv_displaylog_tsld)).setText(lastDive);
         ((TextView) findViewById(R.id.tv_displaylog_tslai)).setText(lastAlcohol);
 
 
         // Security stops
-        // loop array list and create table rows.
+        // Loop array list and create TextViews.
         ArrayList<DiveLog.SecurityStop> securityStops = diveLog.getSecurityStops();
-        TableLayout securityStopTable = findViewById(R.id.tl_displaylog_security);
+        LinearLayout securityStopContainer = findViewById(R.id.ll_displaylog_securitystopcontainer);
 
+        // Counter used to print an index for each security stop.
         int counter = 1;
         for (DiveLog.SecurityStop stop: securityStops) {
-            /* Create a new row to be added. */
-            TableRow tr = new TableRow(this);
-            tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
 
-            // TextViews to be in row.
-            TextView stopDuration = new TextView(this.getApplicationContext());
-            TextView stopDepth = new TextView(this.getApplicationContext());
+            // TextView to put in layout.
+            TextView tv_stop = new TextView(this.getApplicationContext());
 
-            String duration = Integer.toString(stop.duration) + " minutes at ";
-            String depth = Integer.toString(stop.depth) + " meters.";
-            duration = Integer.toString(counter) + ".  " + duration;
-            stopDuration.setText(duration);
-            stopDepth.setText(depth);
+            // String to use.
+            String duration = Integer.toString(stop.duration);
+            String depth = Integer.toString(stop.depth);
+            String index = Integer.toString(counter) + ".  ";
+
+            // TODO: check for metric / imperial. Also could put this in strings.xml?
+            String stopText = index + duration + " minutes at " + depth + " meters.";
+
+            // Set text and increment counter.
+            tv_stop.setText(stopText);
             counter++;
 
-            // Set layout.
-            stopDuration.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
-            stopDepth.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
-
-             /* Add text to row. */
-            tr.addView(stopDuration);
-            tr.addView(stopDepth);
-
-            /* Add row to TableLayout. */
-            securityStopTable.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
+            // Add TextView to layout.
+            securityStopContainer.addView(tv_stop);
 
 
         } // end loop
 
 
-        ((TextView) findViewById(R.id.tv_displaylog_planneddivetime)).setText(Integer.toString(diveLog.getPlannedDiveTime()));
-        ((TextView) findViewById(R.id.tv_displaylog_tanksize)).setText(Integer.toString(diveLog.getTankSize()));
-        ((TextView) findViewById(R.id.tv_displaylog_startpressure)).setText(Integer.toString(diveLog.getStartTankPressure()));
+        ((TextView) findViewById(R.id.tv_displaylog_planneddivetime)).setText(Integer.toString(diveLog.getPlannedDiveTime()) + " minutes");
+
+        // Calculate actual dive time:
+        Date startDiveTime = diveLog.getStartTime();
+        Date endDiveTime = diveLog.getEndTime();
+        // In minutes.
+        int actualDiveTime = toIntExact(timeDifference(startDiveTime, endDiveTime));
+
+
+        // Calculate used pressure and liters of oxygen per hour.
+        int tankSize = diveLog.getTankSize();
+        int startTankPressure = diveLog.getStartTankPressure();
+        int endTankPressure = diveLog.getEndTankPressure();
+        int usedPressure = startTankPressure - endTankPressure;
+        // Liter per minutes.
+        int airUsage = (usedPressure * tankSize) / actualDiveTime;
+        String usedPressureAndAir = Integer.toString(usedPressure) + " bar (" + Integer.toString(airUsage) + " l/min)";
+
+        ((TextView) findViewById(R.id.tv_displaylog_actualdivetime)).setText(Integer.toString(actualDiveTime) + " minutes");
+        ((TextView) findViewById(R.id.tv_displaylog_tanksize)).setText(Integer.toString(tankSize) + " litre");
+        ((TextView) findViewById(R.id.tv_displaylog_startpressure)).setText(Integer.toString(startTankPressure) + " bar");
+        ((TextView) findViewById(R.id.tv_displaylog_endpressure)).setText(Integer.toString(endTankPressure) + " bar");
+        ((TextView) findViewById(R.id.tv_displaylog_usedpressure)).setText(usedPressureAndAir);
+
         ((TextView) findViewById(R.id.tv_displaylog_divegas)).setText(diveLog.getDiveGas());
         ((TextView) findViewById(R.id.tv_displaylog_weather)).setText(diveLog.getWeather());
 
@@ -115,4 +141,21 @@ public class DisplayLogActivity extends AppCompatActivity {
 
 
     }
+
+
+    /**
+     * Returns time difference between two Date objects in minutes.
+     *
+     * @param d1
+     * @param d2
+     * @return
+     */
+    long timeDifference(Date d1, Date d2) {
+        long diff = Math.abs(d1.getTime() - d2.getTime());
+        long seconds = diff / 1000;
+        long minutes = seconds / 60;
+        return minutes;
+    }
+
+
 }

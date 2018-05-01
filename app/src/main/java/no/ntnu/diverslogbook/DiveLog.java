@@ -3,6 +3,7 @@ package no.ntnu.diverslogbook;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 /**
@@ -26,8 +27,8 @@ public class DiveLog implements Serializable {
 
     // Dive time.
     private int plannedDiveTime;    // In minutes.
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private Date startTime;
+    private Date endTime;
 
     // Tank data.
     private int tankSize;           // In liters.
@@ -53,7 +54,12 @@ public class DiveLog implements Serializable {
         this.diveBuddy = "Buddy 1";
         this.location = "Langesund, Norway";
         this.diveType = "Recreational";
-        this.plannedDepth = 1337;
+        this.plannedDepth = 45;
+        Date startDiveTime = new Date();
+        Date endDiveTime = new Date();
+        endDiveTime.setMinutes(startDiveTime.getMinutes() + 40);
+        this.startTime = startDiveTime;
+        this.endTime = endDiveTime;
         this.timeSinceLastDive = new HoursAndMinutes(24,1);
         this.timeSinceAlcoholIntake = new HoursAndMinutes(2,1);
         ArrayList<SecurityStop> stops = new ArrayList<>();
@@ -61,10 +67,10 @@ public class DiveLog implements Serializable {
         stops.add(new SecurityStop(4, 20));
         this.securityStops = stops;
         this.plannedDiveTime = 1337;
-        this.tankSize = 420;
-        this.startTankPressure = 420;
-        this.endTankPressure = 100;
-        this.diveGas = "nox";
+        this.tankSize = 10;
+        this.startTankPressure = 300;
+        this.endTankPressure = 50;
+        this.diveGas = "nitrox";
         this.weather = "Cloudy";
         this.tempSurface = 15.7f;
         this.tempWater = 4.7f;
@@ -108,7 +114,7 @@ public class DiveLog implements Serializable {
      *
      * @param time Start time
      */
-    public void setStartTime(LocalDateTime time) {
+    public void setStartTime(Date time) {
         this.startTime = time;
     }
 
@@ -118,7 +124,7 @@ public class DiveLog implements Serializable {
      *
      * @param time End time
      */
-    public void setEndTime(LocalDateTime time) {
+    public void setEndTime(Date time) {
         this.endTime = time;
     }
 
@@ -198,11 +204,11 @@ public class DiveLog implements Serializable {
         return plannedDiveTime;
     }
 
-    public LocalDateTime getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public LocalDateTime getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 

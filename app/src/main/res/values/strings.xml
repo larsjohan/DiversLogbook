@@ -191,8 +191,11 @@
     <string name="displaylog_tslai">Last alcohol intake:</string>
     <string name="displaylog_securityStops">Security stops:</string>
     <string name="displaylog_plannedDiveTime">Planned dive time:</string>
+    <string name="displaylog_actualDiveTime">Actual dive time:</string>
     <string name="displaylog_tankSize">Tank size:</string>
     <string name="displaylog_startTankPressure">Start tank pressure:</string>
+    <string name="displaylog_endTankPressure">End tank pressure:</string>
+    <string name="displaylog_usedTankPressure">Used tank pressure:</string>
     <string name="displaylog_diveGas">Dive gas:</string>
     <string name="displaylog_weather">Weather:</string>
     <string name="displaylog_surfaceTemp">Surface Temperature:</string>
