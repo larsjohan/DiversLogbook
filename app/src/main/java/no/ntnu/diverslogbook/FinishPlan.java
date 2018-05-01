@@ -84,11 +84,12 @@ public class FinishPlan extends AppCompatActivity {
      * @param view The view
      */
     public void finishPlan(View view) {
-        if (allInputDataIsValid()) {
-            Log.d("TAG", "Data is valid! Add to database.");
+        String depthValue = actualDepth.getText().toString();
+        String pressureValue = endTankPressure.getText().toString();
+
+        if (allInputDataIsValid(depthValue, pressureValue)) {
             updatePlanInDatabase();
         } else {
-            Log.d("TAG", "Data is not valid..");
             Toast.makeText(this, R.string.plan_error, Toast.LENGTH_LONG).show();
         }
     }
@@ -97,14 +98,15 @@ public class FinishPlan extends AppCompatActivity {
     /**
      * Check if all the input values are okay.
      *
+     * @param depthValue The actual depth
+     * @param pressureValue The tank pressure
      * @return true if all inputs are valid
      */
-    private boolean allInputDataIsValid() {
+    protected boolean allInputDataIsValid(String depthValue, String pressureValue) {
         Pattern pattern = Pattern.compile("\\d*");
         Matcher matcher;
 
         boolean actualDepthOk;
-        String depthValue = actualDepth.getText().toString();
 
         // There is no input in depth value.
         if (depthValue.equals("")) {
@@ -115,7 +117,6 @@ public class FinishPlan extends AppCompatActivity {
         }
 
         boolean endTankPressureOk;
-        String pressureValue = endTankPressure.getText().toString();
 
         // There is no input in end tank pressure value.
         if (pressureValue.equals("")) {
