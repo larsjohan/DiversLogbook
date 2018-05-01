@@ -29,13 +29,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import no.ntnu.diverslogbook.activities.FinishPlanActivity;
-import no.ntnu.diverslogbook.model.DiveLog;
-import no.ntnu.diverslogbook.util.Globals;
+import no.ntnu.diverslogbook.models.DiveLog;
+import no.ntnu.diverslogbook.utils.Globals;
 import no.ntnu.diverslogbook.R;
 import no.ntnu.diverslogbook.activities.SecurityStopsActivity;
-import no.ntnu.diverslogbook.model.Diver;
-import no.ntnu.diverslogbook.model.Location;
-import no.ntnu.diverslogbook.util.Database;
+import no.ntnu.diverslogbook.models.Diver;
+import no.ntnu.diverslogbook.models.Location;
+import no.ntnu.diverslogbook.utils.Database;
 
 
 /**

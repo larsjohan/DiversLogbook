@@ -1,4 +1,4 @@
-package no.ntnu.diverslogbook.util;
+package no.ntnu.diverslogbook.utils;
 
 import android.util.Log;
 
@@ -11,8 +11,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import no.ntnu.diverslogbook.model.Diver;
-import no.ntnu.diverslogbook.model.Location;
+import no.ntnu.diverslogbook.models.Diver;
+import no.ntnu.diverslogbook.models.Location;
 
 /**
  * Provides global access to the database.
@@ -42,19 +42,9 @@ public abstract class Database {
     private static final DatabaseReference DIVERS = DATABASE.child("diver");
 
     /**
-     * Listener for divers-section of the database
-     */
-    private static final ValueEventListener DIVERS_LISTENER = new OnDiverDatabaseValueChanged();
-
-    /**
      * The root element for all log-elements in the database
      */
     private static final DatabaseReference LOCATIONS = DATABASE.child("location");
-
-    /**
-     * Listener for divers-section of the database
-     */
-    private static final ValueEventListener LOCATIONS_LISTENER = new OnLocationDatabaseValueChanged();
 
     /**
      * A list of locations that is stored in the database
@@ -71,6 +61,10 @@ public abstract class Database {
      */
     private static final ObserverManager OBSERVER_MANAGER = new ObserverManager();
 
+    /**
+     * Listener for divers-section of the database
+     */
+    private static final ValueEventListener DATABASE_LISTENER = new OnDatabaseValueChanged();
 
 
 
@@ -125,6 +119,7 @@ public abstract class Database {
         return LOCATION_LIST;
     }
 
+
     /**
      * Adds a new location to the database
      *
@@ -133,6 +128,7 @@ public abstract class Database {
     private static void addLocation(Location location){
         LOCATIONS.push().setValue(location);
     }
+
 
     /**
      * Create a diver if it doesn't exist
@@ -145,6 +141,7 @@ public abstract class Database {
         }
     }
 
+
     /**
      * Update a diver whenever there's been added a new dive log.
      *
@@ -155,6 +152,7 @@ public abstract class Database {
         DIVERS.child(LOGGED_IN_DIVER.getId()).setValue(diver);
     }
 
+
     /**
      * Return a reference to the diver that is logged in on this device
      * @return The currently logged in diver
@@ -163,6 +161,11 @@ public abstract class Database {
         return LOGGED_IN_DIVER;
     }
 
+
+    /**
+     * Specify the diver that is logged in
+     * @param diver The logged in diver
+     */
     public static void setLoggedInDiver(Diver diver) {
         LOGGED_IN_DIVER = diver;
     }
@@ -172,8 +175,8 @@ public abstract class Database {
      * Starts listening for updates in the database
      */
     public static void init(){
-        DIVERS.addValueEventListener(DIVERS_LISTENER);
-        LOCATIONS.addValueEventListener(LOCATIONS_LISTENER);
+        DIVERS.addValueEventListener(DATABASE_LISTENER);
+        LOCATIONS.addValueEventListener(DATABASE_LISTENER);
     }
 
 
@@ -181,17 +184,28 @@ public abstract class Database {
      * Stops listening for updates from the database
      */
     public static void deInit() {
-        DIVERS.removeEventListener(DIVERS_LISTENER);
-        LOCATIONS.removeEventListener(LOCATIONS_LISTENER);
+        DIVERS.removeEventListener(DATABASE_LISTENER);
+        LOCATIONS.removeEventListener(DATABASE_LISTENER);
     }
 
+
+    /**
+     * Add an observer to the DIVERS or LOCATIONS table
+     * @param observer The observer to register
+     */
     public static void registerObserver(Observer observer) {
         OBSERVER_MANAGER.register(observer);
     }
 
+
+    /**
+     * Remove an existing observer from DIVERS or LOCATIONS
+     * @param observer The observer to remove
+     */
     public static void unregisterObserver(Observer observer) {
         OBSERVER_MANAGER.unregister(observer);
     }
+
 
     /**
      * A listener for all changes to the Diver-section in the database.
@@ -200,7 +214,8 @@ public abstract class Database {
      * @see ValueEventListener
      *
      */
-    private static class OnDiverDatabaseValueChanged implements ValueEventListener {
+    private static class OnDatabaseValueChanged implements ValueEventListener {
+
 
         /**
          * {@inheritDoc}
@@ -208,57 +223,42 @@ public abstract class Database {
          */
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-            for (DataSnapshot data : dataSnapshot.getChildren()) {
-                Diver diver = data.getValue(Diver.class);
 
-                if (!DIVER_LIST.contains(diver)) {
-                    DIVER_LIST.add(diver);
-                    OBSERVER_MANAGER.notifyChange(diver);
+            // Check all entries in the current database element
+            for (DataSnapshot data : dataSnapshot.getChildren()) {
+
+                // The current entry is a diver: Update Divers
+                if(dataSnapshot.getKey().equals("diver")) {
+                    Diver diver = data.getValue(Diver.class);
+
+                    if (!DIVER_LIST.contains(diver)) {
+                        DIVER_LIST.add(diver);
+                        OBSERVER_MANAGER.notifyChange(diver);
+
+                        // Add logs to the logged in user, if not already present
+                        if(LOGGED_IN_DIVER.getDiveLogs().isEmpty() && LOGGED_IN_DIVER.getId().equals(diver.getId())){
+                            LOGGED_IN_DIVER.getDiveLogs().addAll(diver.getDiveLogs());
+                        }
+                    }
+                // The current entry is a Location: Update Locations
+                } else if (dataSnapshot.getKey().equals("location")) {
+
+                    Location location = data.getValue(Location.class);
+
+                    if (!LOCATION_LIST.contains(location)) {
+                        LOCATION_LIST.add(location);
+                        OBSERVER_MANAGER.notifyChange(location);
+                    }
                 }
             }
 
+            // If the logged in diver is not creates (logs in for the first time)
+            // Create the diver
             if (!DIVER_LIST.contains(LOGGED_IN_DIVER)) {
                 createDiver(LOGGED_IN_DIVER);
             }
         }
 
-        /**
-         * {@inheritDoc}
-         * @param databaseError
-         */
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-            Log.e("DiveApp", "Unable to load data from database");
-        }
-    }
-
-
-    /**
-     * A listener for all changes to the location section in the database.
-     *
-     * @see ValueEventListener
-     *
-     */
-    private static class OnLocationDatabaseValueChanged implements ValueEventListener {
-
-        /**
-         * Listen for changes in the stored locations.
-         *
-         * {@inheritDoc}
-         * @param dataSnapshot
-         */
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-
-            for (DataSnapshot data : dataSnapshot.getChildren()) {
-                Location location = data.getValue(Location.class);
-
-                if (!LOCATION_LIST.contains(location)){
-                    LOCATION_LIST.add(location);
-                    OBSERVER_MANAGER.notifyChange(location);
-                }
-            }
-        }
 
         /**
          * {@inheritDoc}
@@ -268,5 +268,9 @@ public abstract class Database {
         public void onCancelled(DatabaseError databaseError) {
             Log.e("DiveApp", "Unable to load data from database");
         }
+
+
     }
+
+
 }

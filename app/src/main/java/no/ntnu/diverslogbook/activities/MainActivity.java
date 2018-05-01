@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import no.ntnu.diverslogbook.R;
-import no.ntnu.diverslogbook.util.SettingsHandler;
+import no.ntnu.diverslogbook.utils.SettingsHandler;
 import no.ntnu.diverslogbook.fragments.DiveFragment;
 import no.ntnu.diverslogbook.fragments.LogFragment;
 import no.ntnu.diverslogbook.fragments.PlanFragment;

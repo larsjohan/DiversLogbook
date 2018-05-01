@@ -8,13 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-import java.util.Map;
-
 import no.ntnu.diverslogbook.R;
 import no.ntnu.diverslogbook.adapters.DiverListAdapter;
-import no.ntnu.diverslogbook.model.Diver;
-import no.ntnu.diverslogbook.util.Database;
+import no.ntnu.diverslogbook.utils.Database;
 
 
 public class DiveFragment extends Fragment {

@@ -1,4 +1,4 @@
-package no.ntnu.diverslogbook.util;
+package no.ntnu.diverslogbook.utils;
 
 /**
  * A Functional interface for the {@link ObserverManager}.

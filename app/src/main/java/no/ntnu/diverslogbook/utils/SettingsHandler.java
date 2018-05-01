@@ -1,4 +1,4 @@
-package no.ntnu.diverslogbook.util;
+package no.ntnu.diverslogbook.utils;
 
 import android.app.Activity;
 import android.content.SharedPreferences;

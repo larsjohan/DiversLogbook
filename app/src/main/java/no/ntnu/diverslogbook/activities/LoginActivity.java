@@ -13,10 +13,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import no.ntnu.diverslogbook.R;
-import no.ntnu.diverslogbook.model.Diver;
-import no.ntnu.diverslogbook.util.Database;
-import no.ntnu.diverslogbook.util.oauth.OAuthProvider;
-import no.ntnu.diverslogbook.util.oauth.GoogleLogin;
+import no.ntnu.diverslogbook.models.Diver;
+import no.ntnu.diverslogbook.utils.Database;
+import no.ntnu.diverslogbook.utils.oauth.OAuthProvider;
+import no.ntnu.diverslogbook.utils.oauth.GoogleLogin;
 
 /**
  * Handles login and authentication.
