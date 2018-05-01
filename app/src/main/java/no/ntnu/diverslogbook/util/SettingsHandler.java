@@ -1,8 +1,9 @@
-package no.ntnu.diverslogbook;
+package no.ntnu.diverslogbook.util;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
 
+import no.ntnu.diverslogbook.activities.MainActivity;
 
 
 public class SettingsHandler implements SharedPreferences.OnSharedPreferenceChangeListener {

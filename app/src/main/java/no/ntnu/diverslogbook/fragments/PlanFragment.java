@@ -28,11 +28,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import no.ntnu.diverslogbook.FinishPlan;
+import no.ntnu.diverslogbook.activities.FinishPlanActivity;
 import no.ntnu.diverslogbook.model.DiveLog;
-import no.ntnu.diverslogbook.Globals;
+import no.ntnu.diverslogbook.util.Globals;
 import no.ntnu.diverslogbook.R;
-import no.ntnu.diverslogbook.SecurityStops;
+import no.ntnu.diverslogbook.activities.SecurityStopsActivity;
 import no.ntnu.diverslogbook.model.Diver;
 import no.ntnu.diverslogbook.model.Location;
 import no.ntnu.diverslogbook.util.Database;
@@ -251,14 +251,14 @@ public class PlanFragment extends Fragment {
      * @param view The view
      */
     public void chooseSecurity(View view) {
-        Intent intent = new Intent(getActivity(), SecurityStops.class);
+        Intent intent = new Intent(getActivity(), SecurityStopsActivity.class);
         intent.putExtra(Globals.SECURITYSTOPS, securityStops);
         startActivityForResult(intent, SECURITY_STOPS_RESULT);
     }
 
 
     /**
-     * Retrieve data from the SecurityStops activity.
+     * Retrieve data from the SecurityStopsActivity activity.
      *
      * @param requestCode The request code
      * @param resultCode The result code
@@ -564,7 +564,7 @@ public class PlanFragment extends Fragment {
      * @param log A new diving log
      */
     private void navigateToFinishPlan(Diver diver, DiveLog log) {
-        Intent intent = new Intent(getActivity(), FinishPlan.class);
+        Intent intent = new Intent(getActivity(), FinishPlanActivity.class);
         intent.putExtra(Globals.FINISH_PLAN_LOG, log);
         intent.putExtra(Globals.FINISH_PLAN_DIVER, diver);
         startActivityForResult(intent, FINISH_PLAN_RESULT);

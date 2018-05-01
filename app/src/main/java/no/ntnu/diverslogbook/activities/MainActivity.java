@@ -1,4 +1,4 @@
-package no.ntnu.diverslogbook;
+package no.ntnu.diverslogbook.activities;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,11 +18,12 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.List;
 
+import no.ntnu.diverslogbook.R;
+import no.ntnu.diverslogbook.util.SettingsHandler;
 import no.ntnu.diverslogbook.fragments.DiveFragment;
 import no.ntnu.diverslogbook.fragments.LogFragment;
 import no.ntnu.diverslogbook.fragments.PlanFragment;
 import no.ntnu.diverslogbook.fragments.ProfileFragment;
-import no.ntnu.diverslogbook.util.DiveTable;
 
 
 /**

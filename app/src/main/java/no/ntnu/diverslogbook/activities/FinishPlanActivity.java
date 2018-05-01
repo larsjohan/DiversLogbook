@@ -1,4 +1,4 @@
-package no.ntnu.diverslogbook;
+package no.ntnu.diverslogbook.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import no.ntnu.diverslogbook.util.Globals;
+import no.ntnu.diverslogbook.R;
 import no.ntnu.diverslogbook.model.DiveLog;
 import no.ntnu.diverslogbook.model.Diver;
 import no.ntnu.diverslogbook.util.Database;
@@ -24,7 +26,7 @@ import no.ntnu.diverslogbook.util.Database;
  * Manages the last attributes that should be added to the unfinished dive plan/log.
  * At the moment the user has to finish the plan before (s)he can do anything else.
  */
-public class FinishPlan extends AppCompatActivity {
+public class FinishPlanActivity extends AppCompatActivity {
 
     /**
      * The dive log to finish.

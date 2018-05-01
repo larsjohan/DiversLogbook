@@ -13,7 +13,6 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import no.ntnu.diverslogbook.R;
-import no.ntnu.diverslogbook.util.OAuthProvider;
 
 /**
  * Enables sign in using an existing Google account.

@@ -9,10 +9,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import no.ntnu.diverslogbook.model.DiveLog;
 import no.ntnu.diverslogbook.model.Diver;
 import no.ntnu.diverslogbook.model.Location;
 
@@ -51,11 +49,6 @@ public abstract class Database {
     /**
      * The root element for all log-elements in the database
      */
-    private static final DatabaseReference LOGS = DATABASE.child("log");
-
-    /**
-     * The root element for all log-elements in the database
-     */
     private static final DatabaseReference LOCATIONS = DATABASE.child("location");
 
     /**
@@ -66,12 +59,12 @@ public abstract class Database {
     /**
      * A list of locations that is stored in the database
      */
-    private static final List<Location> LOCATIONLIST = new ArrayList<>();
+    private static final List<Location> LOCATION_LIST = new ArrayList<>();
 
     /**
      * A list of divers that is stored in the database
      */
-    private static final List<Diver> DIVERLIST = new ArrayList<>();
+    private static final List<Diver> DIVER_LIST = new ArrayList<>();
 
     /**
      * Registered observers for
@@ -90,7 +83,7 @@ public abstract class Database {
      * @see Diver
      */
     public static boolean containsDiver(Diver diver){
-        return DIVERLIST.contains(diver);
+        return DIVER_LIST.contains(diver);
     }
 
 
@@ -101,7 +94,7 @@ public abstract class Database {
      * @see Diver
      */
     public static Diver getDiver(String id) {
-        for (Diver diver : DIVERLIST) {
+        for (Diver diver : DIVER_LIST) {
             if (diver.getId().equals(id)) {
                 return diver;
             }
@@ -117,7 +110,7 @@ public abstract class Database {
      * @see Diver
      */
     public static List<Diver> getDivers() {
-        return DIVERLIST;
+        return DIVER_LIST;
     }
 
 
@@ -129,7 +122,7 @@ public abstract class Database {
      * @see Location
      */
     public static List<Location> getLocations() {
-        return LOCATIONLIST;
+        return LOCATION_LIST;
     }
 
     /**
@@ -218,13 +211,13 @@ public abstract class Database {
             for (DataSnapshot data : dataSnapshot.getChildren()) {
                 Diver diver = data.getValue(Diver.class);
 
-                if (!DIVERLIST.contains(diver)) {
-                    DIVERLIST.add(diver);
+                if (!DIVER_LIST.contains(diver)) {
+                    DIVER_LIST.add(diver);
                     OBSERVER_MANAGER.notifyChange(diver);
                 }
             }
 
-            if (!DIVERLIST.contains(LOGGED_IN_DIVER)) {
+            if (!DIVER_LIST.contains(LOGGED_IN_DIVER)) {
                 createDiver(LOGGED_IN_DIVER);
             }
         }
@@ -260,8 +253,8 @@ public abstract class Database {
             for (DataSnapshot data : dataSnapshot.getChildren()) {
                 Location location = data.getValue(Location.class);
 
-                if (!LOCATIONLIST.contains(location)){
-                    LOCATIONLIST.add(location);
+                if (!LOCATION_LIST.contains(location)){
+                    LOCATION_LIST.add(location);
                     OBSERVER_MANAGER.notifyChange(location);
                 }
             }

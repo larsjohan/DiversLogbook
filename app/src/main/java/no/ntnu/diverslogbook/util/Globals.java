@@ -1,4 +1,4 @@
-package no.ntnu.diverslogbook;
+package no.ntnu.diverslogbook.util;
 
 
 /**

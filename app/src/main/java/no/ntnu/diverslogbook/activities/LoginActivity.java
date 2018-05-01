@@ -1,8 +1,6 @@
-package no.ntnu.diverslogbook;
+package no.ntnu.diverslogbook.activities;
 
 import android.content.Intent;
-import android.net.wifi.hotspot2.pps.Credential;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,21 +8,14 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthProvider;
 
+import no.ntnu.diverslogbook.R;
 import no.ntnu.diverslogbook.model.Diver;
 import no.ntnu.diverslogbook.util.Database;
-import no.ntnu.diverslogbook.util.OAuthProvider;
+import no.ntnu.diverslogbook.util.oauth.OAuthProvider;
 import no.ntnu.diverslogbook.util.oauth.GoogleLogin;
 
 /**
