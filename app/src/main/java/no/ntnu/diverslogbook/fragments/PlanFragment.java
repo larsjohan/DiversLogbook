@@ -136,9 +136,11 @@ public class PlanFragment extends Fragment {
             // TODO: Why is dive logs not available from the logged in user?
             if (changedObject instanceof Diver && ((Diver) changedObject).getId().equals(Database.getLoggedInDiver().getId())){
                 DiveLog unfinishedLog = null;
+                Diver diver = (Diver) changedObject;
+                ArrayList<DiveLog> logs = diver.getDiveLogs();
 
                 // Go through all dive logs for this user.
-                for (DiveLog log : ((Diver) changedObject).getDiveLogs()) {
+                for (DiveLog log : logs) {
 
                     // If there is an unfinished log, make the user finish the plan.
                     if (log.getActualDepth() == 0) {
@@ -149,7 +151,7 @@ public class PlanFragment extends Fragment {
                 if (unfinishedLog == null) {
                     initializePlanView();
                 } else {
-                    navigateToFinishPlan(unfinishedLog);
+                    navigateToFinishPlan(diver, unfinishedLog);
                 }
             }
         });
@@ -366,7 +368,7 @@ public class PlanFragment extends Fragment {
      *
      * @return true if all data is valid
      */
-    private boolean planDataIsValid(String date, String buddy, String guard, String location, String depth,
+    public boolean planDataIsValid(String date, String buddy, String guard, String location, String depth,
                                     String divingTime, String tankSize, String tankPressure, String tempSurface,
                                     String tempWater, String lastDive, String lastAlcohol) {
 
@@ -464,7 +466,7 @@ public class PlanFragment extends Fragment {
      * @param input The time in string
      * @return New HoursAndMinutes object
      */
-    private DiveLog.HoursAndMinutes getNewHoursAndMinutes(String input) {
+    public DiveLog.HoursAndMinutes getNewHoursAndMinutes(String input) {
         DiveLog.HoursAndMinutes object;
 
         if (!input.equals(Globals.MORETHAN24H)) {
@@ -490,7 +492,7 @@ public class PlanFragment extends Fragment {
         diver.addDiveLog(newLog);
         Database.updateDiver(diver);
         Toast.makeText(getActivity(), R.string.plan_success, Toast.LENGTH_LONG).show();
-        navigateToFinishPlan(newLog);
+        navigateToFinishPlan(diver, newLog);
     }
 
 
@@ -500,9 +502,10 @@ public class PlanFragment extends Fragment {
      *
      * @param log A new diving log
      */
-    private void navigateToFinishPlan(DiveLog log) {
+    private void navigateToFinishPlan(Diver diver, DiveLog log) {
         Intent intent = new Intent(getActivity(), FinishPlan.class);
-        intent.putExtra(Globals.FINISHPLAN, log);
+        intent.putExtra(Globals.FINISH_PLAN_LOG, log);
+        intent.putExtra(Globals.FINISH_PLAN_DIVER, diver);
         startActivity(intent);
     }
 }

@@ -31,6 +31,11 @@ public class FinishPlan extends AppCompatActivity {
     private DiveLog diveLog;
 
     /**
+     * The logged in diver.
+     */
+    private Diver diver;
+
+    /**
      * Input data.
      */
     private Spinner current;
@@ -52,7 +57,8 @@ public class FinishPlan extends AppCompatActivity {
 
         // Get log object.
         Intent intent = getIntent();
-        diveLog = (DiveLog) intent.getSerializableExtra(Globals.FINISHPLAN);
+        diveLog = (DiveLog) intent.getSerializableExtra(Globals.FINISH_PLAN_LOG);
+        diver = (Diver) intent.getSerializableExtra(Globals.FINISH_PLAN_DIVER);
 
         // Initialize inputs.
         current = findViewById(R.id.current);
@@ -101,7 +107,6 @@ public class FinishPlan extends AppCompatActivity {
     private void updatePlanInDatabase() {
         Log.d("TAG", "TRYING TO UPDATE DATABASE..");
 
-        Diver diver = Database.getLoggedInDiver();
         ArrayList<DiveLog> logs = diver.getDiveLogs();
 
         // New values.

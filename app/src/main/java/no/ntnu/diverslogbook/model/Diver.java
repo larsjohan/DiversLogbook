@@ -1,6 +1,7 @@
 package no.ntnu.diverslogbook.model;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  * @author Lars Johan
  * @see DiveLog
  */
-public class Diver {
+public class Diver implements Serializable {
 
     private String id;
 

@@ -14,7 +14,12 @@ public class Globals {
     /**
      * Used for sending a newly created plan with intent.
      */
-    public static final String FINISHPLAN = "finish_plan";
+    public static final String FINISH_PLAN_LOG = "finish_plan_diver";
+
+    /**
+     * Used for sending the logged in user with intent.
+     */
+    public static final String FINISH_PLAN_DIVER = "finish_plan_diver";
 
     /**
      * Used when checking the value of time since last dive and alcohol intake.
