@@ -112,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         // The user pressed logout in preferences
-        if(getIntent().getBooleanExtra("logout", false)){
+        if (getIntent().getBooleanExtra("logout", false)){
             this.firebaseAuth.signOut();
             Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show();
         }

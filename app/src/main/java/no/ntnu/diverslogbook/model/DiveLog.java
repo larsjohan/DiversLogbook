@@ -14,6 +14,7 @@ public class DiveLog implements Serializable {
      ************* MEMBER VARIABLES ***************
      **********************************************/
 
+    private int diveCount;
     private String date;
 
     // Users.
@@ -61,6 +62,7 @@ public class DiveLog implements Serializable {
      * Creates an empty log object.
      */
     public DiveLog() {
+        this.diveCount = 0;
         this.date = "";
         this.diveBuddy = "";
         this.surfaceGuard = "";
@@ -94,10 +96,11 @@ public class DiveLog implements Serializable {
      *
      * @params Data about the planned dive.
      */
-    public DiveLog(String date, String buddy, String guard, String location, String diveType, int plannedDepth,
+    public DiveLog(int diveCount, String date, String buddy, String guard, String location, String diveType, int plannedDepth,
                    HoursAndMinutes lastDive, HoursAndMinutes lastAlcohol, ArrayList<SecurityStop> stops, int plannedTime,
                    int tankSize, int startTankPressure, String diveGas, String weather, float tempSurface, float tempWater, String notes) {
 
+        this.diveCount = diveCount;
         this.date = date;
         this.diveBuddy = buddy;
         this.surfaceGuard = guard;
@@ -129,6 +132,15 @@ public class DiveLog implements Serializable {
     /**********************************************
      ************** SETTER METHODS ****************
      **********************************************/
+
+    /**
+     * Set start dive count.
+     *
+     * @param diveCount The dive count
+     */
+    public void setDiveCount(int diveCount) {
+        this.diveCount = diveCount;
+    }
 
     /**
      * Set start time of this dive.
@@ -207,6 +219,16 @@ public class DiveLog implements Serializable {
     /**********************************************
      ************** GETTER METHODS ****************
      **********************************************/
+
+    /**
+     * Get current dive count.
+     *
+     * @return Dive count
+     */
+    public int getDiveCount() {
+        return diveCount;
+    }
+
 
     /**
      * Get date of planned dive.

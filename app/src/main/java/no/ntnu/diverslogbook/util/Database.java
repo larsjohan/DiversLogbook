@@ -221,8 +221,6 @@ public abstract class Database {
                 if (!DIVERLIST.contains(diver)) {
                     DIVERLIST.add(diver);
                     OBSERVER_MANAGER.notifyChange(diver);
-                } else if (diver.equals(LOGGED_IN_DIVER)) {
-                    LOGGED_IN_DIVER = diver;
                 }
             }
 

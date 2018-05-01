@@ -3,7 +3,9 @@ package no.ntnu.diverslogbook.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.format.DateFormat;
@@ -70,6 +72,11 @@ public class PlanFragment extends Fragment {
     private Button createPlanButton;
 
     /**
+     * The logged in user.
+     */
+    private Diver diver;
+
+    /**
      * All users that uses the application.
      */
     private List<String> USERS = new ArrayList<>();
@@ -85,9 +92,14 @@ public class PlanFragment extends Fragment {
     private View view;
 
     /**
-     * Result tag.
+     * Identifies result from security stops.
      */
-    private int RESULT = 0;
+    private int SECURITY_STOPS_RESULT = 0;
+
+    /**
+     * Identifies result from finish plan.
+     */
+    private int FINISH_PLAN_RESULT = 1;
 
     /**
      * List of security stops.
@@ -117,6 +129,10 @@ public class PlanFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_plan, container, false);
         getActivity().setTitle(R.string.plan_title);
 
+        // Initialize the search list for users and locations.
+        getUsers();
+        getLocations();
+
         checkIfNewPlanExists();
 
 
@@ -136,14 +152,14 @@ public class PlanFragment extends Fragment {
             // TODO: Why is dive logs not available from the logged in user?
             if (changedObject instanceof Diver && ((Diver) changedObject).getId().equals(Database.getLoggedInDiver().getId())){
                 DiveLog unfinishedLog = null;
-                Diver diver = (Diver) changedObject;
+                diver = (Diver) changedObject;
                 ArrayList<DiveLog> logs = diver.getDiveLogs();
 
                 // Go through all dive logs for this user.
                 for (DiveLog log : logs) {
 
                     // If there is an unfinished log, make the user finish the plan.
-                    if (log.getActualDepth() == 0) {
+                    if (log.getActualDepth() == 0 || log.getCurrent().equals("")) {
                         unfinishedLog = log;
                     }
                 }
@@ -162,17 +178,11 @@ public class PlanFragment extends Fragment {
      * Does all of the initialization for the plan view.
      */
     private void initializePlanView() {
-        // Initialize the search list for users and locations.
-        getUsers();
-        getLocations();
-
         // Initialize all input variables.
         initializeInputsAndButtons();
 
         // Set date to today's date.
-        Date d = new Date();
-        String today  = (String) DateFormat.format("dd/MM/yyyy ", d.getTime());
-        dateInput.setText(today);
+        dateInput.setText(getToday());
 
         // Set onclick listener on the "choose security" button and the "create plan" button.
         chooseSecurityButton.setOnClickListener((v) -> chooseSecurity(v));
@@ -187,6 +197,19 @@ public class PlanFragment extends Fragment {
         //lastDive24.setOnCheckedChangeListener((buttonView, isChecked) -> onCheckBoxChange(isChecked, R.id.lastDive));
         lastDive24.setOnCheckedChangeListener(((buttonView, isChecked) -> lastDiveInput.setEnabled(!isChecked)));
         lastAlcohol24.setOnCheckedChangeListener((buttonView, isChecked) -> lastAlcoholInput.setEnabled(!isChecked));
+    }
+
+
+    /**
+     * Get today's date in a string.
+     *
+     * @return Today's date
+     */
+    private String getToday() {
+        Date d = new Date();
+        String today  = (String) DateFormat.format("dd/MM/yyyy ", d.getTime());
+
+        return today;
     }
 
 
@@ -226,7 +249,7 @@ public class PlanFragment extends Fragment {
     public void chooseSecurity(View view) {
         Intent intent = new Intent(getActivity(), SecurityStops.class);
         intent.putExtra(Globals.SECURITYSTOPS, securityStops);
-        startActivityForResult(intent, RESULT);
+        startActivityForResult(intent, SECURITY_STOPS_RESULT);
     }
 
 
@@ -242,7 +265,7 @@ public class PlanFragment extends Fragment {
         getActivity();
 
         // Check which request we're responding to
-        if (requestCode == RESULT) {
+        if (requestCode == SECURITY_STOPS_RESULT) {
             // Make sure the request was successful
 
             if (resultCode == Activity.RESULT_OK) {
@@ -254,6 +277,9 @@ public class PlanFragment extends Fragment {
                 Button securityButton = view.findViewById(R.id.chooseSecurity);
                 securityButton.setText(R.string.edit);
             }
+        } else if (requestCode == FINISH_PLAN_RESULT) {
+            diver = (Diver) data.getSerializableExtra(Globals.FINISH_PLAN_DIVER);
+            cleanAllInputs();
         }
     }
 
@@ -264,11 +290,21 @@ public class PlanFragment extends Fragment {
     private void getUsers() {
         List<Diver> divers = Database.getDivers();
 
-        if (divers.size() == 0) {
+        if (divers.size() > 0) {
+
+            // Put existing divers' names in USERS list.
+            for (Diver diver : divers) {
+                USERS.add(diver.getName());
+            }
+
+        } else {
+
+            // Get all diver names from database.
             Database.registerObserver(changedObject -> {
 
-                if (changedObject instanceof Diver){
-                    USERS.add(((Diver) changedObject).getName());
+                if (changedObject instanceof Diver) {
+                    String name = ((Diver) changedObject).getName();
+                    USERS.add(name);
                 }
             });
         }
@@ -403,6 +439,7 @@ public class PlanFragment extends Fragment {
         pattern = Pattern.compile("\\d*(:)\\d*");
         boolean lastDiveOk;
 
+        // Last dive was more than 24 hours ago.
         if (lastDive.equals(Globals.MORETHAN24H)) {
             lastDiveOk = true;
         } else {
@@ -412,6 +449,7 @@ public class PlanFragment extends Fragment {
 
         boolean lastAlcoholOk;
 
+        // Last alcohol intake was more than 24 hours ago.
         if (lastAlcohol.equals(Globals.MORETHAN24H)) {
             lastAlcoholOk = true;
         } else {
@@ -449,14 +487,30 @@ public class PlanFragment extends Fragment {
             Log.d("TAG", lastDiveObject.getHours() + ":" + lastDiveObject.getMinutes());
         }
 
+        int diveCount = getNewDiveCount();
+
         // Create a new dive log.
-        DiveLog newLog = new DiveLog(date, buddy, guard, location, diveType, Integer.valueOf(depth),
+        DiveLog newLog = new DiveLog(diveCount, date, buddy, guard, location, diveType, Integer.valueOf(depth),
                                     lastDiveObject, lastAlcoholObject, securityStops,
                                     Integer.valueOf(divingTime), Integer.valueOf(tankSize), Integer.valueOf(tankPressure),
                                     diveGas, weather, Float.parseFloat(tempSurface), Float.parseFloat(tempWater), notes);
 
         // Update user with the new dive log.
-        updateUser(Database.getLoggedInDiver(), newLog);
+        updateUser(newLog);
+    }
+
+
+    /**
+     * Retrieve the newest dive count.
+     *
+     * @return Dive count
+     */
+    private int getNewDiveCount() {
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String startCount = prefs.getString(getString(R.string.preferences_diveNumber), "0");
+        int newCount = Integer.valueOf(startCount) + diver.getDiveLogs().size() + 1;
+
+        return newCount;
     }
 
 
@@ -485,10 +539,9 @@ public class PlanFragment extends Fragment {
     /**
      * Update the user in Firebase and make GUI ready for finishing the plan.
      *
-     * @param diver The diver to update
      * @param newLog The new dive log
      */
-    private void updateUser(Diver diver, DiveLog newLog) {
+    private void updateUser(DiveLog newLog) {
         diver.addDiveLog(newLog);
         Database.updateDiver(diver);
         Toast.makeText(getActivity(), R.string.plan_success, Toast.LENGTH_LONG).show();
@@ -506,6 +559,49 @@ public class PlanFragment extends Fragment {
         Intent intent = new Intent(getActivity(), FinishPlan.class);
         intent.putExtra(Globals.FINISH_PLAN_LOG, log);
         intent.putExtra(Globals.FINISH_PLAN_DIVER, diver);
-        startActivity(intent);
+        startActivityForResult(intent, FINISH_PLAN_RESULT);
+    }
+
+
+    /**
+     * Remove all values set.
+     */
+    private void cleanAllInputs() {
+        dateInput.setText(getToday());
+        buddyInput.setText("");
+        guardInput.setText("");
+        locationInput.setText("");
+        diveTypeSpinner.setSelection(0);
+        depthInput.setText("");
+        divingTimeInput.setText("");
+        tankSizeInput.setText("");
+        tankPressureInput.setText("");
+        diveGasSpinner.setSelection(0);
+        weatherSpinner.setSelection(0);
+        tempSurfaceInput.setText("");
+        tempWaterInput.setText("");
+        lastDive24.setChecked(false);
+        lastDiveInput.setText("");
+        lastAlcohol24.setChecked(false);
+        lastAlcoholInput.setText("");
+        notesInput.setText("");
+        securityStops.clear();
+
+        // Update icons.
+        ImageView icon = view.findViewById(R.id.buddyIcon);
+        icon.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_person_add_black_24dp));
+
+        icon = view.findViewById(R.id.guardIcon);
+        icon.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_person_add_black_24dp));
+
+        icon = view.findViewById(R.id.securityIcon);
+        icon.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_security_black_24dp));
+
+        icon = view.findViewById(R.id.locationIcon);
+        icon.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_add_location_black_24dp));
+
+        // Update button text.
+        Button securityButton = view.findViewById(R.id.chooseSecurity);
+        securityButton.setText(R.string.choose);
     }
 }

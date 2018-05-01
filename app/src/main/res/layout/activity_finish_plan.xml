@@ -6,6 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".FinishPlan">
 
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:text="date"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="20dp"
+        android:text="location"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/date"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textView25"
         android:layout_width="125dp"
@@ -14,18 +37,18 @@
         android:layout_marginTop="30dp"
         android:text="@string/plan_current"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/date" />
 
     <Spinner
         android:id="@+id/current"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="27dp"
+        android:layout_marginTop="29dp"
         android:entries="@array/plan_current_input"
         android:entryValues="@array/plan_current_input"
         app:layout_constraintStart_toEndOf="@+id/textView25"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/location" />
 
     <TextView
         android:id="@+id/textView26"
@@ -101,7 +124,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="128dp"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="200dp"
         android:backgroundTint="@color/colorPrimary"
         android:padding="15dp"
         android:text="@string/plan_finish_button"
@@ -129,4 +152,5 @@
         android:text="@string/bar"
         app:layout_constraintStart_toEndOf="@+id/endTankPressure"
         app:layout_constraintTop_toBottomOf="@+id/textView30" />
+
 </android.support.constraint.ConstraintLayout>

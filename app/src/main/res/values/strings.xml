@@ -33,13 +33,12 @@
     <string name="login_error_field_required">This field is required</string>
     <string name="login_oauth_login_hint">Login with an existing external account:</string>
 
-
-    <string name="preferences_activityTitle">Preferences</string>
-
     <!-- This is for the language ListPreference in preferences.xml -->
     <string name="preferences_languageTitle">Language</string>
     <string name="preferences_languageSummary">Language to use in the application.</string>
     <string name="preferences_languageDefault">EN</string>
+    <string name="preferences_activityTitle">Preferences</string>
+    <string name="preferences_diveNumber">startNumber</string>
 
     <string-array name="preferences_language">
         <item>English</item>

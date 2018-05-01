@@ -27,7 +27,7 @@
         android:key="pref_diving">
 
         <EditTextPreference
-            android:key="startNumber"
+            android:key="@string/preferences_dive_number"
             android:title="@string/preferences_dive_number"
             android:summary="@string/preferences_dive_number_summary"
             android:inputType="number"

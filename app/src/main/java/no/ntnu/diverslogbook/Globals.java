@@ -14,7 +14,7 @@ public class Globals {
     /**
      * Used for sending a newly created plan with intent.
      */
-    public static final String FINISH_PLAN_LOG = "finish_plan_diver";
+    public static final String FINISH_PLAN_LOG = "finish_plan_log";
 
     /**
      * Used for sending the logged in user with intent.
