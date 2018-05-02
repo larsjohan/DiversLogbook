@@ -91,20 +91,27 @@ public class DiveFragment extends Fragment {
         return guardedDivers;
     }
 
+
+    /**
+     * Compares a date with today,
+     * @param date A date to compare with (DD/MM/YYYY)
+     * @return true if equal, false if not
+     */
     private boolean isToday(String date){
+        // Today
         Calendar now = Calendar.getInstance();
 
+        // Split date into DD, MM and YYYY
         date = date.trim();
         String[] dateParts = date.split("/");
 
+        // Build date 2
         Calendar now2 = Calendar.getInstance();
         now2.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dateParts[0]));
         now2.set(Calendar.MONTH, Integer.parseInt(dateParts[1]) - 1);
         now2.set(Calendar.YEAR, Integer.parseInt(dateParts[2]));
 
-        Log.d("DiverApp", "Today: " + now.get(Calendar.YEAR) + "-" + now.get(Calendar.MONTH) + "-" + now.get(Calendar.DAY_OF_MONTH));
-        Log.d("DiverApp", "Some:" + now2.get(Calendar.YEAR) + "-" + now2.get(Calendar.MONTH) + "-" + now2.get(Calendar.DAY_OF_MONTH));
-
+        // Compare dates
         return now.get(Calendar.YEAR) == now2.get(Calendar.YEAR) &&
                 now.get(Calendar.MONTH) == now2.get(Calendar.MONTH) &&
                 now.get(Calendar.DAY_OF_MONTH) == now2.get(Calendar.DAY_OF_MONTH);
