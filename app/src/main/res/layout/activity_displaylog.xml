@@ -187,7 +187,7 @@
             android:gravity="center_vertical">
 
             <TextView
-                android:id="@+id/tv_displaylog_tsld_text"
+                android:id="@+id/tv_displaylog_lastdive_text"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -197,7 +197,7 @@
                 android:text="@string/displaylog_tsld" />
 
             <TextView
-                android:id="@+id/tv_displaylog_tsld"
+                android:id="@+id/tv_displaylog_lastdive"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -214,7 +214,7 @@
             android:gravity="center_vertical">
 
             <TextView
-                android:id="@+id/tv_displaylog_tslai_text"
+                android:id="@+id/tv_displaylog_lastalcohol_text"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -224,7 +224,7 @@
                 android:text="@string/displaylog_tslai" />
 
             <TextView
-                android:id="@+id/tv_displaylog_tslai"
+                android:id="@+id/tv_displaylog_lastalcohol"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"

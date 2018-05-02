@@ -62,7 +62,7 @@ public class DiveLog implements Serializable {
     /**
      * Creates an empty log object.
      */
-    /*public DiveLog() {
+    public DiveLog() {
         this.diveCount = 0;
         this.date = "";
         this.diveBuddy = "";
@@ -89,42 +89,8 @@ public class DiveLog implements Serializable {
         this.actualDepth = 0;
         this.endTankPressure = 0;
         this.notesAfter = "";
-    }*/
-    // Mock data
-    @SuppressWarnings("deprecation")
-    public DiveLog() {
-        this.diveCount = 1;
-        this.date = "01/02/2018";
-        this.surfaceGuard = "guard 1";
-        this.diveBuddy = "Buddy 1";
-        this.location = "Langesund, Norway";
-        this.diveType = "Recreational";
-        this.plannedDepth = 45;
-        this.actualDepth = 10;
-        Date startDiveTime = new Date();
-        Date endDiveTime = new Date();
-        endDiveTime.setMinutes(startDiveTime.getMinutes() + 40);
-        this.startTime = startDiveTime;
-        this.endTime = endDiveTime;
-        this.timeSinceLastDive = new HoursAndMinutes(0,30);
-        this.timeSinceAlcoholIntake = new HoursAndMinutes(2,1);
-        ArrayList<SecurityStop> stops = new ArrayList<>();
-        stops.add(new SecurityStop(2, 5));
-        stops.add(new SecurityStop(4, 20));
-        this.securityStops = stops;
-        this.plannedDiveTime = 1337;
-        this.tankSize = 10;
-        this.startTankPressure = 300;
-        this.endTankPressure = 50;
-        this.diveGas = "nitrox";
-        this.weather = "Cloudy";
-        this.tempSurface = 15.7f;
-        this.tempWater = 4.7f;
-        this.current = "LIGHT";
-        this.notes = "This is the best note ever. What happens when the info in here " +
-                "get really really really long. Does the text jump down or does it go off screen?";
-        this.notesAfter = "Secondary!";
     }
+
 
 
     /**
