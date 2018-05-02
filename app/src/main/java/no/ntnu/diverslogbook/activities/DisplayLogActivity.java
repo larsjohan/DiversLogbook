@@ -95,6 +95,20 @@ public class DisplayLogActivity extends AppCompatActivity {
         DiveLog.HoursAndMinutes lastDiveTmp = diveLog.getTimeSinceLastDive();
         DiveLog.HoursAndMinutes lastAlcoholTmp = diveLog.getTimeSinceAlcoholIntake();
 
+
+        if (lastDiveTmp == null ) {
+            // If for some reason the log doesn't have the timeSinceLastDive and/or timeSinceLastAlcoholIntake attributes.
+            // We can assume that time since last ... should be more than 24hours.
+            lastDiveTmp = new DiveLog.HoursAndMinutes(25, 25);
+        }
+
+        if (lastAlcoholTmp == null ) {
+            // If for some reason the log doesn't have the timeSinceLastDive and/or timeSinceLastAlcoholIntake attributes.
+            // We can assume that time since last ... should be more than 24hours.
+            lastAlcoholTmp = new DiveLog.HoursAndMinutes(25, 25);
+        }
+
+
         // Get strings to display.
         String lastDive =  lastTime(lastDiveTmp);
         String lastAlcohol = lastTime(lastAlcoholTmp);
@@ -110,8 +124,13 @@ public class DisplayLogActivity extends AppCompatActivity {
         // Calculate actual dive time:
         Date startDiveTime = diveLog.getStartTime();
         Date endDiveTime = diveLog.getEndTime();
+
+        // timeDifference makes sure time actually exists. There is a check further down checking whether actualDiveTime
+        // is bigger than 0. That will indicate whether the info should be displayed or something went wrong.
+        int actualDiveTime = -1;
+
         // In minutes.
-        int actualDiveTime = (int) (timeDifference(startDiveTime, endDiveTime));
+        actualDiveTime = (int) (timeDifference(startDiveTime, endDiveTime));
 
 
         // Calculate used pressure and liters of oxygen per hour.
@@ -122,19 +141,29 @@ public class DisplayLogActivity extends AppCompatActivity {
         // Liter per minutes.
         int airUsage = (usedPressure * tankSize) / actualDiveTime;
 
+        String airUsageText = Integer.toString(airUsage);
+        String actualDivetimeText = Integer.toString(actualDiveTime);
+
+        // Checks if numbers are negative due to NULL info above.
+        if (airUsage < 0 || actualDiveTime < 0) {
+            airUsageText = "couldn't calculate";
+            actualDivetimeText = "couldn't calculate";
+        }
+
         // Build String.
         StringBuilder tmp = new StringBuilder();
         tmp.append(Integer.toString(usedPressure));
         tmp.append(" ");
         tmp.append(getString(R.string.displayloga_bar));
         tmp.append(" (");
-        tmp.append(Integer.toString(airUsage));
+        tmp.append(airUsageText);
         tmp.append(" ");
         tmp.append(getString(R.string.displayloga_litrePerMinute));
         tmp.append(")");
         String usedPressureAndAir = tmp.toString();
 
-        setText(R.id.tv_displaylog_actualdivetime,Integer.toString(actualDiveTime)      + " " + getString(R.string.displayloga_minutes));
+
+        setText(R.id.tv_displaylog_actualdivetime,actualDivetimeText                    + " " + getString(R.string.displayloga_minutes));
         setText(R.id.tv_displaylog_tanksize,      Integer.toString(tankSize)            + " " + getString(R.string.displayloga_litre));
         setText(R.id.tv_displaylog_startpressure, Integer.toString(startTankPressure)   + " " + getString(R.string.displayloga_bar));
         setText(R.id.tv_displaylog_endpressure,   Integer.toString(endTankPressure)     + " " + getString(R.string.displayloga_bar));
@@ -174,7 +203,7 @@ public class DisplayLogActivity extends AppCompatActivity {
      * Returns a string saying "-" or "time.hours h. time.minutes min."
      *
      * @param time time since last ... (dive, alcohol intake, etc.)
-     * @return {String} that
+     * @return {String} text to display
      */
     private String lastTime(DiveLog.HoursAndMinutes time) {
         // Set string to be "-" while time since last is over 24h..
@@ -222,6 +251,7 @@ public class DisplayLogActivity extends AppCompatActivity {
             tmp.append(duration);
             tmp.append(" ");
             tmp.append(getString(R.string.displayloga_stopDuration));
+            tmp.append(" ");
             tmp.append(depth);
             tmp.append(" ");
             tmp.append(getString(R.string.displayloga_meters));
@@ -270,14 +300,25 @@ public class DisplayLogActivity extends AppCompatActivity {
         int actualDepth = diveLog.getActualDepth();
 
         // If more than 24 hours since last dive.
-        if (diveLog.getTimeSinceLastDive().getHours() >= 24) {
-            // Calculate saturation using this method.
-            saturationGroup = diveTable.getPreSISaturationGroup(actualDepth, actualDiveTime);
+        if (diveLog.getTimeSinceLastDive() != null) {
+            if (diveLog.getTimeSinceLastDive().getHours() >= 24) {
+                // If the actualDiveTime was calculated incorrectly.
+                if (actualDiveTime < 0) {
+                    saturationGroup = "couldn't calculate";
+                } else {
+                    // Calculate saturation using this method.
+                    saturationGroup = diveTable.getPreSISaturationGroup(actualDepth, actualDiveTime);
+                }
+            } else {
+                // If less than 24 hours since last dive, previous dives need to be taken into consideration.
+                // Get last dive(s) saturation.
+                saturationGroup = getPreviousDiveSaturation(diveTable, diveLog);
+            }
         } else {
-            // If less than 24 hours since last dive, previous dives need to be taken into consideration.
-            // Get last dive(s) saturation.
-            saturationGroup = getPreviousDiveSaturation(diveTable, diveLog);
+            // if for some reason the timeSinceLastDive is null.
+            saturationGroup = "couldn't calculate";
         }
+
 
         return saturationGroup;
     }
@@ -292,10 +333,15 @@ public class DisplayLogActivity extends AppCompatActivity {
      * @return {long} minutes between parameters
      */
     private long timeDifference(Date d1, Date d2) {
-        long diff = Math.abs(d1.getTime() - d2.getTime());
-        long seconds = diff / 1000;
-        long minutes = seconds / 60;
-        return minutes;
+        // Makes sure that dates are not NULL.
+        if (d1 != null && d2 != null) {
+            long diff = Math.abs(d1.getTime() - d2.getTime());
+            long seconds = diff / 1000;
+            long minutes = seconds / 60;
+            return minutes;
+        }
+
+        return -1;
     }
 
 
@@ -315,12 +361,26 @@ public class DisplayLogActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * This function recursively retrieves the previous divelog's saturation while the time since
+     * last dive is less than 24 hours. This uses that information to calculate which SaturationGroup
+     * the diver should be in after the last dive.
+     *
+     * @param diveTable the dive table to use in the calculation of saturation
+     * @param diveLog the divelog object to get saturation of
+     * @return {String} saturationgroup
+     */
     private String getPreviousDiveSaturation(DiveTable diveTable, DiveLog diveLog){
 
+        // Temporary DiveLog objects.
         DiveLog current = null, previous = null;
 
+        // Retrieves all logs from the Database object.
         List<DiveLog> logs = Database.getLoggedInDiver().getDiveLogs();
+
+        // Loops through all the logs.
         for (DiveLog log: logs) {
+            // Gets the current log and the one before this one.
             if (log.getDiveCount() == diveLog.getDiveCount()) {
                 current = log;
             } else if (log.getDiveCount() == diveLog.getDiveCount() - 1) {
@@ -328,7 +388,9 @@ public class DisplayLogActivity extends AppCompatActivity {
             }
         }
 
+        // Temporary string holding previous divelog's saturation group.
         String previousSaturation = "";
+        // If there is a previous divelog, and it was less than 24hours ago, call this function again.
         if (previous != null && previous.getTimeSinceLastDive().getHours() < 24) {
             previousSaturation = this.getPreviousDiveSaturation(diveTable, previous);
         }
@@ -340,65 +402,14 @@ public class DisplayLogActivity extends AppCompatActivity {
         // Use a method to calculate the difference in minutes.
         int actualDiveTime = (int) (timeDifference(startDiveTime, endDiveTime));
 
+        // If there is no previous saturation group, calculate a saturation group for this divelog.
         if (!previousSaturation.isEmpty()) {
             String adjustedSaturation = diveTable.getSISaturation(previousSaturation, current.getTimeSinceLastDive().getHours(), current.getTimeSinceLastDive().getMinutes());
             return diveTable.getPostSISaturationGroup(adjustedSaturation, actualDiveTime, current.getActualDepth());
-
         } else {
             return diveTable.getPreSISaturationGroup(current.getActualDepth(), actualDiveTime);
         }
 
-
-
-//        // Temporary string that will be returned.
-//        String saturationGroup = "";
-//        // Get all logs.
-//        ArrayList<DiveLog> logs = Database.getDiver(Database.getLoggedInDiver().getId()).getDiveLogs();
-//        DiveLog lastDiveLog = null;
-//
-//        if (logs != null) {
-//            // Find previous dive log.
-//            for (DiveLog log: logs) {
-//                if (log.getDiveCount() == diveLog.getDiveCount() - 1) {
-//                    lastDiveLog = log;
-//                    break;
-//                }
-//            }
-//
-//            // Make sure a log was found.
-//            if (lastDiveLog != null) {
-//
-//
-//                // Calculate actual dive time for previous dive log.
-//                int lastDiveLogActualDiveTime = (int) (timeDifference(lastDiveLog.getStartTime(), lastDiveLog.getEndTime()));
-//                // Calculate saturation for previous dive log.
-//                String lastDiveLogSaturation = diveTable.getPreSISaturationGroup(lastDiveLog.getActualDepth(), lastDiveLogActualDiveTime);
-//
-//
-//
-//
-//                // Calculate actual dive time:
-//                // Get start and end time of dive.
-//                Date startDiveTime = diveLog.getStartTime();
-//                Date endDiveTime = diveLog.getEndTime();
-//                // Use a method to calculate the difference in minutes.
-//                int actualDiveTime = (int) (timeDifference(startDiveTime, endDiveTime));
-//                // Get actual depth of dive.
-//                int actualDepth = diveLog.getActualDepth();
-//
-//
-//                // Calculate new saturation for this log.
-//                String adjustedSaturation = diveTable.getSISaturation(lastDiveLogSaturation, diveLog.getTimeSinceLastDive().getHours(), diveLog.getTimeSinceLastDive().getMinutes());
-//                saturationGroup = diveTable.getPostSISaturationGroup(adjustedSaturation, actualDiveTime, actualDepth);
-//            } else {
-//                // Something went horribly wrong. (should not really occur, happens when last
-//                // alcohol intake is less than 24hrs ago but there is no previous log to check saturation of).
-//                saturationGroup = "Couldn't calculate";
-//            }
-//        }
-//
-//
-//        return saturationGroup;
     }
 
 
