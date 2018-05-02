@@ -1,8 +1,10 @@
 package no.ntnu.diverslogbook.fragments;
 
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import no.ntnu.diverslogbook.R;
 import no.ntnu.diverslogbook.models.Diver;
 import no.ntnu.diverslogbook.tasks.DownloadProfileImageTask;
 import no.ntnu.diverslogbook.utils.Database;
+import no.ntnu.diverslogbook.utils.ImageCache;
 
 
 public class ProfileFragment extends Fragment {
@@ -62,7 +65,12 @@ public class ProfileFragment extends Fragment {
         email.setText(diver.getEmail());
         phone.setText(diver.getPhone());
 
-        new DownloadProfileImageTask(this.getActivity()).execute(diver.getProfilePhotoURI());
+        Bitmap profileImg = ImageCache.get(this.getContext(), diver.getId());
+        if(profileImg != null){
+            image.setImageBitmap(profileImg);
+        } else {
+            new DownloadProfileImageTask(this.getActivity(), diver.getId()).execute(diver.getProfilePhotoURI());
+        }
 
     }
 
