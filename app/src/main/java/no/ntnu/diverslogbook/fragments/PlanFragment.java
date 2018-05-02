@@ -127,7 +127,9 @@ public class PlanFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_plan, container, false);
-        getActivity().setTitle(R.string.plan_title);
+
+        // Set title of toolbar. (Causes all screens to have same title..)
+        //getActivity().setTitle(R.string.plan_title);
 
         // Initialize the search list for users and locations.
         getUsers();
