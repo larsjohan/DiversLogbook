@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="General"
+        android:key="pref_general">
+
+        <ListPreference
+            android:key="language"
+            android:title="@string/preferences_languageTitle"
+            android:summary="@string/preferences_languageSummary"
+            android:defaultValue="@string/preferences_languageDefault"
+            android:entries="@array/preferences_language"
+            android:entryValues="@array/preferences_languageValues"/>
+
+        <ListPreference
+            android:key="measurement"
+            android:title="@string/preferences_measurementTitle"
+            android:summary="@string/preferences_measurementSummary"
+            android:defaultValue="@string/preferences_measurementDefault"
+            android:entries="@array/preferences_measurement"
+            android:entryValues="@array/preferences_measurementValues"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Diving"
+        android:key="pref_diving">
+
+        <EditTextPreference
+            android:key="@string/preferences_dive_number"
+            android:title="@string/preferences_dive_number"
+            android:summary="@string/preferences_dive_number_summary"
+            android:inputType="number"
+            android:defaultValue="@string/preferences_dive_number_default_value" />
+
+
+        <ListPreference
+            android:key="rescueBufferTime"
+            android:title="@string/preferences_bufferTitle"
+            android:summary="@string/preferences_bufferSummary"
+            android:defaultValue="@string/preferences_bufferDefault"
+            android:entries="@array/preferences_buffer"
+            android:entryValues="@array/preferences_bufferValues"/>
+
+        <!-- The inputs here should be dynamic in the future. -->
+        <ListPreference
+            android:key="diveTable"
+            android:title="@string/preferences_tableTitle"
+            android:summary="@string/preferences_tableSummary"
+            android:defaultValue="@string/preferences_tableDefault"
+            android:entries="@array/preferences_table"
+            android:entryValues="@array/preferences_tableValues"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Account"
+        android:key="pref_account">
+
+        <Preference
+            android:key="@string/preferences_key_logout"
+            android:title="@string/preferences_logoutTitle"
+            android:summary="@string/preferences_logoutSummary">
+        </Preference>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
