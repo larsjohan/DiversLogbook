@@ -214,4 +214,45 @@
     <string name="plan_actual_depth">Actual depth:</string>
     <string name="plan_end_tank_pressure">Tank pressure now:</string>
 
+
+    <!--  DISPLAYLOGACTIVITY XML  -->
+    <string name="displaylog_date">Date</string>
+    <string name="displaylog_surfaceGuard">Surface guard:</string>
+    <string name="displaylog_diveBuddy">Dive buddy:</string>
+    <string name="displaylog_diveType">Dive type:</string>
+    <string name="displaylog_plannedDepth">Planned depth:</string>
+    <string name="displaylog_actualDepth">Actual depth:</string>
+    <string name="displaylog_tsld">S:I :</string>
+    <string name="displaylog_tslai">Last alcohol intake:</string>
+    <string name="displaylog_securityStops">Security stops:</string>
+    <string name="displaylog_plannedDiveTime">Planned dive time:</string>
+    <string name="displaylog_actualDiveTime">Actual dive time:</string>
+    <string name="displaylog_tankSize">Tank size:</string>
+    <string name="displaylog_startTankPressure">Start tank pressure:</string>
+    <string name="displaylog_endTankPressure">End tank pressure:</string>
+    <string name="displaylog_usedTankPressure">Used tank pressure:</string>
+    <string name="displaylog_saturation">Saturation:</string>
+    <string name="displaylog_diveGas">Dive gas:</string>
+    <string name="displaylog_weather">Weather:</string>
+    <string name="displaylog_surfaceTemp">Surface Temperature:</string>
+    <string name="displaylog_waterTemp">Water Temperature:</string>
+    <string name="displaylog_current">Current:</string>
+    <string name="displaylog_notes">Notes:</string>
+
+    <!--  DISPLAYLOGACTIVITY  -->
+    <string name="displayloga_meters">meters</string>
+    <string name="displayloga_hourShort">h.</string>
+    <string name="displayloga_minuteShort">min.</string>
+    <string name="displayloga_stopDuration">minutes at</string>
+    <string name="displayloga_minutes">minutes</string>
+    <string name="displayloga_bar">bar</string>
+    <string name="displayloga_litrePerMinute">l/min</string>
+    <string name="displayloga_litre">litre</string>
+    <string name="displayloga_celcius">°C</string>
+    <string name="displayloga_fahrenheit">°F</string>
+
+
+
+
+
 </resources>

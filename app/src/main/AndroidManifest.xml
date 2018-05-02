@@ -22,11 +22,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.MainActivity" />
+        <activity android:name=".activities.DisplayLogActivity"/>
         <activity
             android:name=".activities.SettingsActivity"
             android:label="@string/preferences_activityTitle" />
         <activity android:name=".activities.SecurityStopsActivity" />
-        <activity android:name=".activities.FinishPlanActivity"></activity>
+        <activity android:name=".activities.FinishPlanActivity" />
     </application>
 
 </manifest>
