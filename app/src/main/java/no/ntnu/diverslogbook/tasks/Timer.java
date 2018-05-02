@@ -15,6 +15,8 @@ public class Timer extends CountDownTimer {
 
     private long remainingMillis;
 
+    private long totalTime;
+
 
 
 
@@ -23,6 +25,7 @@ public class Timer extends CountDownTimer {
     public Timer(TextView textView, long millisInFuture) {
         super(millisInFuture, CALLBACK_INTERVAL);
         this.textView = textView;
+        this.totalTime = millisInFuture;
     }
 
     @Override
@@ -47,5 +50,9 @@ public class Timer extends CountDownTimer {
 
     public TextView getTextView() {
         return textView;
+    }
+
+    public long getTotalTime() {
+        return totalTime;
     }
 }
