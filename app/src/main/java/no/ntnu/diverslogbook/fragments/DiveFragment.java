@@ -27,6 +27,8 @@ import no.ntnu.diverslogbook.utils.Database;
  */
 public class DiveFragment extends Fragment {
 
+    private DiverListAdapter adapter;
+
     /**
      * Constructor
      */
@@ -61,12 +63,27 @@ public class DiveFragment extends Fragment {
 
         List<Diver> divers = getGuardedDivers();
 
+        if(divers.isEmpty()) {
+            Database.registerObserver((newDiver) ->{
+                if (newDiver instanceof Diver){
+                    List<Diver> updatedDiverlist = getGuardedDivers();
+                    adapter.clear();
+                    adapter.addAll(updatedDiverlist);
+                    adapter.notifyDataSetChanged();
+                    return true;
+                }
+                return false;
+            });
+        }
+
+        this.adapter = new DiverListAdapter(view.getContext(), divers);
+
         Log.d("DiverApp", Arrays.toString(divers.toArray()));
 
 
         ListView diversList = view.findViewById(R.id.lv_diverlist);
 
-        diversList.setAdapter(new DiverListAdapter(view.getContext(), divers));
+        diversList.setAdapter(this.adapter);
         return view;
     }
 
@@ -82,7 +99,9 @@ public class DiveFragment extends Fragment {
 
         for(Diver diver : Database.getDivers()){
             for(DiveLog log : diver.getDiveLogs()){
-                if(log.getSurfaceGuard().equals(me) && isToday(log.getDate())){
+                if(log.getSurfaceGuard().equals(me) &&      // Check if dive has ended:
+                        log.getEndTankPressure() == 0 &&    // These values are set when the dive if finished
+                        log.getActualDepth() == 0){
                     guardedDivers.add(diver);
                 }
             }

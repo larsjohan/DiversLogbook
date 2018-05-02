@@ -429,6 +429,9 @@ public class DiveLog implements Serializable {
         return notesAfter;
     }
 
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
 
     /**********************************************
      ****************** CLASSES *******************
