@@ -1,8 +1,8 @@
 package no.ntnu.diverslogbook.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -15,8 +15,8 @@ import com.google.firebase.auth.FirebaseUser;
 import no.ntnu.diverslogbook.R;
 import no.ntnu.diverslogbook.models.Diver;
 import no.ntnu.diverslogbook.utils.Database;
-import no.ntnu.diverslogbook.utils.oauth.OAuthProvider;
 import no.ntnu.diverslogbook.utils.oauth.GoogleLogin;
+import no.ntnu.diverslogbook.utils.oauth.OAuthProvider;
 
 /**
  * Handles login and authentication.

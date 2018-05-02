@@ -69,7 +69,6 @@ public abstract class Database {
 
 
 
-
     /**
      * Check if a diver exists
      * @param diver The diver to check for
@@ -175,6 +174,7 @@ public abstract class Database {
      * Starts listening for updates in the database
      */
     public static void init(){
+        Log.d("DiverApp", "DB: Init: " );
         DIVERS.addValueEventListener(DATABASE_LISTENER);
         LOCATIONS.addValueEventListener(DATABASE_LISTENER);
     }
@@ -184,6 +184,7 @@ public abstract class Database {
      * Stops listening for updates from the database
      */
     public static void deInit() {
+        Log.d("DiverApp", "deInit");
         DIVERS.removeEventListener(DATABASE_LISTENER);
         LOCATIONS.removeEventListener(DATABASE_LISTENER);
     }
@@ -236,11 +237,14 @@ public abstract class Database {
                         OBSERVER_MANAGER.notifyChange(diver);
 
                         // Add logs to the logged in user, if not already present
-                        if(LOGGED_IN_DIVER.getDiveLogs().isEmpty() && LOGGED_IN_DIVER.getId().equals(diver.getId())){
+                        if(LOGGED_IN_DIVER != null &&
+                                LOGGED_IN_DIVER.getDiveLogs().isEmpty() &&
+                                LOGGED_IN_DIVER.getId().equals(diver.getId())){
+
                             LOGGED_IN_DIVER.getDiveLogs().addAll(diver.getDiveLogs());
                         }
                     }
-                // The current entry is a Location: Update Locations
+                    // The current entry is a Location: Update Locations
                 } else if (dataSnapshot.getKey().equals("location")) {
 
                     Location location = data.getValue(Location.class);
@@ -254,7 +258,7 @@ public abstract class Database {
 
             // If the logged in diver is not creates (logs in for the first time)
             // Create the diver
-            if (!DIVER_LIST.contains(LOGGED_IN_DIVER)) {
+            if (LOGGED_IN_DIVER != null && !DIVER_LIST.contains(LOGGED_IN_DIVER)) {
                 createDiver(LOGGED_IN_DIVER);
             }
         }

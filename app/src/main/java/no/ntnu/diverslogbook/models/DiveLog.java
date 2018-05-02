@@ -1,7 +1,6 @@
 package no.ntnu.diverslogbook.models;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -625,7 +624,6 @@ public class DiveLog implements Serializable {
     public String getNotesAfter() {
         return notesAfter;
     }
-
 
 
 

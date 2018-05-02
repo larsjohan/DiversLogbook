@@ -1,6 +1,5 @@
 package no.ntnu.diverslogbook.tasks;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -10,7 +9,6 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.net.URL;
 
-import no.ntnu.diverslogbook.R;
 import no.ntnu.diverslogbook.utils.ImageCache;
 
 public class DownloadProfileImageTask extends AsyncTask<String, Void, Bitmap> {
@@ -19,7 +17,9 @@ public class DownloadProfileImageTask extends AsyncTask<String, Void, Bitmap> {
      * A reference to the activity where the ImageView is present.
      * Uses weakReference to avoid memory leak by leaking the context
      */
-    private WeakReference<Activity> profileActivity;
+    //private WeakReference<Activity> profileActivity;
+
+    private WeakReference<ImageView> imageView;
 
     private String imageName = "";
 
@@ -27,8 +27,9 @@ public class DownloadProfileImageTask extends AsyncTask<String, Void, Bitmap> {
      * Constructor
      * @param profileActivity The activity where the ImageView is located
      */
-    public DownloadProfileImageTask(Activity profileActivity, String imageName) {
-        this.profileActivity = new WeakReference<>(profileActivity);
+    public DownloadProfileImageTask(ImageView profileActivity, String imageName) {
+        //this.profileActivity = new WeakReference<>(profileActivity);
+        this.imageView = new WeakReference<>(profileActivity);
         this.imageName = imageName;
     }
 
@@ -55,10 +56,11 @@ public class DownloadProfileImageTask extends AsyncTask<String, Void, Bitmap> {
      */
     @Override
     protected void onPostExecute(Bitmap bitmap) {
-        ImageView image = this.profileActivity.get().findViewById(R.id.iv_profile_image);
+        //ImageView image = this.profileActivity.get().findViewById(R.id.iv_profile_image);
         if(bitmap != null) {
-            image.setImageBitmap(bitmap);
-            ImageCache.put(this.profileActivity.get(), this.imageName, bitmap);
+            this.imageView.get().setImageBitmap(bitmap);
+            //ImageCache.put(this.profileActivity.get(), this.imageName, bitmap);
+            ImageCache.put(this.imageView.get().getContext(), this.imageName, bitmap);
         }
     }
 }
