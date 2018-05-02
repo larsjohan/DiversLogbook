@@ -1,10 +1,5 @@
 # DiversLogbook
-Project in Mobile/Wearable Programming
-
-- Code: diverapp
-- Category: diving/logging/rescue
-- Supervisor: Lars Johan Nybø (larsjny@stud.ntnu.no)
-- Notes: Student
+This application was developed by Lars Johan Nybø, Jaran Godejord and Linn-Hege Kristensen. The report is this repository's Wiki. In the report you'll find the application structure and information about how we implemented the required functionality. There was also a need for a server side. This is also explained in the report.
 
 ## Main Idea
 As a diver, you are required to plan and log all your dives. 
