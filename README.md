@@ -1,5 +1,15 @@
 # DiversLogbook
-This application was developed by Lars Johan Nybø, Jaran Godejord and Linn-Hege Kristensen. The report is this repository's Wiki. In the report you'll find the application structure and information about how we implemented the required functionality. There was also a need for a server side. This is also explained in the report.
+This application was developed by Lars Johan Nybø, Jaran Godejord and Linn-Hege Kristensen. The report is in this repository's Wiki. In the report you'll find the application structure and information about how we implemented the required functionality. There was also a need for a server side. This is also explained in the report.
+
+# Installation
+- This application uses firebase as backend. The project should contain a google-services.jason, so no installation should be required.
+
+- Currently, only signin with google account is implemented, since most android users usually have a google account. 
+
+# Bugs
+Unfortunately, there are a few bugs in this application. 
+Among other, and the most severe: the application can't save logs to the database, as it overwrites some user data.
+The reason for this is unknown, and we did not have the time to fix it in time, due to writing the bachelor thesis.
 
 ## Main Idea
 As a diver, you are required to plan and log all your dives. 
